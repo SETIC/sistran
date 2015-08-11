@@ -146,7 +146,7 @@ class Pessoa(models.Model):
         db_table = '"cadastro_unico_pessoal"."pessoa"'
 
 
-    def __unicode__(self):
+    def __str__(self):
         return self.nome
 
 
@@ -172,7 +172,8 @@ class PessoaFisica(models.Model):
         managed = False
         db_table = '"cadastro_unico_pessoal"."pessoa_fisica"'
 
-
+    def __str__(self):
+        return self.id.nome
 
 class Cidadao(models.Model):
     id = models.ForeignKey(PessoaFisica, db_column='id', primary_key=True)
@@ -193,9 +194,12 @@ class Cidadao(models.Model):
     te_secao = models.CharField(max_length=255, blank=True, null=True)
     te_zona = models.CharField(max_length=255, blank=True, null=True)
 
+    def __str__(self):
+        return self.id.id.nome
+
     class Meta:
         managed = False
-        db_table = 'cidadao'
+        db_table = '"cadastro_unico_pessoal"."cidadao"'
 
 class Funcionario(models.Model):
     id = models.ForeignKey(Cidadao, db_column='id', primary_key=True)
