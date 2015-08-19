@@ -52,7 +52,12 @@ class Veiculo(models.Model):
 	#O QUE É CATEGORIA????
 	categoria = models.CharField(max_length=255,blank=False,null=False)
 
-'''
+	#essa classe é importate haja vista que precisaremos manter um históricos de todos os proprietários
+	#que um veículo já teve desde o início. 
+	#Considerando que um veículo so pode ter apenas 1 dono por vez então essa regra de negócio deverá ser 
+	#feira via código!
+
+
 class ProprietarioTemVeiculo(models.Model):
 	id_proprietario = models.ForeignKey('Proprietario')	
 	id_veiculo = models.ForeignKey('Veiculo')
@@ -65,7 +70,11 @@ class ProprietarioTemVeiculo(models.Model):
 		)
 	status = models.CharField(max_length=10, choices=STATUS_CHOICE)
 	motorista = models.BooleanField()#obs: o proprietário pode ser também o motorista de um veículo
-'''
+
+
+#também é importante pelo mesmo motivo da classe anterior, precisamos tê-la para manter o histórico de motoritas
+# em cada veículo cadastrado no sistema
+
 class VeiculoTemMotorista(models.Model):
 	id_motorista = models.ForeignKey('Motorista')	
 	id_veiculo = models.ForeignKey('Veiculo')
@@ -89,6 +98,8 @@ class VeiculoTemCobrador(models.Model):
 
 
 
+#essa classe armazenará cada item analisado em uma vistória, como farol, parachoque, velocímetro...
+#isso evitará problemas caso novos itens surjam após a finalização da ferramenta 
 class VistoriaItem(models.Model):
 	id = models.BigIntegerField(primary_key=True)
 	nome_item = models.CharField(max_length=255)	
@@ -99,6 +110,7 @@ class Vistoria(models.Model):
 	id = models.AutoField(primary_key=True)
 	veiculo = models.ForeignKey('Veiculo')
 	data = models.DateField(blank= False, null = False)
+	#estudar se esse campo é realmetne util, haja vista que temos o status (aprovado ou reprovado de cada item em cada vistoria)
 	aprovado = models.BooleanField()#verificar se campos bolleans recebem algum argumento
 	observacao = models.CharField(max_length=255)
 
