@@ -134,17 +134,30 @@ class Parentesco(models.Model):
 
 class Pessoa(models.Model):
     id = models.BigIntegerField(primary_key=True)
+    nome = models.CharField(max_length=255, verbose_name="Nome Completo")
     data_de_nascimento = models.DateField(blank=True, null=True)
-    nome = models.CharField(max_length=255)
     cpf_cnpj = models.CharField(unique=True, max_length=30, blank=True, null=True)
     escid = models.IntegerField(blank=True, null=True)
-    status = models.CharField(max_length=255)
+    STATUS_CHOICES = (
+        ('Ativo','Ativo'),
+        ('Inativo','Inativo')
+    )
+    status = models.CharField(max_length=255, choices=STATUS_CHOICES)
     esc_id_destino = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = '"cadastro_unico_pessoal"."pessoa"'
 
+    def status_color(self):
+        if (self.status == 'Ativo'):
+            return "<i class='glyphicon glyphicon-ok-circle' style='color:green'></i>"
+        else:
+            return "<i class='glyphicon glyphicon-remove-circle' style='color:red'></i>"
+
+
+    status_color.allow_tags = True
+    status_color.short_description = "Status"
 
     def __str__(self):
         return self.nome

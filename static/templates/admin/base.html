@@ -3,7 +3,6 @@
 <html lang="{{ LANGUAGE_CODE|default:"pt-BR" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
 <head>
 <title>{% block title %}{% endblock %}</title>
-<link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% static "admin/css/base.css" %}{% endblock %}" />
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/>
@@ -33,7 +32,7 @@
     {% block usertools %}
     <header class="main-header">
         <!-- Logo -->
-        <a href="index2.html" class="logo">
+        <a href="{% url 'admin:index' %}" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini"><b>S</b>TR</span>
           <!-- logo for regular state and mobile devices -->
@@ -101,36 +100,129 @@
     </header>
     {% endblock %}
     <!-- END Header -->
-    {% block breadcrumbs %}
-    <div class="breadcrumbs">
-    <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
-    {% if title %} &rsaquo; {{ title }}{% endif %}
-    </div>
-    {% endblock %}
     {% endif %}
 
-    {% block messages %}
+    {% block left-menu %}
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+          <!-- Sidebar user panel -->
+          <div class="user-panel">
+            <div class="pull-left image">
+              <img src="https://almsaeedstudio.com/themes/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+            </div>
+            <div class="pull-left info">
+              <p>Alexander Pierce</p>
+              <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+            </div>
+          </div>
+          <!-- search form -->
+          <form action="#" method="get" class="sidebar-form">
+            <div class="input-group">
+              <input type="text" name="q" class="form-control" placeholder="Search..." />
+              <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+              </span>
+            </div>
+          </form>
+          <!-- /.search form -->
+          <!-- sidebar menu: : style can be found in sidebar.less -->
+          <ul class="sidebar-menu">
+            <li class="header">MENU PRINCIPAL</li>
+            <!-- inicio menu -->
+            <li class="active treeview">
+              <a href="http://127.0.0.1:8000/admin">
+                <i class="fa fa-dashboard"></i> <span>Painel</span>
+              </a>
+            </li>
+
+            {% if app_list %}
+              {% for app in app_list %}
+                <li class="treeview">
+                  <a href="#">
+                    <i class="fa fa-dashboard"></i> <span>{{ app.name }}</span> <i class="fa fa-angle-left pull-right"></i>
+                  </a>
+                  <ul class="treeview-menu">
+                    {% for model in app.models %}
+                      {% if model.admin_url %}
+                        <li><a href="{{ model.admin_url }}"><i class="fa fa-circle-o"></i> {{ model.name }}</a></li>
+                      {% else %}
+                        {{ model.name }}
+                      {% endif %}
+                    {% endfor %}
+                  </ul>
+                </li>
+              {% endfor %}
+            {% else %}
+                <li class="treeview">
+                  <a href="">
+                    <i class="fa fa-dashboard"></i> <span>Você não tem<br/> permissão para editar<br/> qualquer coisa.</span>
+                  </a>
+                </li>
+            {% endif %}
+
+            <!-- fim menu -->
+
+          </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+    {% endblock %}
+
+    {% block content-wrapper %}
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      {% block content-header %}
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <h1>
+          {{ title }}
+          <small>Version 1.0</small>
+        </h1>
+        {% block breadcrumbs %}
+        <ol class="breadcrumb">
+            <li><a href="{% url 'admin:index' %}"><i class="fa fa-dashboard"></i> Home</a></li>
+            {% if title %}<li class="active">{{ title }}</li>{% endif %}
+        </ol>
+        {% endblock %}
+      </section>
+      {% endblock %}
+      {% block messages %}
         {% if messages %}
         <ul class="messagelist">{% for message in messages %}
           <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|capfirst }}</li>
         {% endfor %}</ul>
         {% endif %}
-    {% endblock messages %}
+      {% endblock messages %}
+      <!-- Main content -->
+      <section class="content">
+          <!-- Info boxes -->
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                {% block pretitle %}{% endblock %}
 
-    <!-- Content -->
-    <div id="content" class="{% block coltype %}colM{% endblock %}">
-        {% block pretitle %}{% endblock %}
-        {% block content_title %}{% if title %}<h1>{{ title }}</h1>{% endif %}{% endblock %}
-        {% block content %}
-        {% block object-tools %}{% endblock %}
-        {{ content }}
-        {% endblock %}
-        {% block sidebar %}{% endblock %}
-        <br class="clear" />
+                {% block content %}
+                {% block object-tools %}{% endblock %}
+                {{ content }}
+                {% endblock %}
+                {% block sidebar %}{% endblock %}
+                <br class="clear" />
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+      </section>
     </div>
+    {% endblock %}
     <!-- END Content -->
 
-    {% block footer %}<div id="footer"></div>{% endblock %}
+    {% block footer %}
+    <footer class="main-footer">
+      <div class="pull-right hidden-xs">
+        <b>Version</b> 1.0.0
+      </div>
+      <strong>Copyright &copy; 2015-2016 <a href="#">SETIC</a>.</strong> Todos direitos reservados.
+    </footer>
+    {% endblock %}
 </div>
 <!-- END Container -->
 <script src="https://almsaeedstudio.com/themes/AdminLTE/plugins/jQuery/jQuery-2.1.4.min.js" type="text/javascript"></script>
