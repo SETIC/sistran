@@ -1,8 +1,8 @@
 {% load i18n admin_static %}
 {% if result_hidden_fields %}
-<div class="hiddenfields">{# DIV for HTML validation #}
-{% for item in result_hidden_fields %}{{ item }}{% endfor %}
-</div>
+  <div class="hiddenfields" style="color: red">{# DIV for HTML validation #}
+  {% for item in result_hidden_fields %}{{ item }}{% endfor %}
+  </div>
 {% endif %}
 {% if results %}
 <div class="box" style="margin-top: 1%;">
@@ -13,6 +13,7 @@
         <table class="table table-hover">
         <thead>
         <tr>
+
         {% for header in result_headers %}
         <th scope="col" {{ header.class_attrib }}>
            {% if header.sortable %}
@@ -30,6 +31,8 @@
         </tr>
         </thead>
         <tbody>
+        <!-- AAAAAAAAAAAAAAAAAAAAAAAAAAAAA -->
+
         {% for result in results %}
           {% if result.form.non_field_errors %}
               <tr><td colspan="{{ result|length }}">{{ result.form.non_field_errors }}</td></tr>

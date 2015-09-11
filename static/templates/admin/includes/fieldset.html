@@ -3,14 +3,64 @@
     {% if fieldset.description %}
         <div class="description">{{ fieldset.description|safe }}</div>
     {% endif %}
+    
     {% for line in fieldset %}
-        <div class="box-body{% if line.fields|length_is:'1' and line.errors %} errors{% endif %}{% if not line.has_visible_field %} hidden{% endif %}{% for field in line %}{% if field.field.name %} field-{{ field.field.name }}{% endif %}{% endfor %}">
-            {% if line.fields|length_is:'1' %}{{ line.errors }}{% endif %}
+        <div class="box-body
+            {% if line.fields|length_is:'1' and line.errors %} 
+              errors
+            {% endif %}
+            {% if not line.has_visible_field %}
+                hidden
+            {% endif %}
             {% for field in line %}
-                <div{% if not line.fields|length_is:'1' %} class="field-box{% if field.field.name %} field-{{ field.field.name }}{% endif %}{% if not field.is_readonly and field.errors %} errors{% endif %}{% if field.field.is_hidden %} hidden{% endif %}"{% elif field.is_checkbox %} class="checkbox-row"{% endif %} class="form-group">
-                    {% if not line.fields|length_is:'1' and not field.is_readonly %}{{ field.errors }}{% endif %}
+                {% if field.field.name %} 
+                    field-{{ field.field.name }}
+                {% endif %}
+            {% endfor %}">
+
+            <div class="form-group">
+                    <div class="col-sm-2">
+                    </div>
+                      
+                    <div class="col-sm-10">
+                        {% if line.fields|length_is:'1' %}
+                           
+                        {% if line.errors %}
+                            <i class="fa fa-close" style="float:left; margin-top: 3px; margin-right: 5px; color:red;"></i> 
+                                
+                            {{ line.errors }}
+                           {% endif %}
+                    {% endif %}
+                      </div>
+
+            </div>
+
+            {% for field in line %}
+                <div
+
+                {% if not line.fields|length_is:'1' %}
+                    class="field-box
+                    {% if field.field.name %}
+                        field-{{ field.field.name }}
+                    {% endif %}
+                    {% if not field.is_readonly and field.errors %}
+                        errors
+                    {% endif %}
+                    {% if field.field.is_hidden %} 
+                        hidden
+                    {% endif %}"
+
+                {% elif field.is_checkbox %}
+                        class="checkbox-row"
+                {% endif %} class="form-group">
+                        
+                    {% if not line.fields|length_is:'1' and not field.is_readonly %}
+                         {{ field.errors }}
+                    {% endif %}
+                  
                     {% if field.is_checkbox %}
-                        {{ field.field }}{{ field.label_tag }}
+                        {{ field.field }}
+                        {{ field.label_tag }}
                     {% else %}
                         <div class="col-sm-2">
                           {{ field.label_tag }}
@@ -19,13 +69,17 @@
                             <p>{{ field.contents }}</p>
                         {% else %}
                           <div class="col-sm-10">
-                            {{ field.field }}
+                                  {{ field.field }}
                           </div>
+                        
+
                         {% endif %}
                     {% endif %}
+
                     {% if field.field.help_text %}
                         <p class="help">{{ field.field.help_text|safe }}</p>
                     {% endif %}
+
                 </div>
             {% endfor %}
         </div>

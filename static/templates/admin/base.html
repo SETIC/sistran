@@ -10,11 +10,27 @@
 <link href="https://almsaeedstudio.com/themes/AdminLTE/plugins/jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="https://almsaeedstudio.com/themes/AdminLTE/dist/css/AdminLTE.min.css"/>
 <link rel="stylesheet" type="text/css" href="https://almsaeedstudio.com/themes/AdminLTE/dist/css/skins/_all-skins.min.css"/>
+
+<!--Estilo-->
 <style>
     ul li {
         list-style: none;
     }
+    div.text-red ul{
+            padding-left: 0 !important;
+            width: 100%;
+    }
+
+    div.errors ul{
+      margin-left: 0 !important ; 
+      padding-left: 0 !important;
+      color:red;
+    }
+
+
 </style>
+
+
 {% block extrastyle %}{% endblock %}
 {% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% static "admin/css/rtl.css" %}{% endblock %}" />{% endif %}
 {% block extrahead %}{% endblock %}
@@ -174,25 +190,35 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       {% block content-header %}
-      <!-- Content Header (Page header) -->
-      <section class="content-header">
-        <h1>
-          {{ title }}
-          <small>Version 1.0</small>
-        </h1>
-        {% block breadcrumbs %}
-        <ol class="breadcrumb">
-            <li><a href="{% url 'admin:index' %}"><i class="fa fa-dashboard"></i> Home</a></li>
-            {% if title %}<li class="active">{{ title }}</li>{% endif %}
-        </ol>
-        {% endblock %}
-      </section>
+          <!-- Content Header (Page header) -->
+          <section class="content-header">
+            <h1>
+              {{ title }}
+              <small>Version 1.0</small>
+            </h1>        
+            {% block breadcrumbs %}        
+              <ol class="breadcrumb">
+                  <li><a href="{% url 'admin:index' %}"><i class="fa fa-dashboard"></i> Home</a></li>
+                  {% if title %}
+                    <li class="active">{{ title }}</li>
+                  {% endif %}
+              </ol>
+            {% endblock %}
+          </section>
       {% endblock %}
       {% block messages %}
-        {% if messages %}
-        <ul class="messagelist">{% for message in messages %}
-          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|capfirst }}</li>
-        {% endfor %}</ul>
+        {% if messages %} 
+    
+          <ul class="callout callout-danger" style="color:red; margin-top: 10px;border-right-width: 1px;margin-right: 200px;padding-right: 15px; text-align: center;margin-left: 200px;"> 
+          {% for message in messages %} 
+          <table>
+            <tr> 
+              <td style="padding-right: 10px;"><i class="icon fa fa-info"></i></td>            
+              <td><li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|capfirst }}</li> </td>       
+            </tr>
+          </table>
+          {% endfor %}</ul>
+        
         {% endif %}
       {% endblock messages %}
       <!-- Main content -->
