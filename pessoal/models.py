@@ -159,7 +159,7 @@ class Pessoa(models.Model):
     status_color.allow_tags = True
     status_color.short_description = "Status"
 
-    def __unicode__(self):
+    def __str__(self):
         return self.nome
 
 
@@ -185,7 +185,7 @@ class PessoaFisica(models.Model):
         managed = False
         db_table = '"cadastro_unico_pessoal"."pessoa_fisica"'
 
-    def __unicode__(self):
+    def __str__(self):
         return self.id.nome
 
 class Cidadao(models.Model):
@@ -207,7 +207,7 @@ class Cidadao(models.Model):
     te_secao = models.CharField(max_length=255, blank=True, null=True, verbose_name='Seção Título de Eleitor')
     te_zona = models.CharField(max_length=255, blank=True, null=True, verbose_name='Zona Título de Eleitor')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.id.id.nome
 
     class Meta:
@@ -223,7 +223,7 @@ class Funcionario(models.Model):
     matricula = models.CharField(unique=True, max_length=255)
     ativo = models.CharField(max_length=255, blank=True, null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.id.id.id.nome
 
     class Meta:
