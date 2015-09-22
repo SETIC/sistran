@@ -1,0 +1,32 @@
+{% extends "sistran/base.html" %}
+
+{% block content %}
+<h1>Listagem de Motoristas <a class="btn btn-primary" href="{% url "sistran.views.motorista_new" %}">Novo</a></h1>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Opções</th>
+      <th>Nome</th>
+      <th>CPF</th>
+      <th>Número CNH</th>
+      <th>Categoria CNH</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for motorista in motoristas %}
+    <tr>
+      <th scope="row">{{ motorista.id.id.id.id }}</th>
+      <th>
+        <a class="btn btn-info" href="{% url "motorista_edit" pk=motorista.pk %}">Editar</a>
+        <a class="btn btn-danger" href="">Remover</a>
+      </th>
+      <td><a href="{% url "sistran.views.motorista_detail" pk=motorista.pk %}">{{ motorista.id }}</a></td>
+      <td>{{ motorista.id.id.id.cpf_cnpj }}</td>
+      <td>{{ motorista.num_cnh }}</td>
+      <td>{{ motorista.cat_cnh }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock content %}

@@ -164,7 +164,7 @@ class Pessoa(models.Model):
 
 
 class PessoaFisica(models.Model):
-    id = models.ForeignKey(Pessoa, db_column='id', primary_key=True)
+    id = models.ForeignKey('Pessoa', db_column='id', primary_key=True)
     cor = models.CharField(max_length=255, blank=True, null=True)
     foto = models.CharField(max_length=255, blank=True, null=True)
     grau_de_instrucao = models.CharField(max_length=255, blank=True, null=True)
@@ -189,7 +189,7 @@ class PessoaFisica(models.Model):
         return self.id.nome
 
 class Cidadao(models.Model):
-    id = models.ForeignKey(PessoaFisica, db_column='id', primary_key=True)
+    id = models.ForeignKey('PessoaFisica', db_column='id', primary_key=True)
     cm_categoria = models.CharField(max_length=255, blank=True, null=True)
     cm_data_de_emissao = models.DateField(blank=True, null=True)
     cm_numero = models.CharField(max_length=255, blank=True, null=True)
@@ -215,7 +215,7 @@ class Cidadao(models.Model):
         db_table = '"cadastro_unico_pessoal"."cidadao"'
 
 class Funcionario(models.Model):
-    id = models.ForeignKey(Cidadao, db_column='id', primary_key=True)
+    id = models.ForeignKey('Cidadao', db_column='id', primary_key=True)
     carga_horaria = models.CharField(max_length=255)
     data_de_admissao = models.DateField(blank=True, null=True)
     data_de_demissao = models.DateField(blank=True, null=True)

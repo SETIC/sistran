@@ -22,7 +22,7 @@
     }
 
     div.errors ul{
-      margin-left: 0 !important ; 
+      margin-left: 0 !important ;
       padding-left: 0 !important;
       color:red;
     }
@@ -195,8 +195,8 @@
             <h1>
               {{ title }}
               <small>Version 1.0</small>
-            </h1>        
-            {% block breadcrumbs %}        
+            </h1>
+            {% block breadcrumbs %}
               <ol class="breadcrumb">
                   <li><a href="{% url 'admin:index' %}"><i class="fa fa-dashboard"></i> Home</a></li>
                   {% if title %}
@@ -207,18 +207,18 @@
           </section>
       {% endblock %}
       {% block messages %}
-        {% if messages %} 
-    
-          <ul class="callout callout-danger" style="color:red; margin-top: 10px;border-right-width: 1px;margin-right: 200px;padding-right: 15px; text-align: center;margin-left: 200px;"> 
-          {% for message in messages %} 
+        {% if messages %}
+
+          <ul class="callout callout-danger" style="color:red; margin-top: 10px;border-right-width: 1px;margin-right: 200px;padding-right: 15px; text-align: center;margin-left: 200px;">
+          {% for message in messages %}
           <table>
-            <tr> 
-              <td style="padding-right: 10px;"><i class="icon fa fa-info"></i></td>            
-              <td><li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|capfirst }}</li> </td>       
+            <tr>
+              <td style="padding-right: 10px;"><i class="icon fa fa-info"></i></td>
+              <td><li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|capfirst }}</li> </td>
             </tr>
           </table>
           {% endfor %}</ul>
-        
+
         {% endif %}
       {% endblock messages %}
       <!-- Main content -->
