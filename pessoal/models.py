@@ -134,7 +134,6 @@ class Parentesco(models.Model):
 
 class Pessoa(models.Model):
     id = models.BigIntegerField(primary_key=True)
-    idPessoaFisica = models.ForeignKey(PessoaFisica)
     nome = models.CharField(max_length=255, verbose_name="Nome Completo")
     data_de_nascimento = models.DateField(blank=True, null=True)
     cpf_cnpj = models.CharField(unique=True, max_length=30, blank=True, null=True)

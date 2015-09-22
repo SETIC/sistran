@@ -5,11 +5,11 @@ from .forms import MotoristaForm
 
 def motorista_list(request):
     motoristas = Motorista.objects.all()
-    return render(request, 'sistran/motorista_list.html', {'motoristas': motoristas})
+    return render(request, 'sistran/models/motorista/motorista_list.html', {'motoristas': motoristas})
 
 def motorista_detail(request, pk):
     motorista = get_object_or_404(Motorista, pk=pk)
-    return render(request, 'sistran/motorista_detail.html', {'motorista': motorista})
+    return render(request, 'sistran/models/motorista/motorista_detail.html', {'motorista': motorista})
 
 def motorista_new(request):
     if request.method == "POST":
@@ -20,7 +20,7 @@ def motorista_new(request):
             return redirect('sistran.views.motorista_detail', pk=motorista.pk)
     else:
         form = MotoristaForm()
-        return render(request, 'sistran/motorista_edit.html', {'form': form})
+        return render(request, 'sistran/models/motorista/motorista_edit.html', {'form': form})
 
 def motorista_edit(request, pk):
     motorista = get_object_or_404(Motorista, pk=pk)
@@ -32,7 +32,7 @@ def motorista_edit(request, pk):
             return redirect('sistran.views.motorista_detail', pk=motorista.pk)
     else:
         form = MotoristaForm(instance=motorista)
-    return render(request, 'sistran/motorista_edit.html', {'form': form})
+    return render(request, 'sistran/models/motorista/motorista_edit.html', {'form': form})
 
 def motorista_remove(request, pk):
     motorista = get_object_or_404(Motorista, pk=pk)

@@ -1,0 +1,76 @@
+
+
+{% extends "sistran/base/sidebar_base.html" %}
+
+
+{% load filters %}
+
+{% block title %}
+    SISTRAN - Cadastro de Motorista
+{% endblock %}
+
+
+
+{% block content-header %}
+  <section class="content-header">
+      <h1>
+        Listagem
+        <small></small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Sistran</a></li>
+        <li><a href="#">Novo Motorista</a></li>
+        <li class="active">Cadastro</li>
+      </ol>
+  </section>
+{% endblock %}
+
+
+{% block content %}
+        <!-- Main content -->
+        <section class="content">
+              <!-- general form elements -->
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Motorista</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                     <form role="form" class="form-horizontal" method="POST">{% csrf_token %}
+                                {{ field.fields }}
+                        <div class="box-body">
+
+                                {%  for field in form.fields %}
+
+                                <div class="form-group">
+                                  <label for="" class="col-sm-2 control-label">{{field}}</label>
+                                  <div class="col-sm-10">
+                                    </div>
+                                </div>
+
+                             {% endfor %}
+
+
+
+                        <button class="btn btn-success" type="submit">Cadastrar</button>
+
+                        </div>
+
+                    </form>
+
+
+              </div><!-- /.box -->
+
+                    <ul class="object-tools" style="padding-left: 0px;">
+                        <li>
+                          <a href="{% url "sistran.views.motorista_new" %}" class="btn btn-primary btn-flat"><i class="fa fa-plus"></i>
+                            Adicionar Motorista
+                          </a>
+                        </li>
+                    </ul>
+            </div><!--/.col (left) -->
+            <!-- right column -->
+       <!-- /.row -->
+ </section>
+
+
+{% endblock content %}
