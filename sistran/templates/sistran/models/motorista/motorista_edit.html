@@ -14,7 +14,7 @@
 {% block content-header %}
   <section class="content-header">
       <h1>
-        Listagem
+        Cadastro
         <small></small>
       </h1>
       <ol class="breadcrumb">
@@ -29,47 +29,79 @@
 {% block content %}
         <!-- Main content -->
         <section class="content">
+         <form role="form" class="form-horizontal" method="POST">
+         {% csrf_token %}
+
               <!-- general form elements -->
               <div class="box box-primary">
                 <div class="box-header with-border">
                   <h3 class="box-title">Motorista</h3>
                 </div><!-- /.box-header -->
                 <!-- form start -->
-                     <form role="form" class="form-horizontal" method="POST">{% csrf_token %}
-                                {{ field.fields }}
+
                         <div class="box-body">
 
-                                {%  for field in form.fields %}
+
+                            {%  for fieldPessoa in pessoaForm %}
 
                                 <div class="form-group">
-                                  <label for="" class="col-sm-2 control-label">{{field}}</label>
+                                  <label for="{{fieldPessoa.name}}" class="col-sm-2 control-label">{{fieldPessoa.label}}</label>
                                   <div class="col-sm-10">
+                                  {{fieldPessoa|addcss:'form-control'}}
                                     </div>
                                 </div>
 
                              {% endfor %}
 
 
+                                {%  for fieldPessoaFisica in pessoaFisicaForm %}
 
-                        <button class="btn btn-success" type="submit">Cadastrar</button>
+                                <div class="form-group">
+                                  <label for="{{fieldPessoaFisica.name}}" class="col-sm-2 control-label">{{fieldPessoaFisica.label}}</label>
+                                  <div class="col-sm-10">
+                                  {{fieldPessoaFisica|addcss:'form-control'}}
+                                    </div>
+                                </div>
+
+                             {% endfor %}
+
+                            {%  for fieldCidadao in cidadaoForm %}
+
+                                <div class="form-group">
+                                  <label for="{{fieldCidadao.name}}" class="col-sm-2 control-label">{{fieldCidadao.label}}</label>
+                                  <div class="col-sm-10">
+                                  {{fieldCidadao|addcss:'form-control'}}
+                                    </div>
+                                </div>
+
+                             {% endfor %}
+
+                                {%  for field in form %}
+
+                                <div class="form-group">
+                                  <label for="{{field.name}}" class="col-sm-2 control-label">{{field.label}}</label>
+                                  <div class="col-sm-10">
+                                  {{field|addcss:'form-control'}}
+                                    </div>
+                                </div>
+
+                             {% endfor %}
 
                         </div>
 
-                    </form>
-
-
               </div><!-- /.box -->
 
-                    <ul class="object-tools" style="padding-left: 0px;">
-                        <li>
-                          <a href="{% url "sistran.views.motorista_new" %}" class="btn btn-primary btn-flat"><i class="fa fa-plus"></i>
-                            Adicionar Motorista
-                          </a>
-                        </li>
-                    </ul>
-            </div><!--/.col (left) -->
+                    <div class="box-footer" style="text-align: right; background: none;">
+
+                        <input type="submit" value="Salvar" class="btn btn-success btn-flat" name="_save">
+                        <input type="submit" value="Salvar e adicionar outro(a)" class="btn btn-success btn-flat" name="_addanother">
+                        <input type="submit" value="Salvar e continuar editando" class="btn btn-success btn-flat" name="_continue">
+
+                    </div>
             <!-- right column -->
        <!-- /.row -->
+
+                    </form>
  </section>
 
 

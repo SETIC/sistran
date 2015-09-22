@@ -1,7 +1,9 @@
+import sys
+import pdb
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from .models import Motorista
-from .forms import MotoristaForm
+from .forms import *
 
 def motorista_list(request):
     motoristas = Motorista.objects.all()
@@ -11,16 +13,48 @@ def motorista_detail(request, pk):
     motorista = get_object_or_404(Motorista, pk=pk)
     return render(request, 'sistran/models/motorista/motorista_detail.html', {'motorista': motorista})
 
+
+
 def motorista_new(request):
     if request.method == "POST":
         form = MotoristaForm(request.POST)
-        if form.is_valid():
+        formCidadao = CidadaoForm(request.POST)
+        formPessoaFisica = PessoaFisicaForm(request.POST)
+        formPessoa = PessoaForm(request.POST)
+
+        if (form.is_valid() and (formCidadao.is_valid()) and (formPessoaFisica.is_valid()) and (formPessoa.is_valid())):
+
+            pessoa = formPessoa.save(commit=False)
+            pessoa.save()
+
+            pessoaFisica = formPessoaFisica.save(commit=False)
+            pessoaFisica.id = pessoa
+            pessoaFisica.save()
+
+            cidadao = formCidadao.save(commit=False)
+            cidadao.id = pessoaFisica
+            cidadao.save()
+
             motorista = form.save(commit=False)
+            motorista.id = cidadao
             motorista.save()
+
             return redirect('sistran.views.motorista_detail', pk=motorista.pk)
+        else:
+            pdb.set_trace()
+            form = MotoristaForm()
+            formCidadao = CidadaoForm()
+            return render(request, 'sistran/models/motorista/motorista_edit.html', {'form': form, 'cidadaoForm':formCidadao})
+
     else:
         form = MotoristaForm()
-        return render(request, 'sistran/models/motorista/motorista_edit.html', {'form': form})
+        formCidadao = CidadaoForm()
+        formPessoaFisica = PessoaFisicaForm()
+        formPessoa = PessoaForm()
+        return render(request, 'sistran/models/motorista/motorista_edit.html',
+            {'form': form, 'cidadaoForm':formCidadao, 'pessoaFisicaForm':formPessoaFisica, 'pessoaForm':formPessoa})
+
+
 
 def motorista_edit(request, pk):
     motorista = get_object_or_404(Motorista, pk=pk)

@@ -49,8 +49,12 @@
                         <tr>
                           <th scope="row">{{ motorista.id.id.id.id }}</th>
                           <th>
-                            <a class="btn btn-info" href="{% url "motorista_edit" pk=motorista.pk %}">Editar</a>
-                            <a class="btn btn-danger" href="{% url "motorista_remove" pk=motorista.pk %}">Remover</a>
+                            <a class="btn btn-info" href="{% url "motorista_edit" pk=motorista.pk %}">
+                              <i class="fa fa-pencil"></i>
+                            </a>
+                            <a class="btn btn-danger" href="{% url "motorista_remove" pk=motorista.pk %}">
+                                <i class="fa fa-remove"></i>
+                            </a>
                           </th>
                           <td><a href="{% url "sistran.views.motorista_detail" pk=motorista.pk %}">{{ motorista.id }}</a></td>
                           <td>{{ motorista.id.id.id.cpf_cnpj }}</td>

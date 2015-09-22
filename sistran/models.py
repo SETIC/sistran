@@ -19,8 +19,8 @@ class Proprietario(models.Model):
 
 class Motorista(models.Model):
 	id = models.ForeignKey('pessoal.Cidadao', primary_key=True)
-	num_cnh = models.CharField(max_length=255, null=False , blank=False)
-	cat_cnh = models.CharField(max_length=255, null=False, blank=False)
+	num_cnh = models.CharField(max_length=255, null=False , blank=False, verbose_name="Num. da CNH")
+	cat_cnh = models.CharField(max_length=255, null=False, blank=False, verbose_name="Cat. da CNH")
 
 class Cobrador(models.Model):
 	id = models.ForeignKey('pessoal.Cidadao', primary_key=True)

@@ -1,4 +1,4 @@
-
+ # -*- coding: utf8 -*-
 from __future__ import unicode_literals
 
 from django.db import models
@@ -133,7 +133,7 @@ class Parentesco(models.Model):
 
 
 class Pessoa(models.Model):
-    id = models.BigIntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=255, verbose_name="Nome Completo")
     data_de_nascimento = models.DateField(blank=True, null=True)
     cpf_cnpj = models.CharField(unique=True, max_length=30, blank=True, null=True)
@@ -196,16 +196,16 @@ class Cidadao(models.Model):
     ct_data_de_emissao = models.DateField(blank=True, null=True)
     ct_numero = models.CharField(max_length=255, blank=True, null=True)
     ct_serie = models.CharField(max_length=255, blank=True, null=True)
-    estado_civil = models.CharField(max_length=255)
+    estado_civil = models.CharField(max_length=255, verbose_name='Estado Civil')
     nacionalidade = models.CharField(max_length=255, blank=True, null=True)
     naturalidade = models.CharField(max_length=255, blank=True, null=True)
     profissao = models.CharField(max_length=255, blank=True, null=True)
-    rg_data_de_emissao = models.DateField(blank=True, null=True)
-    rg_numero = models.CharField(max_length=255, blank=True, null=True)
-    rg_orgao_expeditor = models.CharField(max_length=255, blank=True, null=True)
-    te_numero = models.CharField(max_length=255, blank=True, null=True)
-    te_secao = models.CharField(max_length=255, blank=True, null=True)
-    te_zona = models.CharField(max_length=255, blank=True, null=True)
+    rg_data_de_emissao = models.DateField(blank=True, null=True, verbose_name='Data de Emissão do RG')
+    rg_numero = models.CharField(max_length=255, blank=True, null=True, verbose_name='Número do RG')
+    rg_orgao_expeditor = models.CharField(max_length=255, blank=True, null=True, verbose_name='Órgão Exp. RG')
+    te_numero = models.CharField(max_length=255, blank=True, null=True, verbose_name='Num. Título de Eleitor')
+    te_secao = models.CharField(max_length=255, blank=True, null=True, verbose_name='Seção Título de Eleitor')
+    te_zona = models.CharField(max_length=255, blank=True, null=True, verbose_name='Zona Título de Eleitor')
 
     def __unicode__(self):
         return self.id.id.nome
