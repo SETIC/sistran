@@ -134,6 +134,7 @@ class Parentesco(models.Model):
 
 class Pessoa(models.Model):
     id = models.BigIntegerField(primary_key=True)
+    idPessoaFisica = models.ForeignKey(PessoaFisica)
     nome = models.CharField(max_length=255, verbose_name="Nome Completo")
     data_de_nascimento = models.DateField(blank=True, null=True)
     cpf_cnpj = models.CharField(unique=True, max_length=30, blank=True, null=True)
@@ -159,7 +160,7 @@ class Pessoa(models.Model):
     status_color.allow_tags = True
     status_color.short_description = "Status"
 
-    def __str__(self):
+    def __unicode__(self):
         return self.nome
 
 
@@ -185,7 +186,7 @@ class PessoaFisica(models.Model):
         managed = False
         db_table = '"cadastro_unico_pessoal"."pessoa_fisica"'
 
-    def __str__(self):
+    def __unicode__(self):
         return self.id.nome
 
 class Cidadao(models.Model):
@@ -207,7 +208,7 @@ class Cidadao(models.Model):
     te_secao = models.CharField(max_length=255, blank=True, null=True)
     te_zona = models.CharField(max_length=255, blank=True, null=True)
 
-    def __str__(self):
+    def __unicode__(self):
         return self.id.id.nome
 
     class Meta:
@@ -223,9 +224,15 @@ class Funcionario(models.Model):
     matricula = models.CharField(unique=True, max_length=255)
     ativo = models.CharField(max_length=255, blank=True, null=True)
 
+    def __unicode__(self):
+        return self.id.id.id.nome
+
     class Meta:
         managed = False
-        db_table = 'funcionario'
+        db_table = '"cadastro_unico_pessoal"."funcionario"'
+
+
+
 
 class Motorista(models.Model):
     id = models.ForeignKey(Funcionario, db_column='id', primary_key=True)
@@ -236,7 +243,7 @@ class Motorista(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'motorista'
+        db_table = '"cadastro_unico_pessoal"."motorista"'
 
 
 class DetemPropriedade(models.Model):
