@@ -36,7 +36,6 @@
                     <table class="table table-hover">
                       <thead>
                         <tr>
-                          <th>#</th>
                           <th>Opções</th>
                           <th>Nome</th>
                           <th>CPF</th>
@@ -47,7 +46,7 @@
                       <tbody>
                       {% for motorista in motoristas %}
                         <tr>
-                          <th scope="row">{{ motorista.id.id.id.id }}</th>
+
                           <th>
                             <a class="btn btn-info" href="{% url "motorista_edit" pk=motorista.pk %}">
                               <i class="fa fa-pencil"></i>

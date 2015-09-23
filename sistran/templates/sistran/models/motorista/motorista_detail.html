@@ -1,19 +1,70 @@
 {% extends "sistran/base/sidebar_base.html" %}
 
-{% block content %}
-    <div class="container">
-        <h1>Detalhes de Motoristas <a class="btn btn-primary" href="/motorista">Voltar</a></h1>
 
-        <ul class="list-group">
-          <li class="list-group-item">{{ motorista.id.id.id.id }}</li>
-          <li class="list-group-item">{{ motorista.id }}</li>
-          <li class="list-group-item">{{ motorista.id.id.id.cpf_cnpj }}</li>
-          <li class="list-group-item">{{ motorista.id.estado_civil }}</li>
-          <li class="list-group-item">{{ motorista.id.nacionalidade }}</li>
-          <li class="list-group-item">{{ motorista.id.naturalidade }}</li>
-          <li class="list-group-item">{{ motorista.id.profissao }}</li>
-          <li class="list-group-item">{{ motorista.num_cnh }}</li>
-          <li class="list-group-item">{{ motorista.cat_cnh }}</li>
-        </ul>
-    </div>
+
+{% block content-header %}
+  <section class="content-header">
+      <h1>
+        Detalhe
+        <small></small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Sistran</a></li>
+        <li><a href="#">Motorista</a></li>
+        <li class="active">Detalhes</li>
+      </ol>
+  </section>
 {% endblock %}
+
+
+{% block content %}
+
+
+ <section class="content">
+              <!-- general form elements -->
+    <div class="box box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">Motorista</h3>
+      </div><!-- /.box-header -->
+      <!-- form start -->
+
+              <div class="box-body motorista_detail">
+
+                      <div class="row">
+                        <div class="col-sm-2">Nome</div>
+                        <div class="col-sm-10">{{ motorista.id }}</div>
+                      </div><br/>
+                      <div class="row">
+                        <div class="col-sm-2">CPF</div>
+                        <div class="col-sm-10">{{ motorista.id.id.id.cpf_cnpj }}</div>
+                      </div><br/>
+                      <div class="row">
+                        <div class="col-sm-2">Estado Civil</div>
+                        <div class="col-sm-10">{{ motorista.id.id.id.cpf_cnpj }}</div>
+                      </div><br/>
+                      <div class="row">
+                        <div class="col-sm-2">Sexo</div>
+                        <div class="col-sm-10">{{ motorista.id.id.sexo }}</div>
+                      </div><br/>
+                      <div class="row">
+                        <div class="col-sm-2">Número da CNH</div>
+                        <div class="col-sm-10">{{ motorista.num_cnh }}</div>
+                      </div><br/>
+                      <div class="row">
+                        <div class="col-sm-2">Categoria da CNH</div>
+                        <div class="col-sm-10">{{ motorista.cat_cnh }}</div>
+                      </div><br/>
+
+                      <div class="row">
+                        <div class="col-sm-2">Núm. RG</div>
+                        <div class="col-sm-10">{{ motorista.id.rg_numero }}</div>
+                      </div><br/>
+
+
+
+              </div>
+
+        </div><!-- /.box -->
+
+ </section>
+{%endblock%}

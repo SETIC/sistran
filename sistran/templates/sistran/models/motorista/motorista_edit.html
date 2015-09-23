@@ -48,11 +48,12 @@
                                   <label for="{{fieldPessoa.name}}" class="col-sm-2 control-label">{{fieldPessoa.label}}</label>
                                   <div class="col-sm-10">
                                   {{fieldPessoa|addcss:'form-control'}}
-                                    </div>
+                                    {{fieldPessoa.errors}}
+                                    </div><br/>
+                                    {{fieldPessoa.errors}}
                                 </div>
 
                              {% endfor %}
-
 
                                 {%  for fieldPessoaFisica in pessoaFisicaForm %}
 
@@ -60,7 +61,8 @@
                                   <label for="{{fieldPessoaFisica.name}}" class="col-sm-2 control-label">{{fieldPessoaFisica.label}}</label>
                                   <div class="col-sm-10">
                                   {{fieldPessoaFisica|addcss:'form-control'}}
-                                    </div>
+                                    </div><br/>
+                                    {{fieldPessoaFisica.errors}}
                                 </div>
 
                              {% endfor %}
@@ -71,7 +73,8 @@
                                   <label for="{{fieldCidadao.name}}" class="col-sm-2 control-label">{{fieldCidadao.label}}</label>
                                   <div class="col-sm-10">
                                   {{fieldCidadao|addcss:'form-control'}}
-                                    </div>
+                                    </div><br/>
+                                    {{fieldCidadao.errors}}
                                 </div>
 
                              {% endfor %}
@@ -82,7 +85,8 @@
                                   <label for="{{field.name}}" class="col-sm-2 control-label">{{field.label}}</label>
                                   <div class="col-sm-10">
                                   {{field|addcss:'form-control'}}
-                                    </div>
+                                    </div><br/>
+                                    {{field.errors}}
                                 </div>
 
                              {% endfor %}
