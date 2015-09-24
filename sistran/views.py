@@ -1,10 +1,12 @@
-import sys
 import pdb
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, render_to_response
 from django.contrib.auth.decorators import login_required
+from django.template import RequestContext
 from django.utils import timezone
 from .models import Motorista
 from .forms import *
+from pessoal.forms import *
+from pessoal.views import *
 
 @login_required
 def motorista_list(request):
@@ -19,58 +21,79 @@ def motorista_detail(request, pk):
 @login_required
 def motorista_new(request):
     if request.method == "POST":
-        form = MotoristaForm(request.POST)
+        formMotorista = MotoristaForm(request.POST)
         formCidadao = CidadaoForm(request.POST)
         formPessoaFisica = PessoaFisicaForm(request.POST)
         formPessoa = PessoaForm(request.POST)
 
-        if (form.is_valid() and (formCidadao.is_valid()) and (formPessoaFisica.is_valid()) and (formPessoa.is_valid())):
+        if formMotorista.is_valid() and formCidadao.is_valid() and formPessoaFisica.is_valid() and formPessoa.is_valid():
+            motorista = formMotorista.save(commit=False)
+            motorista.id = cidadao_new(request)
+            motorista.save()
+            return redirect('sistran.views.motorista_detail', pk=motorista.pk)
+        else:
+            return render_to_response('sistran/models/motorista/motorista_edit.html',
+                {'form': formMotorista, 'cidadaoForm':formCidadao, 'pessoaFisicaForm':formPessoaFisica, 'pessoaForm':formPessoa, 'error':'error'},
+                context_instance=RequestContext(request))
+    else:
+        formMotorista = MotoristaForm()
+        formCidadao = CidadaoForm()
+        formPessoaFisica = PessoaFisicaForm()
+        formPessoa = PessoaForm()
+        return render(request, 'sistran/models/motorista/motorista_edit.html',
+            {'form': formMotorista, 'cidadaoForm':formCidadao, 'pessoaFisicaForm':formPessoaFisica, 'pessoaForm':formPessoa})
+
+@login_required
+def motorista_edit(request, pk):
+    motorista = get_object_or_404(Motorista, pk=pk)
+    cidadao = get_object_or_404(Cidadao, pk=pk)
+    pessoaFisica = get_object_or_404(PessoaFisica, pk=pk)
+    pessoa = get_object_or_404(Pessoa, pk=pk)
+
+    if request.method == "POST":
+        form = MotoristaForm(request.POST, instance=motorista)
+        formCidadao = CidadaoForm(request.POST, instance=cidadao)
+        formPessoaFisica = PessoaFisicaForm(request.POST, instance=pessoaFisica)
+        formPessoa = PessoaForm(request.POST, instance=pessoa)
+
+        if form.is_valid() and formCidadao.is_valid() and formPessoaFisica.is_valid() and formPessoa.is_valid():
 
             pessoa = formPessoa.save(commit=False)
             pessoa.save()
 
             pessoaFisica = formPessoaFisica.save(commit=False)
-            pessoaFisica.id = pessoa
             pessoaFisica.save()
 
             cidadao = formCidadao.save(commit=False)
-            cidadao.id = pessoaFisica
             cidadao.save()
 
             motorista = form.save(commit=False)
-            motorista.id = cidadao
             motorista.save()
-
             return redirect('sistran.views.motorista_detail', pk=motorista.pk)
         else:
-            pdb.set_trace()
-            form = MotoristaForm()
-            formCidadao = CidadaoForm()
-            return render(request, 'sistran/models/motorista/motorista_edit.html', {'form': form, 'cidadaoForm':formCidadao})
-
+            return render_to_response('sistran/models/motorista/motorista_edit.html',
+                {'form': form, 'cidadaoForm':formCidadao, 'pessoaFisicaForm':formPessoaFisica, 'pessoaForm':formPessoa, 'error':'error'},
+                context_instance=RequestContext(request))
     else:
-        form = MotoristaForm()
-        formCidadao = CidadaoForm()
-        formPessoaFisica = PessoaFisicaForm()
-        formPessoa = PessoaForm()
+        formMotorista = MotoristaForm(instance=motorista)
+        formCidadao = CidadaoForm(instance=cidadao)
+        formPessoaFisica = PessoaFisicaForm(instance=pessoaFisica)
+        formPessoa = PessoaForm(instance=pessoa)
+
         return render(request, 'sistran/models/motorista/motorista_edit.html',
-            {'form': form, 'cidadaoForm':formCidadao, 'pessoaFisicaForm':formPessoaFisica, 'pessoaForm':formPessoa})
-
-@login_required
-def motorista_edit(request, pk):
-    motorista = get_object_or_404(Motorista, pk=pk)
-    if request.method == "POST":
-        form = MotoristaForm(request.POST, instance=motorista)
-        if form.is_valid():
-            motorista = form.save(commit=False)
-            motorista.save()
-            return redirect('sistran.views.motorista_detail', pk=motorista.pk)
-    else:
-        form = MotoristaForm(instance=motorista)
-    return render(request, 'sistran/models/motorista/motorista_edit.html', {'form': form})
+            {'form': formMotorista, 'cidadaoForm':formCidadao, 'pessoaFisicaForm':formPessoaFisica, 'pessoaForm':formPessoa})
 
 @login_required
 def motorista_remove(request, pk):
+    pessoa = get_object_or_404(Pessoa, pk=pk)
+    pessoa.delete()
+
+    pessoaFisica = get_object_or_404(PessoaFisica, pk=pk)
+    pessoaFisica.delete()
+
+    cidadao = get_object_or_404(Cidadao, pk=pk)
+    cidadao.delete()
+
     motorista = get_object_or_404(Motorista, pk=pk)
     motorista.delete()
     return redirect('sistran.views.motorista_list')

@@ -39,8 +39,15 @@
                 </div><!-- /.box-header -->
                 <!-- form start -->
 
-                        <div class="box-body">
 
+                  <div class="box-body">
+                  {% if error %}
+                      <div class="alert alert-danger alert-dismissible">
+                          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                          <h4><i class="icon fa fa-ban"></i> Falha ao Cadastrar!</h4>
+                          Verifique os campos abaixo e corrija os erros.
+                    </div>
+                  {% endif %}
 
                             {%  for fieldPessoa in pessoaForm %}
 
@@ -48,41 +55,45 @@
                                   <label for="{{fieldPessoa.name}}" class="col-sm-2 control-label">{{fieldPessoa.label}}</label>
                                   <div class="col-sm-10">
                                   {{fieldPessoa|addcss:'form-control'}}
-                                    </div>
+                                  <p class="text-red">{{fieldPessoa.errors}}</p>
+                                    </div><br/>
                                 </div>
 
                              {% endfor %}
-
-
                                 {%  for fieldPessoaFisica in pessoaFisicaForm %}
 
                                 <div class="form-group">
                                   <label for="{{fieldPessoaFisica.name}}" class="col-sm-2 control-label">{{fieldPessoaFisica.label}}</label>
                                   <div class="col-sm-10">
                                   {{fieldPessoaFisica|addcss:'form-control'}}
-                                    </div>
+                                  <p class="text-red">{{fieldPessoaFisica.errors}}</p>
+                                    </div><br/>
+
                                 </div>
 
                              {% endfor %}
-
                             {%  for fieldCidadao in cidadaoForm %}
 
                                 <div class="form-group">
                                   <label for="{{fieldCidadao.name}}" class="col-sm-2 control-label">{{fieldCidadao.label}}</label>
                                   <div class="col-sm-10">
                                   {{fieldCidadao|addcss:'form-control'}}
-                                    </div>
+                                  <p class="text-red">{{fieldCidadao.errors}}</p>
+                                    </div><br/>
+
+
                                 </div>
 
                              {% endfor %}
-
                                 {%  for field in form %}
 
                                 <div class="form-group">
                                   <label for="{{field.name}}" class="col-sm-2 control-label">{{field.label}}</label>
                                   <div class="col-sm-10">
                                   {{field|addcss:'form-control'}}
-                                    </div>
+                                  <p class="text-red"> {{field.errors}}</p>
+                                    </div><br/>
+
                                 </div>
 
                              {% endfor %}

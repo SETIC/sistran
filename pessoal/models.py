@@ -196,7 +196,10 @@ class Cidadao(models.Model):
     ct_data_de_emissao = models.DateField(blank=True, null=True)
     ct_numero = models.CharField(max_length=255, blank=True, null=True)
     ct_serie = models.CharField(max_length=255, blank=True, null=True)
-    estado_civil = models.CharField(max_length=255, verbose_name='Estado Civil')
+
+    ESTADO_CIVIL_CHOICES=(('SOLTEIRO','Solteiro'),('CASADO','Casado'), ('VIÚVO','Viúvo'), ('DIVORCIADO','Divorciado'), ('OUTRO','Outro'))
+
+    estado_civil = models.CharField(max_length=255, verbose_name='Estado Civil', choices=ESTADO_CIVIL_CHOICES)
     nacionalidade = models.CharField(max_length=255, blank=True, null=True)
     naturalidade = models.CharField(max_length=255, blank=True, null=True)
     profissao = models.CharField(max_length=255, blank=True, null=True)
@@ -231,18 +234,16 @@ class Funcionario(models.Model):
         db_table = '"cadastro_unico_pessoal"."funcionario"'
 
 
+#class Motorista(models.Model):
+ #   id = models.ForeignKey(Funcionario, db_column='id', primary_key=True)
+  #  categoria = models.CharField(max_length=255)
+   # cnh = models.CharField(max_length=255)
+  #  cnh_validade = models.DateField()
+  #  data_de_emissao = models.DateField()
 
-
-class Motorista(models.Model):
-    id = models.ForeignKey(Funcionario, db_column='id', primary_key=True)
-    categoria = models.CharField(max_length=255)
-    cnh = models.CharField(max_length=255)
-    cnh_validade = models.DateField()
-    data_de_emissao = models.DateField()
-
-    class Meta:
-        managed = False
-        db_table = '"cadastro_unico_pessoal"."motorista"'
+   # class Meta:
+   #     managed = False
+   #     db_table = '"cadastro_unico_pessoal"."motorista"'
 
 
 class DetemPropriedade(models.Model):

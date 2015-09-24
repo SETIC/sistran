@@ -12,6 +12,37 @@
 <link rel="stylesheet" type="text/css" href="https://almsaeedstudio.com/themes/AdminLTE/dist/css/AdminLTE.min.css"/>
 <link rel="stylesheet" type="text/css" href="https://almsaeedstudio.com/themes/AdminLTE/dist/css/skins/_all-skins.min.css"/>
 
+<!--Estilo-->
+<style>
+    ul li {
+        list-style: none;
+    }
+    div.text-red ul{
+            padding-left: 0 !important;
+            width: 100%;
+    }
+
+    div.errors ul{
+      margin-left: 0 !important ;
+      padding-left: 0 !important;
+      color:red;
+    }
+    .form-control{
+       text-transform: uppercase;
+    }
+
+    table{
+      text-transform: uppercase;
+    }
+
+    div.motorista_detail div.col-sm-10{
+        text-transform: uppercase;
+    }
+    ul.errorlist li{
+        color: #dd4b39 !important;
+    }
+</style>
+
 {% block extrastyle %}{% endblock %}
 {% block extrahead %}{% endblock %}
 {% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE" />{% endblock %}
@@ -126,6 +157,7 @@
             </li>
 
                {% block options_sidebar_left %}
+
                {% endblock %}
 
           </ul>
