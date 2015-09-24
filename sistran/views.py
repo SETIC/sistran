@@ -1,20 +1,22 @@
 import sys
 import pdb
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from .models import Motorista
 from .forms import *
 
+@login_required
 def motorista_list(request):
     motoristas = Motorista.objects.all()
     return render(request, 'sistran/models/motorista/motorista_list.html', {'motoristas': motoristas})
 
+@login_required
 def motorista_detail(request, pk):
     motorista = get_object_or_404(Motorista, pk=pk)
     return render(request, 'sistran/models/motorista/motorista_detail.html', {'motorista': motorista})
 
-
-
+@login_required
 def motorista_new(request):
     if request.method == "POST":
         form = MotoristaForm(request.POST)
@@ -54,8 +56,7 @@ def motorista_new(request):
         return render(request, 'sistran/models/motorista/motorista_edit.html',
             {'form': form, 'cidadaoForm':formCidadao, 'pessoaFisicaForm':formPessoaFisica, 'pessoaForm':formPessoa})
 
-
-
+@login_required
 def motorista_edit(request, pk):
     motorista = get_object_or_404(Motorista, pk=pk)
     if request.method == "POST":
@@ -68,6 +69,7 @@ def motorista_edit(request, pk):
         form = MotoristaForm(instance=motorista)
     return render(request, 'sistran/models/motorista/motorista_edit.html', {'form': form})
 
+@login_required
 def motorista_remove(request, pk):
     motorista = get_object_or_404(Motorista, pk=pk)
     motorista.delete()

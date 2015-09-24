@@ -12,26 +12,6 @@
 <link rel="stylesheet" type="text/css" href="https://almsaeedstudio.com/themes/AdminLTE/dist/css/AdminLTE.min.css"/>
 <link rel="stylesheet" type="text/css" href="https://almsaeedstudio.com/themes/AdminLTE/dist/css/skins/_all-skins.min.css"/>
 
-<!--Estilo-->
-<style>
-    ul li {
-        list-style: none;
-    }
-    div.text-red ul{
-            padding-left: 0 !important;
-            width: 100%;
-    }
-
-    div.errors ul{
-      margin-left: 0 !important ;
-      padding-left: 0 !important;
-      color:red;
-    }
-
-
-</style>
-
-
 {% block extrastyle %}{% endblock %}
 {% block extrahead %}{% endblock %}
 {% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE" />{% endblock %}
@@ -48,7 +28,7 @@
     {% block usertools %}
     <header class="main-header">
         <!-- Logo -->
-        <a href="{% url 'admin:index' %}" class="logo">
+        <a href="/sistran/motorista" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini"><b>S</b>TR</span>
           <!-- logo for regular state and mobile devices -->
@@ -63,21 +43,19 @@
           </a>
           <!-- Navbar Right Menu Tools-->
 
-          {% if has_permission %}
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
               <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <img src="https://almsaeedstudio.com/themes/AdminLTE/dist/img/user2-160x160.jpg" class="user-image" alt="User Image" />
-                  <span class="hidden-xs">{% firstof user.get_short_name user.get_username %}</span>
+                  <span class="hidden-xs"></span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
                   <li class="user-header">
                     <img src="https://almsaeedstudio.com/themes/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
-                    <p>
-                      {% firstof user.get_short_name user.get_username %} - Web Developer
+                    <p>{{ user.username }} - Web Developer
                       <small>Member since Nov. 2012</small>
                     </p>
                   </li>
@@ -90,28 +68,22 @@
                       <a href="#">Sales</a>
                     </div>
                     <div class="col-xs-4 text-center">
-                      {% if user.has_usable_password %}
-                        <a href="{% url 'admin:password_change' %}">Alterar senha</a>
-                      {% endif %}
+                      <a href="">Alterar senha</a>
                     </div>
                   </li>
                   <!-- Menu Footer-->
                   <li class="user-footer">
                     <div class="pull-left">
-                      {% if site_url %}
-                        <a href="{{ site_url }}" class="btn btn-default btn-flat">Home</a>
-                      {% endif %}
+                        <a href="" class="btn btn-default btn-flat">Home</a>
                     </div>
                     <div class="pull-right">
-                      <a href="{% url 'admin:logout' %}" class="btn btn-default btn-flat">Sair</a>
+                      <a href="{% url 'django.contrib.auth.views.logout' %}" class="btn btn-default btn-flat">Sair</a>
                     </div>
                   </li>
                 </ul>
               </li>
             </ul>
           </div>
-          {% endif %}
-
         </nav>
     </header>
     {% endblock %}
