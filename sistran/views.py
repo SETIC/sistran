@@ -35,7 +35,7 @@ def motorista_new(request):
         else:
 
             return render_to_response('sistran/models/motorista/motorista_edit.html',
-                {'form': formMotorista, 'cidadaoForm':formCidadao, 'pessoaFisicaForm':formPessoaFisica, 'pessoaForm':formPessoa},
+                {'form': formMotorista, 'cidadaoForm':formCidadao, 'pessoaFisicaForm':formPessoaFisica, 'pessoaForm':formPessoa, 'error':'error'},
                 context_instance=RequestContext(request))
 
     else:
@@ -76,7 +76,9 @@ def motorista_edit(request, pk):
 
             return redirect('sistran.views.motorista_detail', pk=motorista.pk)
         else:
-            return redirect('sistran.views.motorista_detail', pk=motorista.pk)
+            return render_to_response('sistran/models/motorista/motorista_edit.html',
+                {'form': form, 'cidadaoForm':formCidadao, 'pessoaFisicaForm':formPessoaFisica, 'pessoaForm':formPessoa, 'error':'error'},
+                context_instance=RequestContext(request))
     else:
         formMotorista = MotoristaForm(instance=motorista)
         formCidadao = CidadaoForm(instance=cidadao)
@@ -89,6 +91,16 @@ def motorista_edit(request, pk):
 
 
 def motorista_remove(request, pk):
+
+    pessoa = get_object_or_404(Pessoa, pk=pk)
+    pessoa.delete()
+
+    pessoaFisica = get_object_or_404(PessoaFisica, pk=pk)
+    pessoaFisica.delete()
+
+    cidadao = get_object_or_404(Cidadao, pk=pk)
+    cidadao.delete()
+
     motorista = get_object_or_404(Motorista, pk=pk)
     motorista.delete()
     return redirect('sistran.views.motorista_list')
