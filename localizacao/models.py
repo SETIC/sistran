@@ -1,11 +1,8 @@
-
 from __future__ import unicode_literals
-
 from django.db import models
 
-
 class Bairro(models.Model):
-    id = models.ForeignKey('DivisaoAdministrativa', db_column='id', primary_key=True)
+    id = models.OneToOneField('DivisaoAdministrativa', db_column='id', primary_key=True)
     bairro = models.CharField(max_length=255)
     municipio = models.ForeignKey('Municipio', blank=True, null=True)
 
@@ -13,26 +10,21 @@ class Bairro(models.Model):
         managed = False
         db_table = 'bairro'
 
-
 class Comercial(models.Model):
-    id = models.ForeignKey('UnidadeEdificada', db_column='id', primary_key=True)
+    id = models.OneToOneField('UnidadeEdificada', db_column='id', primary_key=True)
     reservado = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'comercial'
 
-
-
-
 class Distrito(models.Model):
-    id = models.ForeignKey('DivisaoAdministrativa', db_column='id', primary_key=True)
+    id = models.OneToOneField('DivisaoAdministrativa', db_column='id', primary_key=True)
     distrito = models.CharField(max_length=255)
 
     class Meta:
         managed = False
         db_table = 'distrito'
-
 
 class DivisaoAdministrativa(models.Model):
     id = models.BigIntegerField(primary_key=True)
@@ -43,7 +35,6 @@ class DivisaoAdministrativa(models.Model):
         managed = False
         db_table = 'divisao_administrativa'
 
-
 class Estado(models.Model):
     id = models.BigIntegerField(primary_key=True)
     abreviacao = models.CharField(max_length=255)
@@ -53,7 +44,6 @@ class Estado(models.Model):
         managed = False
         db_table = 'estado'
 
-
 class EstadoMunicipio(models.Model):
     estado_municipio = models.ForeignKey(Estado, blank=True, null=True)
     municipio = models.ForeignKey('Municipio', blank=True, null=True)
@@ -61,7 +51,6 @@ class EstadoMunicipio(models.Model):
     class Meta:
         managed = False
         db_table = 'estado_municipio'
-
 
 class FaceDaQuadra(models.Model):
     id = models.BigIntegerField(primary_key=True)
@@ -72,7 +61,6 @@ class FaceDaQuadra(models.Model):
         managed = False
         db_table = 'face_da_quadra'
 
-
 class FotoLote(models.Model):
     id = models.BigIntegerField(primary_key=True)
     lote = models.ForeignKey('Lote')
@@ -81,7 +69,6 @@ class FotoLote(models.Model):
     class Meta:
         managed = False
         db_table = 'foto_lote'
-
 
 class FotoUnidadeEdificada(models.Model):
     id = models.BigIntegerField(primary_key=True)
@@ -92,15 +79,13 @@ class FotoUnidadeEdificada(models.Model):
         managed = False
         db_table = 'foto_unidade_edificada'
 
-
 class Industrial(models.Model):
-    id = models.ForeignKey('UnidadeEdificada', db_column='id', primary_key=True)
+    id = models.OneToOneField('UnidadeEdificada', db_column='id', primary_key=True)
     reservado = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'industrial'
-
 
 class Logradouro(models.Model):
     id = models.BigIntegerField(primary_key=True)
@@ -110,7 +95,6 @@ class Logradouro(models.Model):
     class Meta:
         managed = False
         db_table = 'logradouro'
-
 
 class Lote(models.Model):
     id = models.BigIntegerField(primary_key=True)
@@ -128,7 +112,6 @@ class Lote(models.Model):
         managed = False
         db_table = 'lote'
 
-
 class Municipio(models.Model):
     id = models.BigIntegerField(primary_key=True)
     estado = models.ForeignKey(Estado)
@@ -137,7 +120,6 @@ class Municipio(models.Model):
     class Meta:
         managed = False
         db_table = 'municipio'
-
 
 class Quadra(models.Model):
     id = models.BigIntegerField(primary_key=True)
@@ -148,15 +130,13 @@ class Quadra(models.Model):
         managed = False
         db_table = 'quadra'
 
-
 class Residencial(models.Model):
-    id = models.ForeignKey('UnidadeEdificada', db_column='id', primary_key=True)
+    id = models.OneToOneField('UnidadeEdificada', db_column='id', primary_key=True)
     reservado = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'residencial'
-
 
 class Setor(models.Model):
     id = models.BigIntegerField(primary_key=True)
@@ -167,7 +147,6 @@ class Setor(models.Model):
         managed = False
         db_table = 'setor'
 
-
 class TipoLogradouro(models.Model):
     id = models.BigIntegerField(primary_key=True)
     tipo_logradouro = models.CharField(max_length=255)
@@ -176,7 +155,6 @@ class TipoLogradouro(models.Model):
         managed = False
         db_table = 'tipo_logradouro'
 
-
 class TipoLogradouroLogradouro(models.Model):
     tipo_logradouro_logradouro = models.ForeignKey(TipoLogradouro, blank=True, null=True)
     logradouro = models.ForeignKey(Logradouro, blank=True, null=True)
@@ -184,8 +162,6 @@ class TipoLogradouroLogradouro(models.Model):
     class Meta:
         managed = False
         db_table = 'tipo_logradouro_logradouro'
-
-
 
 class UnidadeEdificada(models.Model):
     id = models.BigIntegerField(primary_key=True)

@@ -1,0 +1,197 @@
+{% extends "sistran/base/base_site.html" %}
+{% load staticfiles %}
+
+{% block title %}
+    Lista de Veículos - SISTRAN
+{% endblock %}
+
+{% block css-dashboard %}{% endblock %}
+{% block style-login %}{% endblock %}
+
+{% block wrapper %}
+<div class="wrapper">
+  {% block header %}
+  {% include "sistran/base/header.html" %}
+  {% endblock %}
+
+  {% block sidebar %}
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <!-- Sidebar user panel -->
+      <div class="user-panel">
+        <div class="pull-left image">
+          <img src="{% static "img/avatar.png" %}" class="img-circle" alt="User Image">
+        </div>
+        <div class="pull-left info">
+          <p>{{ user.first_name }} {{ user.last_name }}</p>
+          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        </div>
+      </div>
+      <!-- search form -->
+      <form action="#" method="get" class="sidebar-form">
+        <div class="input-group">
+          <input type="text" name="q" class="form-control" placeholder="Search...">
+          <span class="input-group-btn">
+            <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+          </span>
+        </div>
+      </form>
+      <!-- /.search form -->
+      <!-- sidebar menu: : style can be found in sidebar.less -->
+      <ul class="sidebar-menu">
+        <li class="header">MAIN NAVIGATION</li>
+        <li>
+          <a href="/sistran/">
+            <i class="fa fa-dashboard"></i> <span>Dashboard</span> <small class="label pull-right bg-green">new</small>
+          </a>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-users"></i> <span>Administrativo</span> <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="/sistran/cobrador/"><i class="fa fa-circle-o"></i> Cobradores</a></li>
+            <li><a href="/sistran/motorista/"><i class="fa fa-circle-o"></i> Motoristas</a></li>
+            <li><a href="/sistran/proprietario/"><i class="fa fa-circle-o"></i> Proprietários</a></li>
+          </ul>
+        </li>
+        <li class="active treeview">
+          <a href="#">
+            <i class="fa fa-car"></i> <span>Trânsito</span> <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+            <li class="active"><a href="/sistran/veiculo/"><i class="fa fa-circle-o"></i> Veículos</a></li>
+            <li><a href="/sistran/veiculo/"><i class="fa fa-circle-o"></i> Vistorias</a></li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+  {% endblock %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    {% block content-header %}
+    <section class="content-header">
+      <h1>
+        Veículos
+        <small>Visualização e Gerenciamento</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="/sistran/"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Veículos</li>
+      </ol>
+    </section>
+    {% endblock %}
+
+    {% block content %}
+    <!-- Main content -->
+    <section class="content">
+      <!-- general form elements -->
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title"></h3>
+          <div class="box-tools">
+            <div class="input-group" style="width: 150px;">
+              <input type="text" name="table_search" class="form-control input-sm pull-right" placeholder="Search">
+              <div class="input-group-btn">
+                <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+              </div>
+            </div>
+          </div>
+        </div><!-- /.box-header -->
+        <!-- form start -->
+        <div class="box-body">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Opções</th>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Número CNH</th>
+                <th>Categoria CNH</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for veiculo in veiculos %}
+              <tr>
+                <th>
+                  <a class="btn btn-primary btn-sm btn-flat" href="{% url "veiculo_edit" pk=veiculo.pk %}">
+                    <i class="fa fa-pencil"></i>
+                  </a>
+                  <a class="btn btn-danger btn-sm btn-flat" href="javascript:confirmDelete('{% url "veiculo_remove" pk=veiculo.pk %}')">
+                      <i class="fa fa-remove"></i>
+                  </a>
+                </th>
+                <td><a href="{% url "sistran.views.veiculo_detail" pk=veiculo.pk %}">{{ veiculo.id }}</a></td>
+                <td>{{ veiculo.id.id.id.cpf_cnpj }}</td>
+                <td>{{ veiculo.num_cnh }}</td>
+                <td>{{ veiculo.cat_cnh }}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <div class="box-footer clearfix">
+          <div class="row">
+            <div class="col-sm-7" style="margin-top: 1rem;">
+              <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">
+                Mostrando 1 até 10 de 37 registros
+              </div>
+            </div>
+            <div class="col-sm-5" style="text-align: right;">
+              <div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">
+                <ul class="pagination" style="margin: 0;">
+                  <li class="paginate_button previous disabled" id="example1_previous">
+                    <a href="#" aria-controls="example1" data-dt-idx="0" tabindex="0">Anterior</a>
+                  </li>
+                  <li class="paginate_button active">
+                    <a href="#" aria-controls="example1" data-dt-idx="1" tabindex="0">1</a>
+                  </li>
+                  <li class="paginate_button">
+                    <a href="#" aria-controls="example1" data-dt-idx="2" tabindex="0">2</a>
+                  </li>
+                  <li class="paginate_button">
+                    <a href="#" aria-controls="example1" data-dt-idx="3" tabindex="0">3</a>
+                  </li>
+                  <li class="paginate_button">
+                    <a href="#" aria-controls="example1" data-dt-idx="4" tabindex="0">4</a>
+                  </li>
+                  <li class="paginate_button">
+                    <a href="#" aria-controls="example1" data-dt-idx="5" tabindex="0">5</a>
+                  </li>
+                  <li class="paginate_button">
+                    <a href="#" aria-controls="example1" data-dt-idx="6" tabindex="0">6</a>
+                  </li>
+                  <li class="paginate_button next" id="example1_next">
+                    <a href="#" aria-controls="example1" data-dt-idx="7" tabindex="0">Próximo</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!--/.col (left) -->
+      <a href="{% url "sistran.views.veiculo_new" %}" class="btn btn-success btn-flat"><i class="fa fa-plus"></i>
+        Adicionar Veículo
+      </a>
+      <!-- right column -->
+    </section>
+    <script>
+      function confirmDelete(deleteUrl) {
+        if (confirm("Tem certeza de que deseja excluir este Veículo?")) {
+          document.location = deleteUrl;
+        }
+      }
+    </script>
+    {% endblock %}
+  </div>
+  {% block footer %}
+  {% include "sistran/base/footer.html" %}
+  {% endblock %}
+</div>
+{% endblock %}
+{% block js-dashboard %}{% endblock %}

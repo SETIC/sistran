@@ -1,8 +1,6 @@
  # -*- coding: utf8 -*-
 from __future__ import unicode_literals
-
 from django.db import models
-
 from pessoal.models import *
 
 class Anexo(models.Model):
@@ -12,49 +10,47 @@ class Anexo(models.Model):
     caminho_anexo = models.FileField()# verificar com .FileField
 
 class Proprietario(models.Model):
-	id = models.ForeignKey('pessoal.Cidadao', primary_key=True)
-	num_cnh = models.CharField(max_length=255, null=False, blank=False)
-	cat_cnh = models.CharField(max_length=255, null=False, blank=False)
+    id = models.OneToOneField('pessoal.Cidadao', primary_key=True)
+    num_cnh = models.CharField(max_length=255, null=False, blank=False, verbose_name="Num. da CNH")
+    cat_cnh = models.CharField(max_length=255, null=False, blank=False, verbose_name="Cat. da CNH")
 
+    def __str__(self):
+        return self.id.id.id.nome
 
 class Motorista(models.Model):
-	id = models.ForeignKey('pessoal.Cidadao', primary_key=True)
-	num_cnh = models.CharField(max_length=255, null=False , blank=False, verbose_name="Num. da CNH")
-	cat_cnh = models.CharField(max_length=255, null=False, blank=False, verbose_name="Cat. da CNH")
+    id = models.OneToOneField('pessoal.Cidadao', primary_key=True)
+    num_cnh = models.CharField(max_length=255, null=False , blank=False, verbose_name="Num. da CNH")
+    cat_cnh = models.CharField(max_length=255, null=False, blank=False, verbose_name="Cat. da CNH")
+
+    def __str__(self):
+        return self.id.id.id.nome
 
 class Cobrador(models.Model):
-	id = models.ForeignKey('pessoal.Cidadao', primary_key=True)
-
-
+	id = models.OneToOneField('pessoal.Cidadao', primary_key=True)
 
 class Veiculo(models.Model):
-	id = models.AutoField(primary_key=True)
-	id_proprietario = models.ForeignKey('Proprietario')
-	data_posse = models.DateField(auto_now=True)
-	##ESTUDAR LINHA A BAIXO
-	TIPO_CONCESSAO_CHOICES = (
-		("taxi","Táxi"),
-		("alternativo","Alternativo"),
-		("escolar","Escolar"),
-		("frete","Frete"),
-		)
-	tipo_concessao = models.CharField(max_length=20, choices=TIPO_CONCESSAO_CHOICES)
-	marca_modelo = models.CharField(max_length=255, null = False)
-	ano = models.DateField()
-	cor = models.CharField(max_length=255, blank=False)
-	chassi = models.IntegerField(blank=False)
-	qnt_passageiros = models.IntegerField()
-	qnt_portas = models.IntegerField(blank=False)
-	placa = models.CharField(max_length=8, blank = False)
-	motorista = models.BooleanField()#obs: o proprietário pode ser também o motorista de um veículo
-	#O QUE É CATEGORIA????
-	categoria = models.CharField(max_length=255,blank=False,null=False)
+    id = models.AutoField(primary_key=True)
+    id_proprietario = models.ForeignKey('Proprietario')
+    data_posse = models.DateField(auto_now=True)
+    TIPO_CONCESSAO_CHOICES = (("taxi","Táxi"), ("alternativo","Alternativo"), ("escolar","Escolar"), ("frete","Frete"))
+    tipo_concessao = models.CharField(max_length=20, choices=TIPO_CONCESSAO_CHOICES)
+    marca_modelo = models.CharField(max_length=255, null = False)
+    ano = models.DateField()
+    cor = models.CharField(max_length=255, blank=False)
+    chassi = models.CharField(max_length=255, blank=False)
+    qnt_passageiros = models.IntegerField()
+    qnt_portas = models.IntegerField(blank=False)
+    placa = models.CharField(max_length=8, blank = False)
+    motorista = models.ForeignKey('Motorista')
+    #obs: o proprietário pode ser também o motorista de um veículo
+    #O QUE É CATEGORIA????
+    CATEGORIA_CHOICES = (("oficial","Oficial"), ("representacao_diplomatica","Representação Diplomática"), ("particular","Particular"), ("aluguel","Aluguel"), ("aprendizagem","Aprendizagem"))
+    categoria = models.CharField(max_length=50, choices=CATEGORIA_CHOICES)
 
 	#essa classe é importate haja vista que precisaremos manter um históricos de todos os proprietários
 	#que um veículo já teve desde o início.
 	#Considerando que um veículo so pode ter apenas 1 dono por vez então essa regra de negócio deverá ser
 	#feira via código!
-
 
 class ProprietarioTemVeiculo(models.Model):
 	id_proprietario = models.ForeignKey('Proprietario')
@@ -69,7 +65,6 @@ class ProprietarioTemVeiculo(models.Model):
 	status = models.CharField(max_length=10, choices=STATUS_CHOICE)
 	motorista = models.BooleanField()#obs: o proprietário pode ser também o motorista de um veículo
 
-
 #também é importante pelo mesmo motivo da classe anterior, precisamos tê-la para manter o histórico de motoritas
 # em cada veículo cadastrado no sistema
 
@@ -83,7 +78,6 @@ class VeiculoTemMotorista(models.Model):
 		)
 	status = models.CharField(max_length=10, choices=STATUS_CHOICE)
 
-
 class VeiculoTemCobrador(models.Model):
 	id_cobrador = models.ForeignKey('Cobrador')
 	id_veiculo = models.ForeignKey('Veiculo')
@@ -94,15 +88,11 @@ class VeiculoTemCobrador(models.Model):
 		)
 	status = models.CharField(max_length=10, choices=STATUS_CHOICE)
 
-
-
 #essa classe armazenará cada item analisado em uma vistória, como farol, parachoque, velocímetro...
 #isso evitará problemas caso novos itens surjam após a finalização da ferramenta
 class VistoriaItem(models.Model):
 	id = models.BigIntegerField(primary_key=True)
 	nome_item = models.CharField(max_length=255)
-
-
 
 class Vistoria(models.Model):
 	id = models.AutoField(primary_key=True)
@@ -112,7 +102,6 @@ class Vistoria(models.Model):
 	aprovado = models.BooleanField()#verificar se campos bolleans recebem algum argumento
 	observacao = models.CharField(max_length=255)
 
-
 class VistoriaTemVistoriaItem(models.Model):
 	id_vistoria_item = models.ForeignKey('VistoriaItem')
 	id_vistoria = models.ForeignKey('Vistoria')
@@ -121,7 +110,6 @@ class VistoriaTemVistoriaItem(models.Model):
 		("Reprovado","Reprovado")
 		)
 	status = models.CharField(max_length=20,choices=STATUS_VISTORIA_ITEM_CHOICES)
-
 
 class Reclamacao(models.Model):
 	id = models.BigIntegerField(primary_key=True)

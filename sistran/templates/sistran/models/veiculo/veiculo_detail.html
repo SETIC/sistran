@@ -1,0 +1,49 @@
+{% extends "sistran/base/sidebar_base.html" %}
+
+{% block content-header %}
+  <section class="content-header">
+      <h1>
+        Detalhe
+        <small></small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Sistran</a></li>
+        <li><a href="#">Veiculos</a></li>
+        <li class="active">Detalhes</li>
+      </ol>
+  </section>
+{% endblock %}
+
+{% block content %}
+ <section class="content">
+    <!-- general form elements -->
+    <div class="box box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">Veiculo</h3>
+      </div><!-- /.box-header -->
+      <!-- form start -->
+      <div class="box-body veiculo_detail">
+        <div class="row">
+          <div class="col-sm-2">Nome</div>
+          <div class="col-sm-10">{{ veiculo.id }}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-sm-2">CPF</div>
+          <div class="col-sm-10">{{ veiculo.id }}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-sm-2">Estado Civil</div>
+          <div class="col-sm-10">{{ veiculo.id }}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-sm-2">Sexo</div>
+          <div class="col-sm-10">{{ veiculo.id }}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-sm-2">Núm. RG</div>
+          <div class="col-sm-10">{{ veiculo.id }}</div>
+        </div><br/>
+      </div>
+    </div><!-- /.box -->
+ </section>
+{% endblock %}

@@ -1,0 +1,172 @@
+{% extends "sistran/base/base_site.html" %}
+{% load staticfiles %}
+{% load filters %}
+
+{% block title %}
+    Novo/Editar Cobrador - SISTRAN
+{% endblock %}
+
+{% block css-dashboard %}{% endblock %}
+{% block style-login %}{% endblock %}
+
+{% block wrapper %}
+<div class="wrapper">
+  {% block header %}
+  {% include "sistran/base/header.html" %}
+  {% endblock %}
+
+  {% block sidebar %}
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <!-- Sidebar user panel -->
+      <div class="user-panel">
+        <div class="pull-left image">
+          <img src="{% static "img/avatar.png" %}" class="img-circle" alt="User Image">
+        </div>
+        <div class="pull-left info">
+          <p>{{ user.first_name }} {{ user.last_name }}</p>
+          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        </div>
+      </div>
+      <!-- search form -->
+      <form action="#" method="get" class="sidebar-form">
+        <div class="input-group">
+          <input type="text" name="q" class="form-control" placeholder="Search...">
+          <span class="input-group-btn">
+            <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+          </span>
+        </div>
+      </form>
+      <!-- /.search form -->
+      <!-- sidebar menu: : style can be found in sidebar.less -->
+      <ul class="sidebar-menu">
+        <li class="header">MAIN NAVIGATION</li>
+        <li>
+          <a href="/sistran/">
+            <i class="fa fa-dashboard"></i> <span>Dashboard</span> <small class="label pull-right bg-green">new</small>
+          </a>
+        </li>
+        <li class="active treeview">
+          <a href="#">
+            <i class="fa fa-users"></i> <span>Administrativo</span> <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+            <li class="active"><a href="/sistran/cobrador/"><i class="fa fa-circle-o"></i> Cobradores</a></li>
+            <li><a href="/sistran/motorista/"><i class="fa fa-circle-o"></i> Motoristas</a></li>
+            <li><a href="/sistran/proprietario/"><i class="fa fa-circle-o"></i> Proprietários</a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-car"></i> <span>Trânsito</span> <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="/sistran/veiculo/"><i class="fa fa-circle-o"></i> Veículos</a></li>
+            <li><a href="/sistran/cobrador/"><i class="fa fa-circle-o"></i> Vistorias</a></li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+  {% endblock %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    {% block content-header %}
+    <section class="content-header">
+      <h1>
+        Cobrador
+        <small>Cadastro e Edição</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="/sistran/"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="/sistran/cobrador/"> Cobradores</a></li>
+        <li class="active">Novo/Editar Cobrador</li>
+      </ol>
+    </section>
+    {% endblock %}
+
+    {% block content %}
+    <!-- Main content -->
+    <section class="content">
+      <form role="form" class="form-horizontal" method="POST">{% csrf_token %}
+        <!-- general form elements -->
+        <div class="box">
+          <!-- form start -->
+          <div class="box-body">
+            {% if error %}
+              <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h4><i class="icon fa fa-ban"></i> Falha ao Cadastrar!</h4>
+                <p>Verifique os campos abaixo e corrija os erros.</p>
+              </div>
+            {% endif %}
+            {% for fieldPessoa in pessoaForm %}
+              <div class="form-group">
+                <label for="{{ fieldPessoa.name }}" class="col-sm-2 control-label">
+                  {{ fieldPessoa.label }}
+                </label>
+                <div class="col-sm-10">
+                  {{ fieldPessoa|addcss:'form-control' }}
+                  <p class="text-red">{{ fieldPessoa.errors }}</p>
+                </div>
+                <br/>
+              </div>
+            {% endfor %}
+            {% for fieldPessoaFisica in pessoaFisicaForm %}
+              <div class="form-group">
+                <label for="{{ fieldPessoaFisica.name }}" class="col-sm-2 control-label">
+                  {{ fieldPessoaFisica.label }}
+                </label>
+                <div class="col-sm-10">
+                  {{ fieldPessoaFisica|addcss:'form-control' }}
+                  <p class="text-red">{{ fieldPessoaFisica.errors }}</p>
+                </div>
+                <br/>
+              </div>
+            {% endfor %}
+            {% for fieldCidadao in cidadaoForm %}
+              <div class="form-group">
+                <label for="{{ fieldCidadao.name }}" class="col-sm-2 control-label">
+                  {{ fieldCidadao.label }}
+                </label>
+                <div class="col-sm-10">
+                  {{ fieldCidadao|addcss:'form-control' }}
+                  <p class="text-red">{{ fieldCidadao.errors }}</p>
+                </div>
+                <br/>
+              </div>
+            {% endfor %}
+            {% for field in form %}
+              <div class="form-group">
+                <label for="{{ field.name }}" class="col-sm-2 control-label">
+                  {{ field.label }}
+                </label>
+                <div class="col-sm-10">
+                  {{ field|addcss:'form-control' }}
+                  <p class="text-red">{{ field.errors }}</p>
+                </div>
+                <br/>
+              </div>
+            {% endfor %}
+          </div>
+        </div><!-- /.box -->
+        <div class="box-footer" style="text-align: right; background: none;">
+            <a href="/sistran/cobrador/" class="btn btn-danger btn-flat">Cancelar</a>
+            <input type="submit" value="Salvar" class="btn btn-success btn-flat" name="_save">
+            <input type="submit" value="Salvar e adicionar outro(a)" class="btn btn-success btn-flat" name="_addanother">
+            <input type="submit" value="Salvar e continuar editando" class="btn btn-success btn-flat" name="_continue">
+        </div>
+      </form>
+    </section>
+    {% endblock %}
+  </div>
+  {% block footer %}
+  {% include "sistran/base/footer.html" %}
+  {% endblock %}
+</div>
+{% endblock %}
+{% block js-dashboard %}{% endblock %}
