@@ -10,7 +10,7 @@ class Aluno(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'aluno'
+        db_table = '"cadastro_unico_pessoal"."aluno"'
 
 class Contato(models.Model):
     id = models.BigIntegerField(primary_key=True)
@@ -20,7 +20,7 @@ class Contato(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'contato'
+        db_table = '"cadastro_unico_pessoal"."contato"'
 
 class DadosBancarios(models.Model):
     id = models.BigIntegerField(primary_key=True)
@@ -32,7 +32,7 @@ class DadosBancarios(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'dados_bancarios'
+        db_table = '"cadastro_unico_pessoal"."dados_bancarios"'
 
 class Editora(models.Model):
     id = models.OneToOneField('PessoaJuridica', db_column='id', primary_key=True)
@@ -98,7 +98,7 @@ class Paciente(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'paciente'
+        db_table = '"cadastro_unico_pessoal"."paciente"'
 
 class Parentesco(models.Model):
     id = models.BigIntegerField(primary_key=True)
@@ -108,7 +108,7 @@ class Parentesco(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'parentesco'
+        db_table = '"cadastro_unico_pessoal"."parentesco"'
 
 class Pessoa(models.Model):
     id = models.AutoField(primary_key=True)
@@ -222,7 +222,7 @@ class DetemPropriedade(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'detem_propriedade'
+        db_table = '"cadastro_unico_pessoal"."detem_propriedade"'
 
 class PessoaJuridica(models.Model):
     id = models.OneToOneField(Pessoa, db_column='id', primary_key=True)
@@ -231,7 +231,7 @@ class PessoaJuridica(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'pessoa_juridica'
+        db_table = '"cadastro_unico_pessoal"."pessoa_juridica"'
 
 class Prefeitura(models.Model):
     id = models.OneToOneField(PessoaJuridica, db_column='id', primary_key=True)
@@ -260,7 +260,7 @@ class Reside(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'reside'
+        db_table = '"cadastro_unico_pessoal"."reside"'
 
 class TipoContato(models.Model):
     id = models.BigIntegerField(primary_key=True)
@@ -269,3 +269,4 @@ class TipoContato(models.Model):
     class Meta:
         managed = False
         db_table = 'tipo_contato'
+        db_table = '"cadastro_unico_pessoal"."tipo_contato"'

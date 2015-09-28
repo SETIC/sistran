@@ -110,7 +110,13 @@
                   {{ field.label }}
                 </label>
                 <div class="col-sm-10">
-                  {{ field|addcss:'form-control' }}
+                      {% if  field.name == 'motorista'%}
+                          <div class="radio">
+                             {{ field|addcss:'' }}
+                          </div>
+                      {% else %}
+                          {{ field|addcss:'form-control' }}
+                      {% endif %}
                   <p class="text-red">{{ field.errors }}</p>
                 </div>
                 <br/>
