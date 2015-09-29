@@ -163,11 +163,11 @@ class Cidadao(models.Model):
     naturalidade = models.CharField(max_length=255, blank=True, null=True)
     profissao = models.CharField(max_length=255, blank=True, null=True)
     rg_data_de_emissao = models.DateField(blank=True, null=True, verbose_name='Data de Emissão do RG')
-    rg_numero = models.IntegerField(max_length=255, blank=True, null=True, verbose_name='Número do RG')
+    rg_numero = models.IntegerField(blank=True, null=True, verbose_name='Número do RG')
     rg_orgao_expeditor = models.CharField(max_length=255, blank=True, null=True, verbose_name='Órgão Expedidor do RG')
-    te_numero = models.IntegerField(max_length=255, blank=True, null=True, verbose_name='numero Título de Eleitor')
-    te_secao = models.IntegerField(max_length=255, blank=True, null=True, verbose_name='Seção Título de Eleitor')
-    te_zona = models.IntegerField(max_length=255, blank=True, null=True, verbose_name='Zona Título de Eleitor')
+    te_numero = models.IntegerField( blank=True, null=True, verbose_name='numero Título de Eleitor')
+    te_secao = models.IntegerField( blank=True, null=True, verbose_name='Seção Título de Eleitor')
+    te_zona = models.IntegerField( blank=True, null=True, verbose_name='Zona Título de Eleitor')
 
     def __str__(self):
         return self.id.id.nome

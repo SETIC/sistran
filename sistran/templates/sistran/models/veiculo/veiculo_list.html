@@ -6,7 +6,9 @@
 {% endblock %}
 
 {% block css-dashboard %}{% endblock %}
-{% block style-login %}{% endblock %}
+{% block style-login %}
+
+{% endblock %}
 
 {% block wrapper %}
 <div class="wrapper">
@@ -109,10 +111,10 @@
             <thead>
               <tr>
                 <th>Opções</th>
-                <th>Nome</th>
-                <th>CPF</th>
-                <th>Número CNH</th>
-                <th>Categoria CNH</th>
+                <th>Marca</th>
+                <th>Placa</th>
+                <th>Proprietário</th>
+                <th>Categoria Veículo</th>
               </tr>
             </thead>
             <tbody>
@@ -126,10 +128,11 @@
                       <i class="fa fa-remove"></i>
                   </a>
                 </th>
-                <td><a href="{% url "sistran.views.veiculo_detail" pk=veiculo.pk %}">{{ veiculo.id }}</a></td>
-                <td>{{ veiculo.id.id.id.cpf_cnpj }}</td>
-                <td>{{ veiculo.num_cnh }}</td>
-                <td>{{ veiculo.cat_cnh }}</td>
+                <td>{{ veiculo.marca_modelo|upper}}</td>
+                <td><a href="{% url "sistran.views.veiculo_detail" pk=veiculo.pk %}">{{ veiculo.placa|upper }}</a></td>
+                <td>{{ veiculo.id_proprietario.id.id.id.nome|upper }}</td>
+
+                <td>{{ veiculo.categoria|upper }}</td>
               </tr>
             {% endfor %}
             </tbody>
