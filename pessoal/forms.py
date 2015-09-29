@@ -1,9 +1,15 @@
 from django import forms
 from django.forms import extras
+import datetime
 from .models import *
 
+    
+
+
 class PessoaForm(forms.ModelForm):
+   
     data_de_nascimento = forms.DateField(widget=extras.SelectDateWidget(
+        years=range(1920,datetime.date.today().year-17),
         attrs={'class': 'form-control', 'style':'max-width:100px; float:left;'}))
     class Meta:
         model=Pessoa
@@ -19,6 +25,7 @@ class PessoaFisicaForm(forms.ModelForm):
 
 class CidadaoForm(forms.ModelForm):
     rg_data_de_emissao = forms.DateField(widget=extras.SelectDateWidget(
+        years=range(1950,datetime.date.today().year+1),
         attrs={'class': 'form-control', 'style':'max-width:100px; float:left;'}))
     class Meta:
         model = Cidadao

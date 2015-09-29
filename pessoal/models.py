@@ -114,7 +114,7 @@ class Pessoa(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=255, verbose_name="Nome Completo")
     data_de_nascimento = models.DateField(blank=True, null=True)
-    cpf_cnpj = models.CharField(unique=True, max_length=30, blank=True, null=True)
+    cpf_cnpj = models.CharField(unique=True, max_length=30, blank=True, null=True, verbose_name = "CPF")
     escid = models.IntegerField(blank=True, null=True)
     STATUS_CHOICES = (('Ativo','Ativo'), ('Inativo','Inativo'))
     status = models.CharField(max_length=255, choices=STATUS_CHOICES)

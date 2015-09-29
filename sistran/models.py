@@ -41,7 +41,6 @@ class Veiculo(models.Model):
     qnt_passageiros = models.IntegerField()
     qnt_portas = models.IntegerField(blank=False)
     placa = models.CharField(max_length=8, blank = False)
-    motorista = models.ForeignKey('Motorista')
     #obs: o proprietário pode ser também o motorista de um veículo
     #O QUE É CATEGORIA????
     CATEGORIA_CHOICES = (("oficial","Oficial"), ("representacao_diplomatica","Representação Diplomática"), ("particular","Particular"), ("aluguel","Aluguel"), ("aprendizagem","Aprendizagem"))
