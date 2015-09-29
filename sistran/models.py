@@ -30,21 +30,22 @@ class Cobrador(models.Model):
 
 class Veiculo(models.Model):
     id = models.AutoField(primary_key=True)
-    id_proprietario = models.ForeignKey('Proprietario')
+    id_proprietario = models.ForeignKey('Proprietario', verbose_name='Proprietário do Veículo')
     data_posse = models.DateField(auto_now=True)
     TIPO_CONCESSAO_CHOICES = (("taxi","Táxi"), ("alternativo","Alternativo"), ("escolar","Escolar"), ("frete","Frete"))
-    tipo_concessao = models.CharField(max_length=20, choices=TIPO_CONCESSAO_CHOICES)
-    marca_modelo = models.CharField(max_length=255, null = False)
-    ano = models.DateField()
-    cor = models.CharField(max_length=255, blank=False)
-    chassi = models.CharField(max_length=255, blank=False)
-    qnt_passageiros = models.IntegerField()
-    qnt_portas = models.IntegerField(blank=False)
-    placa = models.CharField(max_length=8, blank = False)
+    tipo_concessao = models.CharField(max_length=20, choices=TIPO_CONCESSAO_CHOICES, verbose_name='Tipo do Veículo')
+    marca_modelo = models.CharField(max_length=255, null = False, verbose_name='Marca/Modelo do Veículo')
+    ano = models.DateField(verbose_name='Ano do Veículo')
+    cor = models.CharField(max_length=255, blank=False, verbose_name='Cor do Veículo')
+    chassi = models.CharField(max_length=255, blank=False, verbose_name='Chassi do Veículo')
+    qnt_passageiros = models.IntegerField(verbose_name='Quant. de Passageiros')
+    qnt_portas = models.IntegerField(blank=False, verbose_name='Quant. de Portas')
+    placa = models.CharField(max_length=8, blank = False, verbose_name='Placa do Veículo')
+    motorista = models.BooleanField(verbose_name='Proprietário é Motorista desse Veículo?')
     #obs: o proprietário pode ser também o motorista de um veículo
     #O QUE É CATEGORIA????
     CATEGORIA_CHOICES = (("oficial","Oficial"), ("representacao_diplomatica","Representação Diplomática"), ("particular","Particular"), ("aluguel","Aluguel"), ("aprendizagem","Aprendizagem"))
-    categoria = models.CharField(max_length=50, choices=CATEGORIA_CHOICES)
+    categoria = models.CharField(max_length=50, choices=CATEGORIA_CHOICES, verbose_name='Categoria do Veículo')
 
 	#essa classe é importate haja vista que precisaremos manter um históricos de todos os proprietários
 	#que um veículo já teve desde o início.

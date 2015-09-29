@@ -1,3 +1,4 @@
+ # -*- coding: utf8 -*-
 from django import forms
 from .models import *
 
@@ -21,6 +22,11 @@ class ProprietarioForm(forms.ModelForm):
         fields = ('__all__')
 
 class VeiculoForm(forms.ModelForm):
+    YES_NO =(
+        (False,'Não'),
+        (True,'Sim')
+    )
+    motorista = forms.BooleanField(widget=forms.RadioSelect(choices=YES_NO, attrs={'class':''}))
     class Meta:
         model = Veiculo
         exclude = ['id']

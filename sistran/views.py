@@ -91,17 +91,10 @@ def motorista_edit(request, pk):
 
 @login_required
 def motorista_remove(request, pk):
+
     pessoa = get_object_or_404(Pessoa, pk=pk)
     pessoa.delete()
 
-    pessoaFisica = get_object_or_404(PessoaFisica, pk=pk)
-    pessoaFisica.delete()
-
-    cidadao = get_object_or_404(Cidadao, pk=pk)
-    cidadao.delete()
-
-    motorista = get_object_or_404(Motorista, pk=pk)
-    motorista.delete()
     return redirect('sistran.views.motorista_list')
 
 # CRUD COBRADOR
@@ -183,17 +176,10 @@ def cobrador_edit(request, pk):
 
 @login_required
 def cobrador_remove(request, pk):
+
     pessoa = get_object_or_404(Pessoa, pk=pk)
     pessoa.delete()
 
-    pessoaFisica = get_object_or_404(PessoaFisica, pk=pk)
-    pessoaFisica.delete()
-
-    cidadao = get_object_or_404(Cidadao, pk=pk)
-    cidadao.delete()
-
-    cobrador = get_object_or_404(Cobrador, pk=pk)
-    cobrador.delete()
     return redirect('sistran.views.cobrador_list')
 
 # CRUD PROPRIETARIO
@@ -275,17 +261,10 @@ def proprietario_edit(request, pk):
 
 @login_required
 def proprietario_remove(request, pk):
+
     pessoa = get_object_or_404(Pessoa, pk=pk)
     pessoa.delete()
 
-    pessoaFisica = get_object_or_404(PessoaFisica, pk=pk)
-    pessoaFisica.delete()
-
-    cidadao = get_object_or_404(Cidadao, pk=pk)
-    cidadao.delete()
-
-    proprietario = get_object_or_404(Proprietario, pk=pk)
-    proprietario.delete()
     return redirect('sistran.views.proprietario_list')
 
 # CRUD VEICULO
