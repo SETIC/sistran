@@ -42,7 +42,7 @@ class Veiculo(models.Model):
     qnt_passageiros = models.IntegerField(verbose_name='Quant. de Passageiros')
     qnt_portas = models.IntegerField(blank=False, verbose_name='Quant. de Portas')
     placa = models.CharField(max_length=8, blank = False, verbose_name='Placa do Veículo')
-    motorista = models.BooleanField(verbose_name='Prorpietário é Motorista desse Veículo?')
+    motorista = models.BooleanField(verbose_name='Proprietário é Motorista desse Veículo?')
     #obs: o proprietário pode ser também o motorista de um veículo
     #O QUE É CATEGORIA????
     CATEGORIA_CHOICES = (("oficial","Oficial"), ("representacao_diplomatica","Representação Diplomática"), ("particular","Particular"), ("aluguel","Aluguel"), ("aprendizagem","Aprendizagem"))
