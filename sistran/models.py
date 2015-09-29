@@ -11,16 +11,17 @@ class Anexo(models.Model):
 
 class Proprietario(models.Model):
     id = models.OneToOneField('pessoal.Cidadao', primary_key=True)
-    num_cnh = models.CharField(max_length=255, null=False, blank=False, verbose_name="Num. da CNH")
-    cat_cnh = models.CharField(max_length=255, null=False, blank=False, verbose_name="Cat. da CNH")
+    num_cnh = models.IntegerField(max_length=255, null=False, blank=False, verbose_name="Numero da CNH")
+    cat_cnh = models.IntegerField(max_length=255, null=False, blank=False, verbose_name="Categoria da CNH")
 
     def __str__(self):
         return self.id.id.id.nome
 
 class Motorista(models.Model):
     id = models.OneToOneField('pessoal.Cidadao', primary_key=True)
-    num_cnh = models.CharField(max_length=255, null=False , blank=False, verbose_name="Num. da CNH")
-    cat_cnh = models.CharField(max_length=255, null=False, blank=False, verbose_name="Cat. da CNH")
+    num_cnh = models.IntegerField(max_length=255, null=False , blank=False, verbose_name="Numero da CNH")
+    CATEGORIA_CHOICES = (("A", "A"), ("B","B"), ("C","C"), ("D","D"), ("E","E"), ("AB","AB"), ("AC","AC"),("AD","AD"),("AE","AE"), ("ACC", "ACC"))
+    cat_cnh = models.CharField(max_length=255, choices=CATEGORIA_CHOICES, verbose_name="Categoria da CNH")
 
     def __str__(self):
         return self.id.id.id.nome
