@@ -67,6 +67,9 @@
       }
     </style>
     {% endblock %}
+    <style>
+      #sidebar .active { color: #fff !important;}
+    </style>
   </head>
   <body class="{% block bodyclass %}hold-transition skin-green sidebar-mini{% endblock %}">
     {% block wrapper %}
@@ -112,5 +115,18 @@
     <!-- AdminLTE for demo purposes -->
     <script src="{% static "js/demo.js" %}"></script>
     {% endblock %}
+    <script type="text/javascript">
+      jQuery(function(){
+        var url = window.location.pathname,
+        urlRegExp = new RegExp(url.replace(/\/$/,'') + "$"); // create regexp to match current url pathname and remove trailing slash if present as it could collide with the link in navigation in case trailing slash wasn't present there
+        // now grab every link from the navigation
+        jQuery('.sidebar-menu a').each(function(){
+          // and test its normalized href against the url pathname regexp
+          if(urlRegExp.test(this.href.replace(/\/$/,''))){
+            jQuery(this).addClass('active');
+          }
+        });
+      });
+    </script>
   </body>
 </html>
