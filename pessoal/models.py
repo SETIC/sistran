@@ -100,21 +100,11 @@ class Paciente(models.Model):
         managed = False
         db_table = '"cadastro_unico_pessoal"."paciente"'
 
-class Parentesco(models.Model):
-    id = models.BigIntegerField(primary_key=True)
-    pessoa_fisica = models.ForeignKey('PessoaFisica')
-    parentesco = models.CharField(max_length=255, blank=True, null=True)
-    pessoa = models.ForeignKey('Pessoa')
-
-    class Meta:
-        managed = False
-        db_table = '"cadastro_unico_pessoal"."parentesco"'
-
 class Pessoa(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=255, verbose_name="Nome Completo")
     data_de_nascimento = models.DateField(blank=True, null=True)
-    cpf_cnpj = models.CharField(unique=True, max_length=30, blank=True, null=True)
+    cpf_cnpj = models.CharField(unique=True, max_length=30, blank=True, null=True, verbose_name = "CPF")
     escid = models.IntegerField(blank=True, null=True)
     STATUS_CHOICES = (('Ativo','Ativo'), ('Inativo','Inativo'))
     status = models.CharField(max_length=255, choices=STATUS_CHOICES)
@@ -148,7 +138,7 @@ class PessoaFisica(models.Model):
     rc_nome_do_livro = models.CharField(max_length=255, blank=True, null=True)
     rc_numero = models.CharField(max_length=255, blank=True, null=True)
     religiao = models.CharField(max_length=255, blank=True, null=True)
-    SEXO_CHOICES=(('MASCULINO','Masculino'),('FEMININO','Feminino'), ('OUTRO','Outro'))
+    SEXO_CHOICES=(('MASCULINO','Masculino'),('FEMININO','Feminino'))
     sexo = models.CharField(max_length=255, choices=SEXO_CHOICES)
     tipo_sanguineo = models.CharField(max_length=255, blank=True, null=True)
 
@@ -167,17 +157,17 @@ class Cidadao(models.Model):
     ct_data_de_emissao = models.DateField(blank=True, null=True)
     ct_numero = models.CharField(max_length=255, blank=True, null=True)
     ct_serie = models.CharField(max_length=255, blank=True, null=True)
-    ESTADO_CIVIL_CHOICES=(('SOLTEIRO','Solteiro'),('CASADO','Casado'), ('VIÚVO','Viúvo'), ('DIVORCIADO','Divorciado'), ('OUTRO','Outro'))
+    ESTADO_CIVIL_CHOICES=(('SOLTEIRO','Solteiro(ª)'),('CASADO','Casado(ª)'),("SEPARADO","Separado(ª)"),('DIVORCIADO','Divorciado(ª)'),('VIÚVO','Viúvo(ª)'))
     estado_civil = models.CharField(max_length=255, verbose_name='Estado Civil', choices=ESTADO_CIVIL_CHOICES)
     nacionalidade = models.CharField(max_length=255, blank=True, null=True)
     naturalidade = models.CharField(max_length=255, blank=True, null=True)
     profissao = models.CharField(max_length=255, blank=True, null=True)
     rg_data_de_emissao = models.DateField(blank=True, null=True, verbose_name='Data de Emissão do RG')
-    rg_numero = models.CharField(max_length=255, blank=True, null=True, verbose_name='Número do RG')
-    rg_orgao_expeditor = models.CharField(max_length=255, blank=True, null=True, verbose_name='Órgão Exp. RG')
-    te_numero = models.CharField(max_length=255, blank=True, null=True, verbose_name='Num. Título de Eleitor')
-    te_secao = models.CharField(max_length=255, blank=True, null=True, verbose_name='Seção Título de Eleitor')
-    te_zona = models.CharField(max_length=255, blank=True, null=True, verbose_name='Zona Título de Eleitor')
+    rg_numero = models.IntegerField(blank=True, null=True, verbose_name='Número do RG')
+    rg_orgao_expeditor = models.CharField(max_length=255, blank=True, null=True, verbose_name='Órgão Expedidor do RG')
+    te_numero = models.IntegerField( blank=True, null=True, verbose_name='numero Título de Eleitor')
+    te_secao = models.IntegerField( blank=True, null=True, verbose_name='Seção Título de Eleitor')
+    te_zona = models.IntegerField( blank=True, null=True, verbose_name='Zona Título de Eleitor')
 
     def __str__(self):
         return self.id.id.nome

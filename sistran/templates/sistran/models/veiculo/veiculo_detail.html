@@ -19,29 +19,45 @@
     <!-- general form elements -->
     <div class="box box-primary">
       <div class="box-header with-border">
-        <h3 class="box-title">Veiculo</h3>
+        <h3 class="box-title">Proprietário</h3>
       </div><!-- /.box-header -->
       <!-- form start -->
       <div class="box-body veiculo_detail">
         <div class="row">
-          <div class="col-sm-2">Nome</div>
-          <div class="col-sm-10">{{ veiculo.id }}</div>
+          <div class="col-sm-2">Tipo do Veículo</div>
+          <div class="col-sm-10">{{ veiculo.tipo_concessao|upper }}</div>
         </div><br/>
         <div class="row">
-          <div class="col-sm-2">CPF</div>
-          <div class="col-sm-10">{{ veiculo.id }}</div>
+          <div class="col-sm-2">Marca/Modelo</div>
+          <div class="col-sm-10">{{ veiculo.marca_modelo|upper }}</div>
         </div><br/>
         <div class="row">
-          <div class="col-sm-2">Estado Civil</div>
-          <div class="col-sm-10">{{ veiculo.id }}</div>
+          <div class="col-sm-2">Ano</div>
+          <div class="col-sm-10">{{ veiculo.ano|upper }}</div>
         </div><br/>
         <div class="row">
-          <div class="col-sm-2">Sexo</div>
-          <div class="col-sm-10">{{ veiculo.id }}</div>
+          <div class="col-sm-2">Cor</div>
+          <div class="col-sm-10">{{ veiculo.cor|upper }}</div>
         </div><br/>
         <div class="row">
-          <div class="col-sm-2">Núm. RG</div>
-          <div class="col-sm-10">{{ veiculo.id }}</div>
+          <div class="col-sm-2">Chassi</div>
+          <div class="col-sm-10">{{ veiculo.chassi|upper }}</div>
+        </div><br/>
+         <div class="row">
+          <div class="col-sm-2">Quant. de Passageiros</div>
+          <div class="col-sm-10">{{ veiculo.qnt_passageiros|upper }}</div>
+        </div><br/>
+         <div class="row">
+          <div class="col-sm-2">Quant. de Portas</div>
+          <div class="col-sm-10">{{ veiculo.qnt_portas|upper }}</div>
+        </div><br/>
+         <div class="row">
+          <div class="col-sm-2">Placa do Veículo</div>
+          <div class="col-sm-10">{{ veiculo.placa|upper }}</div>
+        </div><br/>
+         <div class="row">
+          <div class="col-sm-2">Categoria</div>
+          <div class="col-sm-10">{{ veiculo.categoria|upper }}</div>
         </div><br/>
       </div>
     </div><!-- /.box -->

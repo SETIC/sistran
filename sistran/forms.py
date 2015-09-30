@@ -22,11 +22,11 @@ class ProprietarioForm(forms.ModelForm):
         fields = ('__all__')
 
 class VeiculoForm(forms.ModelForm):
-    YES_NO =(
-        (False,'Não'),
-        (True,'Sim')
-    )
-    motorista = forms.BooleanField(widget=forms.RadioSelect(choices=YES_NO, attrs={'class':''}))
+    motorista = forms.TypedChoiceField(
+                   coerce=lambda x: x == 'True',
+                   choices=((False, 'Não'), (True, 'Sim')),
+                   widget=forms.RadioSelect
+                )
     class Meta:
         model = Veiculo
         exclude = ['id']

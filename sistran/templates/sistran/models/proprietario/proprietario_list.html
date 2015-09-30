@@ -71,6 +71,9 @@
                   <a class="btn btn-danger btn-sm btn-flat" href="javascript:confirmDelete('{% url "proprietario_remove" pk=proprietario.pk %}')">
                       <i class="fa fa-remove"></i>
                   </a>
+                    <a class="btn btn-info btn-sm btn-flat" href="">
+                    <i class="fa fa-car"></i>
+                  </a>
                 </th>
                 <td><a href="{% url "sistran.views.proprietario_detail" pk=proprietario.pk %}">{{ proprietario.id }}</a></td>
                 <td>{{ proprietario.id.id.id.cpf_cnpj }}</td>

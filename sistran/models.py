@@ -11,16 +11,17 @@ class Anexo(models.Model):
 
 class Proprietario(models.Model):
     id = models.OneToOneField('pessoal.Cidadao', primary_key=True)
-    num_cnh = models.CharField(max_length=255, null=False, blank=False, verbose_name="Num. da CNH")
-    cat_cnh = models.CharField(max_length=255, null=False, blank=False, verbose_name="Cat. da CNH")
+    num_cnh = models.IntegerField(null=False, blank=False, verbose_name="Numero da CNH")
+    cat_cnh = models.IntegerField(null=False, blank=False, verbose_name="Categoria da CNH")
 
     def __str__(self):
         return self.id.id.id.nome
 
 class Motorista(models.Model):
     id = models.OneToOneField('pessoal.Cidadao', primary_key=True)
-    num_cnh = models.CharField(max_length=255, null=False , blank=False, verbose_name="Num. da CNH")
-    cat_cnh = models.CharField(max_length=255, null=False, blank=False, verbose_name="Cat. da CNH")
+    num_cnh = models.IntegerField( null=False , blank=False, verbose_name="Numero da CNH")
+    CATEGORIA_CHOICES = (("A", "A"), ("B","B"), ("C","C"), ("D","D"), ("E","E"), ("AB","AB"), ("AC","AC"),("AD","AD"),("AE","AE"), ("ACC", "ACC"))
+    cat_cnh = models.CharField(max_length=255, choices=CATEGORIA_CHOICES, verbose_name="Categoria da CNH")
 
     def __str__(self):
         return self.id.id.id.nome
@@ -35,13 +36,13 @@ class Veiculo(models.Model):
     TIPO_CONCESSAO_CHOICES = (("taxi","Táxi"), ("alternativo","Alternativo"), ("escolar","Escolar"), ("frete","Frete"))
     tipo_concessao = models.CharField(max_length=20, choices=TIPO_CONCESSAO_CHOICES, verbose_name='Tipo do Veículo')
     marca_modelo = models.CharField(max_length=255, null = False, verbose_name='Marca/Modelo do Veículo')
-    ano = models.DateField(verbose_name='Ano do Veículo')
+    ano = models.IntegerField(verbose_name='Ano do Veículo')
     cor = models.CharField(max_length=255, blank=False, verbose_name='Cor do Veículo')
     chassi = models.CharField(max_length=255, blank=False, verbose_name='Chassi do Veículo')
     qnt_passageiros = models.IntegerField(verbose_name='Quant. de Passageiros')
     qnt_portas = models.IntegerField(blank=False, verbose_name='Quant. de Portas')
     placa = models.CharField(max_length=8, blank = False, verbose_name='Placa do Veículo')
-    motorista = models.BooleanField(verbose_name='Prorpietário é Motorista desse Veículo?')
+    motorista = models.BooleanField(verbose_name='Proprietário é Motorista desse Veículo?')
     #obs: o proprietário pode ser também o motorista de um veículo
     #O QUE É CATEGORIA????
     CATEGORIA_CHOICES = (("oficial","Oficial"), ("representacao_diplomatica","Representação Diplomática"), ("particular","Particular"), ("aluguel","Aluguel"), ("aprendizagem","Aprendizagem"))
