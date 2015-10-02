@@ -2,11 +2,13 @@
 {% load staticfiles %}
 
 {% block title %}
-    Lista de Cobradores - SISTRAN
+    Lista de Vistoria - SISTRAN
 {% endblock %}
 
 {% block css-dashboard %}{% endblock %}
-{% block style-login %}{% endblock %}
+{% block style-login %}
+
+{% endblock %}
 
 {% block wrapper %}
 <div class="wrapper">
@@ -23,12 +25,12 @@
     {% block content-header %}
     <section class="content-header">
       <h1>
-        Cobradores
+        Veículos
         <small>Visualização e Gerenciamento</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="/sistran/"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Cobradores</li>
+        <li class="active">Veículos</li>
       </ol>
     </section>
     {% endblock %}
@@ -55,27 +57,22 @@
             <thead>
               <tr>
                 <th>Opções</th>
-                <th>Nome</th>
-                <th>CPF</th>
-                <th>Número CNH</th>
-                <th>Categoria CNH</th>
+                <th>Marca</th>
+                <th>Placa</th>
+                <th>Proprietário</th>
+                <th>Categoria Veículo</th>
               </tr>
             </thead>
             <tbody>
-            {% for cobrador in cobradores %}
+            {% for vistoria in vistorias %}
               <tr>
                 <th>
-                  <a class="btn btn-primary btn-sm btn-flat" href="{% url "cobrador_edit" pk=cobrador.pk %}">
-                    <i class="fa fa-pencil"></i>
-                  </a>
-                  <a class="btn btn-danger btn-sm btn-flat" href="javascript:confirmDelete('{% url "cobrador_remove" pk=cobrador.pk %}')">
-                      <i class="fa fa-remove"></i>
-                  </a>
+
                 </th>
-                <td><a href="{% url "sistran.views.cobrador_detail" pk=cobrador.pk %}">{{ cobrador.id }}</a></td>
-                <td>{{ cobrador.id.id.id.cpf_cnpj }}</td>
-                <td>{{ cobrador.num_cnh }}</td>
-                <td>{{ cobrador.cat_cnh }}</td>
+                <td>{{ vistoria.data }}</td>
+                <td>{{ vistoria.id }}</td>
+                <td>{{ vistoria.veiculo.placa }}</td>
+                <td>{{ vistoria.aprovado }}</td>
               </tr>
             {% endfor %}
             </tbody>
@@ -121,14 +118,14 @@
           </div>
         </div>
       </div><!--/.col (left) -->
-      <a href="{% url "sistran.views.cobrador_new" %}" class="btn btn-success btn-flat"><i class="fa fa-plus"></i>
-        Adicionar Cobrador
+      <a href="{% url "sistran.views.vistoria_new" %}" class="btn btn-success btn-flat"><i class="fa fa-plus"></i>
+        Adicionar Vistoria
       </a>
       <!-- right column -->
     </section>
     <script>
       function confirmDelete(deleteUrl) {
-        if (confirm("Tem certeza de que deseja excluir este Cobrador?")) {
+        if (confirm("Tem certeza de que deseja excluir esta Vistoria?")) {
           document.location = deleteUrl;
         }
       }

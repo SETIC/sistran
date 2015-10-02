@@ -33,7 +33,7 @@ class Veiculo(models.Model):
     id = models.AutoField(primary_key=True)
     id_proprietario = models.ForeignKey('Proprietario', verbose_name='Proprietário do Veículo')
     data_posse = models.DateField(auto_now=True)
-    TIPO_CONCESSAO_CHOICES = (("taxi","Táxi"), ("alternativo","Alternativo"), ("escolar","Escolar"), ("frete","Frete"))
+    TIPO_CONCESSAO_CHOICES = (("TÁXI","TÁXI"), ("ALTERNATIVO","ALTERNATIVO"), ("ESCOLAR","ESCOLAR"), ("FRETE","FRETE"))
     tipo_concessao = models.CharField(max_length=20, choices=TIPO_CONCESSAO_CHOICES, verbose_name='Tipo do Veículo')
     marca_modelo = models.CharField(max_length=255, null = False, verbose_name='Marca/Modelo do Veículo')
     ano = models.IntegerField(verbose_name='Ano do Veículo')
@@ -42,12 +42,14 @@ class Veiculo(models.Model):
     qnt_passageiros = models.IntegerField(verbose_name='Quant. de Passageiros')
     qnt_portas = models.IntegerField(blank=False, verbose_name='Quant. de Portas')
     placa = models.CharField(max_length=8, blank = False, verbose_name='Placa do Veículo')
-    motorista = models.BooleanField(verbose_name='Proprietário é Motorista desse Veículo?')
+    motorista = models.BooleanField(verbose_name='Proprietário é Motorista desse Veículo ?')
     #obs: o proprietário pode ser também o motorista de um veículo
     #O QUE É CATEGORIA????
-    CATEGORIA_CHOICES = (("oficial","Oficial"), ("representacao_diplomatica","Representação Diplomática"), ("particular","Particular"), ("aluguel","Aluguel"), ("aprendizagem","Aprendizagem"))
+    CATEGORIA_CHOICES = (("OFICIAL","OFICIAL"), ("REPRESENTAÇÃO DIPLOMÁTICA","REPRESENTAÇÃO DIPLOMÁTICA"), ("PARTICULAR","PARTICULAR"), ("ALUGUEL","ALUGUEL"), ("APRENDIZAGEM","APRENDIZAGEM"))
     categoria = models.CharField(max_length=50, choices=CATEGORIA_CHOICES, verbose_name='Categoria do Veículo')
 
+    def __str__(self):
+        return self.marca_modelo + " - " + self.placa
 	#essa classe é importate haja vista que precisaremos manter um históricos de todos os proprietários
 	#que um veículo já teve desde o início.
 	#Considerando que um veículo so pode ter apenas 1 dono por vez então essa regra de negócio deverá ser
@@ -92,16 +94,15 @@ class VeiculoTemCobrador(models.Model):
 #essa classe armazenará cada item analisado em uma vistória, como farol, parachoque, velocímetro...
 #isso evitará problemas caso novos itens surjam após a finalização da ferramenta
 class VistoriaItem(models.Model):
-	id = models.BigIntegerField(primary_key=True)
+	id = models.AutoField(primary_key=True)
 	nome_item = models.CharField(max_length=255)
 
 class Vistoria(models.Model):
 	id = models.AutoField(primary_key=True)
 	veiculo = models.ForeignKey('Veiculo')
-	data = models.DateField(blank= False, null = False)
-	#estudar se esse campo é realmetne util, haja vista que temos o status (aprovado ou reprovado de cada item em cada vistoria)
-	aprovado = models.BooleanField()#verificar se campos bolleans recebem algum argumento
-	observacao = models.CharField(max_length=255)
+	data = models.DateField(blank=False, null=False)
+	aprovado = models.BooleanField()
+	observacao = models.TextField(max_length=255)
 
 class VistoriaTemVistoriaItem(models.Model):
 	id_vistoria_item = models.ForeignKey('VistoriaItem')

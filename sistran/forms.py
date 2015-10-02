@@ -25,9 +25,22 @@ class VeiculoForm(forms.ModelForm):
     motorista = forms.TypedChoiceField(
                    coerce=lambda x: x == 'True',
                    choices=((False, 'Não'), (True, 'Sim')),
-                   widget=forms.RadioSelect
+                   widget=forms.RadioSelect,
+                   label='O Proprietário é Motorista desse Veículo?'
                 )
     class Meta:
         model = Veiculo
+        exclude = ['id']
+        fields = ('__all__')
+
+class VistoriaForm(forms.ModelForm):
+    aprovado = forms.TypedChoiceField(
+                   coerce=lambda x: x == 'True',
+                   choices=((False, 'Não'), (True, 'Sim')),
+                   widget=forms.RadioSelect,
+                   label='Veículo aprovado?'
+                )
+    class Meta:
+        model = Vistoria
         exclude = ['id']
         fields = ('__all__')

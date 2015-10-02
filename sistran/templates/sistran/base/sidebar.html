@@ -25,14 +25,14 @@
     </form>
     <!-- /.search form -->
     <!-- sidebar menu: : style can be found in sidebar.less -->
-    <ul class="sidebar-menu">
+    <ul id="sidebar" class="sidebar-menu">
       <li class="header">MAIN NAVIGATION</li>
-      <li class="active">
+      <li id="dashboard" class="active">
         <a href="/sistran/">
           <i class="fa fa-dashboard"></i> <span>Dashboard</span> <small class="label pull-right bg-green">new</small>
         </a>
       </li>
-      <li class="treeview">
+      <li id="administrativo" class="treeview">
         <a href="#">
           <i class="fa fa-users"></i> <span>Administrativo</span> <i class="fa fa-angle-left pull-right"></i>
         </a>
@@ -42,13 +42,13 @@
           <li><a href="/sistran/proprietario/"><i class="fa fa-circle-o"></i> Proprietários</a></li>
         </ul>
       </li>
-      <li class="treeview">
+      <li id="transito" class="treeview">
         <a href="#">
           <i class="fa fa-car"></i> <span>Trânsito</span> <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
-          <li><a href="/sistran/cobrador/"><i class="fa fa-circle-o"></i> Veículos</a></li>
-          <li><a href="/sistran/motorista/"><i class="fa fa-circle-o"></i> Vistorias</a></li>
+          <li><a href="/sistran/veiculo/"><i class="fa fa-circle-o"></i> Veículos</a></li>
+          <li><a href="/sistran/vistoria/"><i class="fa fa-circle-o"></i> Vistorias</a></li>
         </ul>
       </li>
     </ul>

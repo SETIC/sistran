@@ -322,3 +322,34 @@ def veiculo_remove(request, pk):
     veiculo = get_object_or_404(Veiculo, pk=pk)
     veiculo.delete()
     return redirect('sistran.views.veiculo_list')
+
+# CRUD Vistoria
+
+@login_required
+def vistoria_list(request):
+    vistorias = Vistoria.objects.all()
+    return render(request, 'sistran/models/vistoria/vistoria_list.html', {'vistorias': vistorias})
+
+@login_required
+def vistoria_detail(request, pk):
+    vistoria = get_object_or_404(Vistoria, pk=pk)
+    return render(request, 'sistran/models/vistoria/vistoria_detail.html', {'vistoria': vistoria})
+
+@login_required
+def vistoria_new(request):
+    if request.method == "POST":
+        formVistoria = VistoriaForm(request.POST)
+
+        if formVistoria.is_valid():
+            vistoria = formVistoria.save(commit=False)
+            vistoria.save()
+            return redirect('sistran.views.vistoria_detail', pk=vistoria.pk)
+        else:
+            return render_to_response('sistran/models/vistoria/vistoria_edit.html',
+                {'form': formVistoria, 'error':'error'},
+                context_instance=RequestContext(request))
+    else:
+        formVistoria = VistoriaForm()
+        vistoriaItens = VistoriaItem.objects.all()
+        return render(request, 'sistran/models/vistoria/vistoria_edit.html',
+            {'form': formVistoria, 'listVistoriaItens': vistoriaItens})
