@@ -22,8 +22,6 @@
     <link rel="stylesheet" href="{% static "css/skins/skin-green.min.css" %}">
     {% block style-login %}
     <style>
-
-
       .login-page, register-page {
         background: #D2DED4;
       }
@@ -71,6 +69,14 @@
     {% endblock %}
     <style>
       #sidebar .active { color: #fff !important;}
+      ul#id_motorista, ul#id_aprovado {
+        list-style: none;
+        padding-left: 0;
+      }
+      .errorlist {
+        list-style: none;
+        padding-left: 0;
+      }
     </style>
   </head>
   <body class="{% block bodyclass %}hold-transition skin-green sidebar-mini{% endblock %}">
@@ -120,10 +126,8 @@
     <script type="text/javascript">
       jQuery(function(){
         var url = window.location.pathname,
-        urlRegExp = new RegExp(url.replace(/\/$/,'') + "$"); // create regexp to match current url pathname and remove trailing slash if present as it could collide with the link in navigation in case trailing slash wasn't present there
-        // now grab every link from the navigation
+        urlRegExp = new RegExp(url.replace(/\/$/,'') + "$");
         jQuery('.sidebar-menu a').each(function(){
-          // and test its normalized href against the url pathname regexp
           if(urlRegExp.test(this.href.replace(/\/$/,''))){
             jQuery(this).addClass('active');
           }
