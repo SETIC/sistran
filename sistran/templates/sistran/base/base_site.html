@@ -22,8 +22,6 @@
     <link rel="stylesheet" href="{% static "css/skins/skin-green.min.css" %}">
     {% block style-login %}
     <style>
-
-
       .login-page, register-page {
         background: #D2DED4;
       }
@@ -69,6 +67,17 @@
       }
     </style>
     {% endblock %}
+    <style>
+      #sidebar .active { color: #fff !important;}
+      ul#id_motorista, ul#id_aprovado {
+        list-style: none;
+        padding-left: 0;
+      }
+      .errorlist {
+        list-style: none;
+        padding-left: 0;
+      }
+    </style>
   </head>
   <body class="{% block bodyclass %}hold-transition skin-green sidebar-mini{% endblock %}">
     {% block wrapper %}
@@ -119,6 +128,14 @@
     <script type="text/javascript">
       jQuery(function($){
        $("#id_cpf_cnpj").mask("999.999.999-99",{placeholder:"  "});
+      jQuery(function(){
+        var url = window.location.pathname,
+        urlRegExp = new RegExp(url.replace(/\/$/,'') + "$");
+        jQuery('.sidebar-menu a').each(function(){
+          if(urlRegExp.test(this.href.replace(/\/$/,''))){
+            jQuery(this).addClass('active');
+          }
+        });
       });
     </script>
   </body>

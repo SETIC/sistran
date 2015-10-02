@@ -121,12 +121,12 @@
                 <div class="col-sm-10">
                       {% if  field.name == 'motorista'%}
                           <div class="radio">
-                             {{ field|addcss:'' }}
+                             {{ field|addcss:'form-radio' }}
                           </div>
                       {% else %}
                           {{ field|addcss:'form-control' }}
                       {% endif %}
-                  <p class="text-red">{{ field.errors }}</p>
+                  <div class="text-red">{{ field.errors }}</div>
                 </div>
                 <br/>
               </div>

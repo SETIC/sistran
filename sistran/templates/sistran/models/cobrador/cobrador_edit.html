@@ -7,15 +7,7 @@
 {% endblock %}
 
 {% block css-dashboard %}{% endblock %}
-{% block style-login %}
-<style type="text/css" media="screen">
-    .form-control{
-        text-transform: uppercase;
-
-    }
-</style>
-
-{% endblock %}
+{% block style-login %}{% endblock %}
 
 {% block wrapper %}
 <div class="wrapper">
@@ -119,7 +111,7 @@
                 </label>
                 <div class="col-sm-10">
                   {{ fieldPessoa|addcss:'form-control' }}
-                  <p class="text-red">{{ fieldPessoa.errors }}</p>
+                  <div class="text-red">{{ fieldPessoa.errors }}</div>
                 </div>
                 <br/>
               </div>
@@ -131,7 +123,7 @@
                 </label>
                 <div class="col-sm-10">
                   {{ fieldPessoaFisica|addcss:'form-control' }}
-                  <p class="text-red">{{ fieldPessoaFisica.errors }}</p>
+                  <div class="text-red">{{ fieldPessoaFisica.errors }}</div>
                 </div>
                 <br/>
               </div>
@@ -143,7 +135,7 @@
                 </label>
                 <div class="col-sm-10">
                   {{ fieldCidadao|addcss:'form-control' }}
-                  <p class="text-red">{{ fieldCidadao.errors }}</p>
+                  <div class="text-red">{{ fieldCidadao.errors }}</div>
                 </div>
                 <br/>
               </div>
@@ -155,7 +147,7 @@
                 </label>
                 <div class="col-sm-10">
                   {{ field|addcss:'form-control' }}
-                  <p class="text-red">{{ field.errors }}</p>
+                  <div class="text-red">{{ field.errors }}</div>
                 </div>
                 <br/>
               </div>
