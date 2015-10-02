@@ -19,7 +19,7 @@ class Proprietario(models.Model):
 
 class Motorista(models.Model):
     id = models.OneToOneField('pessoal.Cidadao', primary_key=True)
-    num_cnh = models.IntegerField( null=False , blank=False, verbose_name="Numero da CNH")
+    num_cnh = models.BigIntegerField(null=False , blank=False, verbose_name="Numero da CNH")
     CATEGORIA_CHOICES = (("A", "A"), ("B","B"), ("C","C"), ("D","D"), ("E","E"), ("AB","AB"), ("AC","AC"),("AD","AD"),("AE","AE"), ("ACC", "ACC"))
     cat_cnh = models.CharField(max_length=255, choices=CATEGORIA_CHOICES, verbose_name="Categoria da CNH")
 
