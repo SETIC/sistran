@@ -99,9 +99,11 @@
       {% block footer %}
       {% endblock %}
     </div><!-- ./wrapper -->
-    {% endblock %}
+    {% endblock %}   
     <!-- jQuery 2.1.4 -->
     <script src="{% static "plugins/jQuery/jQuery-2.1.4.min.js" %}"></script>
+     <!--jQuery Masked Input -->
+    <script src="{% static "js/jquery.maskedinput.min.js" %}"></script>
     <!-- Bootstrap 3.3.5 -->
     <script src="{% static "js/bootstrap.min.js" %}"></script>
     <!-- FastClick -->
@@ -124,6 +126,8 @@
     <script src="{% static "js/demo.js" %}"></script>
     {% endblock %}
     <script type="text/javascript">
+      jQuery(function($){
+       $("#id_cpf_cnpj").mask("999.999.999-99",{placeholder:"  "});
       jQuery(function(){
         var url = window.location.pathname,
         urlRegExp = new RegExp(url.replace(/\/$/,'') + "$");
