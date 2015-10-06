@@ -107,11 +107,6 @@ class Vistoria(models.Model):
 class VistoriaTemVistoriaItem(models.Model):
 	id_vistoria_item = models.ForeignKey('VistoriaItem')
 	id_vistoria = models.ForeignKey('Vistoria')
-	STATUS_VISTORIA_ITEM_CHOICES = (
-		("Aprovado","Aprovado"),
-		("Reprovado","Reprovado")
-		)
-	status = models.CharField(max_length=20,choices=STATUS_VISTORIA_ITEM_CHOICES)
 
 class Reclamacao(models.Model):
 	id = models.BigIntegerField(primary_key=True)

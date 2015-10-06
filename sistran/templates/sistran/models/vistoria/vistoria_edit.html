@@ -74,10 +74,16 @@
               </label>
               <div class="row">
                 <div class="col-sm-4">
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="ck" value="allcheck" onclick="checkAll(this)">
+                      SELECIONAR TODOS
+                    </label>
+                  </div>
                 {% for field in listVistoriaItens|slice:":17" %}
                   <div class="checkbox">
                     <label>
-                      <input type="checkbox" value="{{ field.id }}">
+                      <input type="checkbox" name="ck" value="{{ field.id }}">
                       {{ field.nome_item }}
                     </label>
                   </div>
@@ -87,7 +93,7 @@
                 {% for field in listVistoriaItens|slice:"17:" %}
                   <div class="checkbox">
                     <label>
-                      <input type="checkbox" value="{{ field.id }}">
+                      <input type="checkbox" name="ck" value="{{ field.id }}">
                       {{ field.nome_item }}
                     </label>
                   </div>
@@ -110,6 +116,16 @@
   {% block footer %}
   {% include "sistran/base/footer.html" %}
   {% endblock %}
+  <script>
+    function checkAll(bx) {
+      var cbs = document.getElementsByTagName('input');
+      for(var i=0; i < cbs.length; i++) {
+        if(cbs[i].type == 'checkbox') {
+          cbs[i].checked = bx.checked;
+        }
+      }
+    }
+  </script>
 </div>
 {% endblock %}
 {% block js-dashboard %}{% endblock %}
