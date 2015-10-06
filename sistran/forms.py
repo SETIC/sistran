@@ -3,6 +3,8 @@ from django import forms
 from django.forms import extras
 import datetime
 from .models import *
+from django.forms import extras
+import datetime
 
 
 class MotoristaForm(forms.ModelForm):
@@ -37,7 +39,7 @@ class VeiculoForm(forms.ModelForm):
 
 class VistoriaForm(forms.ModelForm):
     data = forms.DateField(widget=extras.SelectDateWidget(
-        years=range(2000,datetime.date.today().year+1),
+        years=range(1990, datetime.date.today().year+1),        
         attrs={'class': 'form-control', 'style':'max-width:100px; float:left;'}))
     aprovado = forms.TypedChoiceField(
                    coerce=lambda x: x == 'True',

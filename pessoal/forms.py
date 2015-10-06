@@ -1,6 +1,5 @@
 from django import forms
 from localflavor.br.forms import BRCPFField
-from input_mask.contrib.localflavor.br.widgets import BRCPFInput
 from django.forms import extras
 import datetime
 from .models import *
@@ -13,7 +12,7 @@ class PessoaForm(forms.ModelForm):
     data_de_nascimento = forms.DateField(widget=extras.SelectDateWidget(
         years=range(1920,datetime.date.today().year-17),
         attrs={'class': 'form-control', 'style':'max-width:100px; float:left;'}))
-    cpf_cnpj =  BRCPFField(label='CPF', widget=BRCPFInput)
+    cpf_cnpj =  BRCPFField(label='CPF')
     class Meta:
         model=Pessoa
         exclude = ['id']

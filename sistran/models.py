@@ -19,7 +19,7 @@ class Proprietario(models.Model):
 
 class Motorista(models.Model):
     id = models.OneToOneField('pessoal.Cidadao', primary_key=True)
-    num_cnh = models.IntegerField( null=False , blank=False, verbose_name="Numero da CNH")
+    num_cnh = models.BigIntegerField(null=False , blank=False, verbose_name="Numero da CNH")
     CATEGORIA_CHOICES = (("A", "A"), ("B","B"), ("C","C"), ("D","D"), ("E","E"), ("AB","AB"), ("AC","AC"),("AD","AD"),("AE","AE"), ("ACC", "ACC"))
     cat_cnh = models.CharField(max_length=255, choices=CATEGORIA_CHOICES, verbose_name="Categoria da CNH")
 
@@ -36,7 +36,7 @@ class Veiculo(models.Model):
     TIPO_CONCESSAO_CHOICES = (("TÁXI","TÁXI"), ("ALTERNATIVO","ALTERNATIVO"), ("ESCOLAR","ESCOLAR"), ("FRETE","FRETE"))
     tipo_concessao = models.CharField(max_length=20, choices=TIPO_CONCESSAO_CHOICES, verbose_name='Tipo do Veículo')
     marca_modelo = models.CharField(max_length=255, null = False, verbose_name='Marca/Modelo do Veículo')
-    ano = models.IntegerField(verbose_name='Ano do Veículo')
+    ano = models.DateField(verbose_name='Ano do Veículo')
     cor = models.CharField(max_length=255, blank=False, verbose_name='Cor do Veículo')
     chassi = models.CharField(max_length=255, blank=False, verbose_name='Chassi do Veículo')
     qnt_passageiros = models.IntegerField(verbose_name='Quant. de Passageiros')
