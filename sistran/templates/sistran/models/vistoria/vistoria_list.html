@@ -25,12 +25,12 @@
     {% block content-header %}
     <section class="content-header">
       <h1>
-        Veículos
+        Vistorias
         <small>Visualização e Gerenciamento</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="/sistran/"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Veículos</li>
+        <li class="active">Vistoria</li>
       </ol>
     </section>
     {% endblock %}
@@ -57,10 +57,11 @@
             <thead>
               <tr>
                 <th>Opções</th>
-                <th>Marca</th>
+                <th>Veículo</th>
+                <th>Data</th>
                 <th>Placa</th>
-                <th>Proprietário</th>
-                <th>Categoria Veículo</th>
+                <th>Aprovado</th>
+                <th>Observacao</th>
               </tr>
             </thead>
             <tbody>
@@ -69,10 +70,11 @@
                 <th>
 
                 </th>
+                <td>{{ vistoria.veiculo }}</td>
                 <td>{{ vistoria.data }}</td>
-                <td>{{ vistoria.id }}</td>
                 <td>{{ vistoria.veiculo.placa }}</td>
                 <td>{{ vistoria.aprovado }}</td>
+                <td>{{ vistoria.observacao }}</td>
               </tr>
             {% endfor %}
             </tbody>

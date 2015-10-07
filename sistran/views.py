@@ -356,17 +356,22 @@ def vistoria_detail(request, pk):
 def vistoria_new(request):
     if request.method == "POST":
         formVistoria = VistoriaForm(request.POST)
-
         if formVistoria.is_valid():
             vistoria = formVistoria.save(commit=False)
             vistoria.save()
+            for check in request.POST.getlist('ck'):
+                vistoriaItem = get_object_or_404(VistoriaItem, pk=check)
+                vistoriaTemVistoriaItem = VistoriaTemVistoriaItem()
+                vistoriaTemVistoriaItem.id_vistoria_item = vistoriaItem
+                vistoriaTemVistoriaItem.id_vistoria = vistoria
+                vistoriaTemVistoriaItem.save()
             return redirect('sistran.views.vistoria_detail', pk=vistoria.pk)
         else:
             return render_to_response('sistran/models/vistoria/vistoria_edit.html',
                 {'form': formVistoria, 'error':'error'},
                 context_instance=RequestContext(request))
     else:
-        formVistoria = VistoriaForm()
+        formVistoria = VistoriaForm(initial={'aprovado': False})
         vistoriaItens = VistoriaItem.objects.all()
         return render(request, 'sistran/models/vistoria/vistoria_edit.html',
             {'form': formVistoria, 'listVistoriaItens': vistoriaItens})
