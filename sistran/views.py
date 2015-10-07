@@ -1,6 +1,6 @@
 import pdb
 from django.shortcuts import render, redirect, get_object_or_404, render_to_response
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import permission_required, user_passes_test, login_required
 from django.template import RequestContext
 from django.utils import timezone
 from .models import *
@@ -11,6 +11,10 @@ from pessoal.views import *
 @login_required
 def home(request):
     return render(request, 'sistran/index.html', {})
+
+@login_required
+def permission_denied(request):
+    return render(request, 'sistran/permission_denied.html', {})
 
 # CRUD MOTORISTA
 
@@ -25,6 +29,7 @@ def motorista_detail(request, pk):
     return render(request, 'sistran/models/motorista/motorista_detail.html', {'motorista': motorista})
 
 @login_required
+@permission_required('sistran.add_motorista',login_url='/sistran/permission_denied/')
 def motorista_new(request):
     if request.method == "POST":
         formMotorista = MotoristaForm(request.POST)
@@ -50,6 +55,7 @@ def motorista_new(request):
             {'form': formMotorista, 'cidadaoForm':formCidadao, 'pessoaFisicaForm':formPessoaFisica, 'pessoaForm':formPessoa})
 
 @login_required
+@permission_required('sistran.change_motorista',login_url='/sistran/permission_denied/')
 def motorista_edit(request, pk):
     motorista = get_object_or_404(Motorista, pk=pk)
     cidadao = get_object_or_404(Cidadao, pk=pk)
@@ -90,6 +96,7 @@ def motorista_edit(request, pk):
             {'form': formMotorista, 'cidadaoForm':formCidadao, 'pessoaFisicaForm':formPessoaFisica, 'pessoaForm':formPessoa})
 
 @login_required
+@permission_required('sistran.delete_motorista',login_url='/sistran/permission_denied/')
 def motorista_remove(request, pk):
 
     pessoa = get_object_or_404(Pessoa, pk=pk)
@@ -110,6 +117,7 @@ def cobrador_detail(request, pk):
     return render(request, 'sistran/models/cobrador/cobrador_detail.html', {'cobrador': cobrador})
 
 @login_required
+@permission_required('sistran.add_cobrador',login_url='/sistran/permission_denied/')
 def cobrador_new(request):
     if request.method == "POST":
         formCobrador = CobradorForm(request.POST)
@@ -135,6 +143,7 @@ def cobrador_new(request):
             {'form': formCobrador, 'cidadaoForm':formCidadao, 'pessoaFisicaForm':formPessoaFisica, 'pessoaForm':formPessoa})
 
 @login_required
+@permission_required('sistran.change_cobrador',login_url='/sistran/permission_denied/')
 def cobrador_edit(request, pk):
     cobrador = get_object_or_404(Cobrador, pk=pk)
     cidadao = get_object_or_404(Cidadao, pk=pk)
@@ -175,6 +184,7 @@ def cobrador_edit(request, pk):
             {'form': formCobrador, 'cidadaoForm':formCidadao, 'pessoaFisicaForm':formPessoaFisica, 'pessoaForm':formPessoa})
 
 @login_required
+@permission_required('sistran.delete_cobrador',login_url='/sistran/permission_denied/')
 def cobrador_remove(request, pk):
 
     pessoa = get_object_or_404(Pessoa, pk=pk)
@@ -195,6 +205,7 @@ def proprietario_detail(request, pk):
     return render(request, 'sistran/models/proprietario/proprietario_detail.html', {'proprietario': proprietario})
 
 @login_required
+@permission_required('sistran.add_proprietario',login_url='/sistran/permission_denied/')
 def proprietario_new(request):
     if request.method == "POST":
         formProprietario = ProprietarioForm(request.POST)
@@ -220,6 +231,7 @@ def proprietario_new(request):
             {'form': formProprietario, 'cidadaoForm':formCidadao, 'pessoaFisicaForm':formPessoaFisica, 'pessoaForm':formPessoa})
 
 @login_required
+@permission_required('sistran.change_proprietario',login_url='/sistran/permission_denied/')
 def proprietario_edit(request, pk):
     proprietario = get_object_or_404(Proprietario, pk=pk)
     cidadao = get_object_or_404(Cidadao, pk=pk)
@@ -260,6 +272,7 @@ def proprietario_edit(request, pk):
             {'form': formProprietario, 'cidadaoForm':formCidadao, 'pessoaFisicaForm':formPessoaFisica, 'pessoaForm':formPessoa})
 
 @login_required
+@permission_required('sistran.delete_proprietario',login_url='/sistran/permission_denied/')
 def proprietario_remove(request, pk):
 
     pessoa = get_object_or_404(Pessoa, pk=pk)
@@ -280,6 +293,7 @@ def veiculo_detail(request, pk):
     return render(request, 'sistran/models/veiculo/veiculo_detail.html', {'veiculo': veiculo})
 
 @login_required
+@permission_required('sistran.add_veiculo',login_url='/sistran/permission_denied/')
 def veiculo_new(request):
     if request.method == "POST":
         formVeiculo = VeiculoForm(request.POST)
@@ -298,6 +312,7 @@ def veiculo_new(request):
             {'form': formVeiculo})
 
 @login_required
+@permission_required('sistran.change_veiculo',login_url='/sistran/permission_denied/')
 def veiculo_edit(request, pk):
     veiculo = get_object_or_404(Veiculo, pk=pk)
     if request.method == "POST":
@@ -318,6 +333,7 @@ def veiculo_edit(request, pk):
             {'form': formVeiculo})
 
 @login_required
+@permission_required('sistran.delete_veiculo',login_url='/sistran/permission_denied/')
 def veiculo_remove(request, pk):
     veiculo = get_object_or_404(Veiculo, pk=pk)
     veiculo.delete()
@@ -336,6 +352,7 @@ def vistoria_detail(request, pk):
     return render(request, 'sistran/models/vistoria/vistoria_detail.html', {'vistoria': vistoria})
 
 @login_required
+@permission_required('sistran.add_vistoria',login_url='/sistran/permission_denied/')
 def vistoria_new(request):
     if request.method == "POST":
         formVistoria = VistoriaForm(request.POST)

@@ -3,6 +3,7 @@ from . import views
 
 urlpatterns = [
     url(r'^sistran/$', views.home),
+    url(r'^sistran/permission_denied/$', views.permission_denied),
     url(r'^sistran/motorista/', include([
             url(r'^$', views.motorista_list),
             url(r'^(?P<pk>[0-9]+)/$', views.motorista_detail),
