@@ -104,6 +104,8 @@
     <script src="{% static "plugins/jQuery/jQuery-2.1.4.min.js" %}"></script>
      <!--jQuery Masked Input -->
     <script src="{% static "js/jquery.maskedinput.min.js" %}"></script>
+    <!-- Jets Search Engine -->
+    <script src="{% static "js/jets.min.js" %}"></script>
     <!-- Bootstrap 3.3.5 -->
     <script src="{% static "js/bootstrap.min.js" %}"></script>
     <!-- FastClick -->
@@ -135,6 +137,12 @@
        jQuery(function($){
       $("#id_placa").mask("aaa-9999 ");    
       });
+    </script>
+    <script>
+        var jets = new Jets({
+          searchTag: '#jetsSearch',
+          contentTag: '#jetsContent'
+        });
     </script>
   </body>
 </html>

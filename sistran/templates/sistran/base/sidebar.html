@@ -17,7 +17,7 @@
     <!-- search form -->
     <form action="#" method="get" class="sidebar-form">
       <div class="input-group">
-        <input type="text" name="q" class="form-control" placeholder="Search...">
+        <input type="text" id="jetsSearch" name="q" class="form-control" placeholder="Buscar...">
         <span class="input-group-btn">
           <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
         </span>
@@ -25,7 +25,7 @@
     </form>
     <!-- /.search form -->
     <!-- sidebar menu: : style can be found in sidebar.less -->
-    <ul id="sidebar" class="sidebar-menu">
+    <ul id="jetsContent" class="sidebar-menu">
       <li class="header">MAIN NAVIGATION</li>
       <li id="dashboard" class="active">
         <a href="/sistran/">
@@ -37,18 +37,39 @@
           <i class="fa fa-users"></i> <span>Administrativo</span> <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
-          <li><a href="/sistran/cobrador/"><i class="fa fa-circle-o"></i> Cobradores</a></li>
-          <li><a href="/sistran/motorista/"><i class="fa fa-circle-o"></i> Motoristas</a></li>
-          <li><a href="/sistran/proprietario/"><i class="fa fa-circle-o"></i> Proprietários</a></li>
+          <li>
+             <a href="/sistran/cobrador/">
+                 <i class="fa fa-circle-o"></i> Cobradores
+             </a>
+          </li>
+          <li>
+             <a href="/sistran/motorista/">
+                 <i class="fa fa-circle-o"></i> Motoristas
+             </a>
+          </li>
+          <li>
+              <a href="/sistran/proprietario/">
+                  <i class="fa fa-circle-o"></i> Proprietários
+              </a>
+          </li>
         </ul>
       </li>
       <li id="transito" class="treeview">
         <a href="#">
-          <i class="fa fa-car"></i> <span>Trânsito</span> <i class="fa fa-angle-left pull-right"></i>
+          <i class="fa fa-car"></i> <span>Trânsito</span> 
+          <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
-          <li><a href="/sistran/veiculo/"><i class="fa fa-circle-o"></i> Veículos</a></li>
-          <li><a href="/sistran/vistoria/"><i class="fa fa-circle-o"></i> Vistorias</a></li>
+          <li>
+              <a href="/sistran/veiculo/">
+                  <i class="fa fa-circle-o"></i> Veículos
+              </a>
+          </li>
+          <li>
+              <a href="/sistran/vistoria/">
+                  <i class="fa fa-circle-o"></i> Vistorias
+              </a>
+          </li>
         </ul>
       </li>
     </ul>
