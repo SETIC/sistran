@@ -3,8 +3,6 @@ from django import forms
 from django.forms import extras
 import datetime
 from .models import *
-from django.forms import extras
-import datetime
 
 
 class MotoristaForm(forms.ModelForm):
