@@ -68,6 +68,7 @@
             {% for vistoria in vistorias %}
               <tr>
                 <th>
+                <!-- LEMBRAR DE ADICIONAR PERMISSÃO AQUI CASO ADICIONAR ALGUMA FUNÇAO -->
 
                 </th>
                 <td>{{ vistoria.veiculo }}</td>
@@ -120,9 +121,11 @@
           </div>
         </div>
       </div><!--/.col (left) -->
+       {% if perms.sistran.add_vistoria %}
       <a href="{% url "sistran.views.vistoria_new" %}" class="btn btn-success btn-flat"><i class="fa fa-plus"></i>
         Adicionar Vistoria
       </a>
+      {%endif%}
       <!-- right column -->
     </section>
     <script>

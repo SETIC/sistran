@@ -65,12 +65,16 @@
             {% for proprietario in proprietarios %}
               <tr>
                 <th>
-                  <a class="btn btn-primary btn-sm btn-flat" href="{% url "proprietario_edit" pk=proprietario.pk %}">
-                    <i class="fa fa-pencil"></i>
-                  </a>
-                  <a class="btn btn-danger btn-sm btn-flat" href="javascript:confirmDelete('{% url "proprietario_remove" pk=proprietario.pk %}')">
-                      <i class="fa fa-remove"></i>
-                  </a>
+                {% if perms.sistran.change_proprietario %}
+                      <a class="btn btn-primary btn-sm btn-flat" href="{% url "proprietario_edit" pk=proprietario.pk %}">
+                        <i class="fa fa-pencil"></i>
+                      </a>
+                  {%endif%}
+                  {% if perms.sistran.delete_proprietario %}
+                      <a class="btn btn-danger btn-sm btn-flat" href="javascript:confirmDelete('{% url "proprietario_remove" pk=proprietario.pk %}')">
+                          <i class="fa fa-remove"></i>
+                      </a>
+                  {%endif%}
                     <a class="btn btn-info btn-sm btn-flat" href="">
                     <i class="fa fa-car"></i>
                   </a>
@@ -124,9 +128,11 @@
           </div>
         </div>
       </div><!--/.col (left) -->
-      <a href="{% url "sistran.views.proprietario_new" %}" class="btn btn-success btn-flat"><i class="fa fa-plus"></i>
-        Adicionar Proprietário
-      </a>
+      {% if perms.sistran.add_proprietario %}
+          <a href="{% url "sistran.views.proprietario_new" %}" class="btn btn-success btn-flat"><i class="fa fa-plus"></i>
+            Adicionar Proprietário
+          </a>
+      {%endif%}
       <!-- right column -->
     </section>
     <script>

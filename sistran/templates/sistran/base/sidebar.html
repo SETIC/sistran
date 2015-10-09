@@ -37,39 +37,49 @@
           <i class="fa fa-users"></i> <span>Administrativo</span> <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
-          <li>
-             <a href="/sistran/cobrador/">
-                 <i class="fa fa-circle-o"></i> Cobradores
-             </a>
-          </li>
-          <li>
-             <a href="/sistran/motorista/">
-                 <i class="fa fa-circle-o"></i> Motoristas
-             </a>
-          </li>
-          <li>
-              <a href="/sistran/proprietario/">
-                  <i class="fa fa-circle-o"></i> Proprietários
-              </a>
-          </li>
+         {% if perms.sistran.add_cobrador or perms.sistran.delete_cobradora or perms.sistran.change_cobrador%}
+              <li>
+                 <a href="/sistran/cobrador/">
+                     <i class="fa fa-circle-o"></i> Cobradores
+                 </a>
+              </li>
+          {%endif%}
+          {% if perms.sistran.add_motorista or perms.sistran.delete_motorista or perms.sistran.change_motorista%}
+              <li>
+                 <a href="/sistran/motorista/">
+                     <i class="fa fa-circle-o"></i> Motoristas
+                 </a>
+              </li>
+          {%endif%}
+           {% if perms.sistran.add_proprietario or perms.sistran.delete_proprietario or perms.sistran.change_proprietario%}
+              <li>
+                  <a href="/sistran/proprietario/">
+                      <i class="fa fa-circle-o"></i> Proprietários
+                  </a>
+              </li>
+          {%endif%}
         </ul>
       </li>
       <li id="transito" class="treeview">
         <a href="#">
-          <i class="fa fa-car"></i> <span>Trânsito</span> 
+          <i class="fa fa-car"></i> <span>Trânsito</span>
           <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
-          <li>
-              <a href="/sistran/veiculo/">
-                  <i class="fa fa-circle-o"></i> Veículos
-              </a>
-          </li>
-          <li>
-              <a href="/sistran/vistoria/">
-                  <i class="fa fa-circle-o"></i> Vistorias
-              </a>
-          </li>
+        {% if perms.sistran.add_veiculo or perms.sistran.delete_veiculo or perms.sistran.change_veiculo%}
+            <li>
+                <a href="/sistran/veiculo/">
+                    <i class="fa fa-circle-o"></i> Veículos
+                </a>
+            </li>
+        {%endif%}
+        {% if perms.sistran.add_vistoria or perms.sistran.delete_vistoria or perms.sistran.change_vistoria%}
+            <li>
+                <a href="/sistran/vistoria/">
+                    <i class="fa fa-circle-o"></i> Vistorias
+                </a>
+            </li>
+        {%endif%}
         </ul>
       </li>
     </ul>

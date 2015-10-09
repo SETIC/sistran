@@ -65,12 +65,18 @@
             {% for motorista in motoristas %}
               <tr>
                 <th>
-                  <a class="btn btn-primary btn-sm btn-flat" href="{% url "motorista_edit" pk=motorista.pk %}">
-                    <i class="fa fa-pencil"></i>
-                  </a>
-                  <a class="btn btn-danger btn-sm btn-flat" href="javascript:confirmDelete('{% url "motorista_remove" pk=motorista.pk %}')">
-                      <i class="fa fa-remove"></i>
-                  </a>
+
+                  {% if perms.sistran.change_motorista %}
+                    <a class="btn btn-primary btn-sm btn-flat" href="{% url "motorista_edit" pk=motorista.pk %}">
+                      <i class="fa fa-pencil"></i>
+                    </a>
+                  {% endif %}
+                  {% if perms.sistran.delete_motorista %}
+                    <a class="btn btn-danger btn-sm btn-flat" href="javascript:confirmDelete('{% url "motorista_remove" pk=motorista.pk %}')">
+                        <i class="fa fa-remove"></i>
+                    </a>
+                  {%endif%}
+
                   <a class="btn btn-info btn-sm btn-flat" href="">
                     <i class="fa fa-car"></i>
                   </a>
@@ -124,9 +130,14 @@
           </div>
         </div>
       </div><!--/.col (left) -->
+
+      {% if perms.sistran.add_motorista %}
       <a href="{% url "sistran.views.motorista_new" %}" class="btn btn-success btn-flat"><i class="fa fa-plus"></i>
         Adicionar Motorista
       </a>
+      {%endif%}
+
+
       <!-- right column -->
     </section>
     <script>

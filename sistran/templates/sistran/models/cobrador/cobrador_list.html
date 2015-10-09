@@ -17,7 +17,7 @@
   {% block sidebar %}
   {% include "sistran/base/sidebar.html" %}
   {% endblock %}
-
+{% if perms.sistran.add_proprietario %}
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     {% block content-header %}
@@ -65,12 +65,16 @@
             {% for cobrador in cobradores %}
               <tr>
                 <th>
-                  <a class="btn btn-primary btn-sm btn-flat" href="{% url "cobrador_edit" pk=cobrador.pk %}">
-                    <i class="fa fa-pencil"></i>
-                  </a>
-                  <a class="btn btn-danger btn-sm btn-flat" href="javascript:confirmDelete('{% url "cobrador_remove" pk=cobrador.pk %}')">
-                      <i class="fa fa-remove"></i>
-                  </a>
+                {% if perms.sistran.change_cobrador %}
+                    <a class="btn btn-primary btn-sm btn-flat" href="{% url "cobrador_edit" pk=cobrador.pk %}">
+                      <i class="fa fa-pencil"></i>
+                    </a>
+                {%endif%}
+                {% if perms.sistran.delete_cobrador %}
+                    <a class="btn btn-danger btn-sm btn-flat" href="javascript:confirmDelete('{% url "cobrador_remove" pk=cobrador.pk %}')">
+                        <i class="fa fa-remove"></i>
+                    </a>
+                {%endif%}
                 </th>
                 <td><a href="{% url "sistran.views.cobrador_detail" pk=cobrador.pk %}">{{ cobrador.id }}</a></td>
                 <td>{{ cobrador.id.id.id.cpf_cnpj }}</td>
@@ -121,9 +125,11 @@
           </div>
         </div>
       </div><!--/.col (left) -->
+      {% if perms.sistran.add_cobrador %}
       <a href="{% url "sistran.views.cobrador_new" %}" class="btn btn-success btn-flat"><i class="fa fa-plus"></i>
         Adicionar Cobrador
       </a>
+      {%endif%}
       <!-- right column -->
     </section>
     <script>
