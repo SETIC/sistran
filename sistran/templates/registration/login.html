@@ -15,7 +15,7 @@ SISTRAN | Login
   <div class="login-box-body">
     <p class="login-box-msg">Entre para iniciar a sua sessão</p>
     {% if form.errors %}
-      <p class="text-red text-center">Seu nome de usuário e senha não coincidem. Por favor, tente novamente.</p>
+      <p class="text-red text-center">Nome de usuário ou senha incorretos. Por favor, tente novamente.</p>
     {% endif %}
     <form method="post" action="{% url 'django.contrib.auth.views.login' %}">{% csrf_token %}
       <div class="form-group has-feedback">
