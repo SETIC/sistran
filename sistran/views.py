@@ -10,7 +10,8 @@ from pessoal.views import *
 
 @login_required
 def home(request):
-    return render(request, 'sistran/index.html', {})
+    vistorias = Vistoria.objects.all()
+    return render(request, 'sistran/index.html', {'vistorias': vistorias})
 
 @login_required
 def permission_denied(request):
@@ -345,7 +346,7 @@ def veiculo_remove(request, pk):
 def vistoria_list(request):
     vistorias = Vistoria.objects.all()
     return render(request, 'sistran/models/vistoria/vistoria_list.html', {'vistorias': vistorias})
-
+    
 @login_required
 def vistoria_detail(request, pk):
     vistoria = get_object_or_404(Vistoria, pk=pk)

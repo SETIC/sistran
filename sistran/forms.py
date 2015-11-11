@@ -1,8 +1,8 @@
  # -*- coding: utf8 -*-
 from django import forms
+from .models import *
 from django.forms import extras
 import datetime
-from .models import *
 
 
 class MotoristaForm(forms.ModelForm):

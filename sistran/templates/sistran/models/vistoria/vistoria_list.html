@@ -50,8 +50,9 @@
               </div>
             </div>
           </div>
-        </div><!-- /.box-header -->
-        <!-- form start -->
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->        
         <div class="box-body">
           <table class="table table-hover">
             <thead>
@@ -64,13 +65,9 @@
                 <th>Observacao</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody>            
             {% for vistoria in vistorias %}
               <tr>
-                <th>
-                <!-- LEMBRAR DE ADICIONAR PERMISSÃO AQUI CASO ADICIONAR ALGUMA FUNÇAO -->
-
-                </th>
                 <td>{{ vistoria.veiculo }}</td>
                 <td>{{ vistoria.data }}</td>
                 <td>{{ vistoria.veiculo.placa }}</td>
