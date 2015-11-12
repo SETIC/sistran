@@ -70,10 +70,14 @@
               <tbody> 
                 {% for vistoria in vistorias %}              
                   <tr>
-                    <td><a href="pages/examples/invoice.html">{{ vistoria.veiculo.placa|upper }}</a></td>
+                    <td>{{ vistoria.veiculo.placa|upper }}</a></td>
                     <td>{{ vistoria.veiculo|upper }}</td>
                     <td>{{ vistoria.data  }}</td>
-                    <td>{{ vistoria.aprovado|upper}}</td>
+                    {% if vistoria.aprovado %}
+                      <td><span class="label label-success">Aprovado</span></td>
+                    {% else %}
+                      <td><span class="label label-danger">Reprovado</span></td>
+                    {% endif %}
                   </tr> 
                 {% endfor %}
               </tbody>
