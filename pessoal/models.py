@@ -168,6 +168,10 @@ class Cidadao(models.Model):
     te_numero = models.BigIntegerField(blank=True, null=True, verbose_name='numero Título de Eleitor')
     te_secao = models.IntegerField( blank=True, null=True, verbose_name='Seção Título de Eleitor')
     te_zona = models.IntegerField( blank=True, null=True, verbose_name='Zona Título de Eleitor')
+    num_registro_cnh = models.BigIntegerField(primary_key=True)
+    validade_cnh = models.DateField(auto_now=False)
+    CATEGORIA_CHOICES = (("A", "A"), ("B","B"), ("C","C"), ("D","D"), ("E","E"), ("AB","AB"), ("AC","AC"),("AD","AD"),("AE","AE"), ("ACC", "ACC"))
+    categoria_cnh = models.CharField(max_length=255, choices=CATEGORIA_CHOICES, verbose_name="Categoria da CNH")
 
     def __str__(self):
         return self.id.id.nome
