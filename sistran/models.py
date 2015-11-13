@@ -9,13 +9,17 @@ class Permissao(models.Model):
     data = models.DateField(auto_now=False)
     TIPO_CONCESSAO_CHOICES = (("TÁXI","TÁXI"), ("ALTERNATIVO","ALTERNATIVO"), ("ESCOLAR","ESCOLAR"), ("FRETE","FRETE"))
     tipo_concessao = models.CharField(max_length=20, choices=TIPO_CONCESSAO_CHOICES, verbose_name='Tipo do Veículo')
-    permissionario = models.ForeignKey('Proprietario')
-    veiculo = models.ForeignKey('Veiculo')
 
-class Anexo(models.Model):
+class AnexoCidadao(models.Model):
+    id = models.AutoField(primary_key=True)
+    cidadao = models.ForeignKey('pessoal.Cidadao')
+    nome_documento = models.CharField(max_length=255)
+    caminho = models.FileField()
+    
+class AnexoPermissao(models.Model):
     id = models.AutoField(primary_key=True)
     permissao = models.ForeignKey('Permissao')
-    nome = models.CharField(max_length=255)
+    nome_documento = models.CharField(max_length=255)
     caminho = models.FileField()
     
 class Proprietario(models.Model):
@@ -40,7 +44,6 @@ class Veiculo(models.Model):
     codigo_renavan = models.BigIntegerField(primary_key=True)
     veiculo_proprio = models.BooleanField(default=True)
     exercicio = models.DateField(auto_now=False)
-    proprietario = models.ForeignKey('Proprietario', verbose_name='Proprietário')
     placa = models.CharField(max_length=8, blank=False, verbose_name='Placa do Veículo')
     chassi = models.CharField(max_length=255, blank=False, verbose_name='Chassi do Veículo')
     num_passageiros = models.IntegerField(verbose_name='Número de Passageiros')
@@ -55,7 +58,7 @@ class Veiculo(models.Model):
         return self.marca_modelo + " - " + self.placa
 
 class PermissaoTemProprietario(models.Model):
-    permissao = models.ForeignKey('Permissao')
+    permissao_veiculo = models.ForeignKey('PermissaoTemVeiculo')
     proprietario = models.ForeignKey('Proprietario')
     data_posse = models.DateField(auto_now=True)
     STATUS_CHOICE = (('ATIVO','ATIVO'),	('TRANSFERIDO','TRANSFERIDO'), ('INATIVO','INATIVO'))
@@ -69,15 +72,15 @@ class PermissaoTemVeiculo(models.Model):
     status = models.CharField(max_length=10, choices=STATUS_CHOICE)
 
 class PermissaoTemMotorista(models.Model):
-	permissao = models.ForeignKey('Permissao')
-	motorista = models.ForeignKey('Motorista')
-	data_posse = models.DateField(auto_now=True)
-	STATUS_CHOICE = (('ATIVO','ATIVO'),	('INATIVO','INATIVO'))
-	status = models.CharField(max_length=10, choices=STATUS_CHOICE)
+    permissao_veiculo = models.ForeignKey('PermissaoTemVeiculo')
+    motorista = models.ForeignKey('Motorista')
+    data_posse = models.DateField(auto_now=True)
+    STATUS_CHOICE = (('ATIVO','ATIVO'),	('INATIVO','INATIVO'))
+    status = models.CharField(max_length=10, choices=STATUS_CHOICE)
 
 class PermissaoTemCobrador(models.Model):
-	permissao = models.ForeignKey('Permissao')
-	cobrador = models.ForeignKey('Cobrador')
-	data_posse = models.DateField(auto_now=True)
-	STATUS_CHOICE = (('ATIVO','ATIVO'),	('INATIVO','INATIVO'))
-	status = models.CharField(max_length=10, choices=STATUS_CHOICE)
+    permissao_veiculo = models.ForeignKey('PermissaoTemVeiculo')
+    cobrador = models.ForeignKey('Cobrador')
+    data_posse = models.DateField(auto_now=True)
+    STATUS_CHOICE = (('ATIVO','ATIVO'),	('INATIVO','INATIVO'))
+    status = models.CharField(max_length=10, choices=STATUS_CHOICE)
