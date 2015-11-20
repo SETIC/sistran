@@ -2,11 +2,12 @@
 from __future__ import unicode_literals
 from django.db import models
 from pessoal.models import *
+from localizacao.models import *
 
 class Permissao(models.Model):
     id = models.AutoField(primary_key=True)
-    numero = models.IntegerField(null=False, blank=False)
-    data = models.DateField(auto_now=False)
+    numero = models.IntegerField(null=False, blank=False, verbose_name='Número da Permissão')
+    data = models.DateField(auto_now=True)
     TIPO_CONCESSAO_CHOICES = (("TÁXI","TÁXI"), ("ALTERNATIVO","ALTERNATIVO"), ("ESCOLAR","ESCOLAR"), ("FRETE","FRETE"))
     tipo_concessao = models.CharField(max_length=20, choices=TIPO_CONCESSAO_CHOICES, verbose_name='Tipo do Veículo')
 
@@ -41,15 +42,15 @@ class Cobrador(models.Model):
         return self.id.id.id.nome
 
 class Veiculo(models.Model):
-    codigo_renavan = models.BigIntegerField(primary_key=True)
+    codigo_renavan = models.BigIntegerField(primary_key=True, verbose_name='Código Renavan')
     veiculo_proprio = models.BooleanField(default=True)
-    exercicio = models.DateField(auto_now=False)
+    exercicio = models.DateField(auto_now=False, verbose_name='Ano de Exercício')
     placa = models.CharField(max_length=8, blank=False, verbose_name='Placa do Veículo')
-    chassi = models.CharField(max_length=255, blank=False, verbose_name='Chassi do Veículo')
+    chassi = models.CharField(max_length=255, null=False, blank=False, verbose_name='Chassi do Veículo')
     num_passageiros = models.IntegerField(verbose_name='Número de Passageiros')
     combustivel = models.CharField(max_length=255, blank=False, verbose_name='Combustível')
-    marca_modelo = models.CharField(max_length=255, blank=False, verbose_name='Marca/Modelo')
-    ano_fabricacao = models.DateField(auto_now=False)
+    marca_modelo = models.CharField(max_length=255, null=False, blank=False, verbose_name='Marca/Modelo')
+    ano_fabricacao = models.CharField(max_length=255, null=False, blank=False, verbose_name='Ano de Fabricação')
     CATEGORIA_CHOICES = (("OFICIAL","OFICIAL"), ("REPRESENTAÇÃO DIPLOMÁTICA","REPRESENTAÇÃO DIPLOMÁTICA"), ("PARTICULAR","PARTICULAR"), ("ALUGUEL","ALUGUEL"), ("APRENDIZAGEM","APRENDIZAGEM"))
     categoria = models.CharField(max_length=155, choices=CATEGORIA_CHOICES, verbose_name='Categoria')
     cor_predominante = models.CharField(max_length=255, blank=False, verbose_name='Cor Predominante')

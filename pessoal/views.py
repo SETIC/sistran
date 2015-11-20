@@ -15,6 +15,15 @@ def pessoa_new(request):
             pessoa.save()
             return pessoa
 
+def reside_new(request):
+    if request.method == "POST":
+        formReside = ResideForm(request.POST)
+
+        if formReside.is_valid():
+            reside = formReside.save(commit=False)
+            reside.save()
+            return reside
+        
 def pessoaFisica_new(request):
     if request.method == "POST":
         formPessoaFisica = PessoaFisicaForm(request.POST)

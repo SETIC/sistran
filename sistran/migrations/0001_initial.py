@@ -7,134 +7,136 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('pessoal', '0004_auto_20150929_1424'),
+        ('pessoal', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Anexo',
+            name='AnexoCidadao',
             fields=[
                 ('id', models.AutoField(serialize=False, primary_key=True)),
                 ('nome_documento', models.CharField(max_length=255)),
-                ('caminho_anexo', models.FileField(upload_to='')),
+                ('caminho', models.FileField(upload_to='')),
+            ],
+        ),
+        migrations.CreateModel(
+            name='AnexoPermissao',
+            fields=[
+                ('id', models.AutoField(serialize=False, primary_key=True)),
+                ('nome_documento', models.CharField(max_length=255)),
+                ('caminho', models.FileField(upload_to='')),
             ],
         ),
         migrations.CreateModel(
             name='Cobrador',
             fields=[
-                ('id', models.OneToOneField(to='pessoal.Cidadao', primary_key=True, serialize=False)),
+                ('id', models.OneToOneField(serialize=False, primary_key=True, to='pessoal.Cidadao')),
             ],
         ),
         migrations.CreateModel(
             name='Motorista',
             fields=[
-                ('id', models.OneToOneField(to='pessoal.Cidadao', primary_key=True, serialize=False)),
-                ('num_cnh', models.IntegerField(verbose_name='Numero da CNH')),
-                ('cat_cnh', models.CharField(verbose_name='Categoria da CNH', max_length=255, choices=[('A', 'A'), ('B', 'B'), ('C', 'C'), ('D', 'D'), ('E', 'E'), ('AB', 'AB'), ('AC', 'AC'), ('AD', 'AD'), ('AE', 'AE'), ('ACC', 'ACC')])),
+                ('id', models.OneToOneField(serialize=False, primary_key=True, to='pessoal.Cidadao')),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Permissao',
+            fields=[
+                ('id', models.AutoField(serialize=False, primary_key=True)),
+                ('numero', models.IntegerField()),
+                ('data', models.DateField()),
+                ('tipo_concessao', models.CharField(verbose_name='Tipo do Veículo', max_length=20, choices=[('TÁXI', 'TÁXI'), ('ALTERNATIVO', 'ALTERNATIVO'), ('ESCOLAR', 'ESCOLAR'), ('FRETE', 'FRETE')])),
+            ],
+        ),
+        migrations.CreateModel(
+            name='PermissaoTemCobrador',
+            fields=[
+                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
+                ('data_posse', models.DateField(auto_now=True)),
+                ('status', models.CharField(max_length=10, choices=[('ATIVO', 'ATIVO'), ('INATIVO', 'INATIVO')])),
+                ('cobrador', models.ForeignKey(to='sistran.Cobrador')),
+            ],
+        ),
+        migrations.CreateModel(
+            name='PermissaoTemMotorista',
+            fields=[
+                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
+                ('data_posse', models.DateField(auto_now=True)),
+                ('status', models.CharField(max_length=10, choices=[('ATIVO', 'ATIVO'), ('INATIVO', 'INATIVO')])),
+                ('motorista', models.ForeignKey(to='sistran.Motorista')),
+            ],
+        ),
+        migrations.CreateModel(
+            name='PermissaoTemProprietario',
+            fields=[
+                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
+                ('data_posse', models.DateField(auto_now=True)),
+                ('status', models.CharField(max_length=10, choices=[('ATIVO', 'ATIVO'), ('TRANSFERIDO', 'TRANSFERIDO'), ('INATIVO', 'INATIVO')])),
+            ],
+        ),
+        migrations.CreateModel(
+            name='PermissaoTemVeiculo',
+            fields=[
+                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
+                ('data_posse', models.DateField(auto_now=True)),
+                ('status', models.CharField(max_length=10, choices=[('ATIVO', 'ATIVO'), ('TRANSFERIDO', 'TRANSFERIDO'), ('INATIVO', 'INATIVO')])),
+                ('permissao', models.ForeignKey(to='sistran.Permissao')),
             ],
         ),
         migrations.CreateModel(
             name='Proprietario',
             fields=[
-                ('id', models.OneToOneField(to='pessoal.Cidadao', primary_key=True, serialize=False)),
-                ('num_cnh', models.IntegerField(verbose_name='Numero da CNH')),
-                ('cat_cnh', models.IntegerField(verbose_name='Categoria da CNH')),
-            ],
-        ),
-        migrations.CreateModel(
-            name='ProprietarioTemVeiculo',
-            fields=[
-                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
-                ('data_posse', models.DateField(auto_now=True)),
-                ('status', models.CharField(max_length=10, choices=[('Ativo', 'Ativo'), ('Repassado', 'Repassado'), ('Cancelado', 'Cancelado')])),
-                ('motorista', models.BooleanField()),
-                ('id_proprietario', models.ForeignKey(to='sistran.Proprietario')),
-            ],
-        ),
-        migrations.CreateModel(
-            name='Reclamacao',
-            fields=[
-                ('id', models.BigIntegerField(serialize=False, primary_key=True)),
-                ('descricao', models.CharField(max_length=255)),
-                ('data_hora', models.DateTimeField()),
+                ('id', models.OneToOneField(serialize=False, primary_key=True, to='pessoal.Cidadao')),
             ],
         ),
         migrations.CreateModel(
             name='Veiculo',
             fields=[
-                ('id', models.AutoField(serialize=False, primary_key=True)),
-                ('data_posse', models.DateField(auto_now=True)),
-                ('tipo_concessao', models.CharField(verbose_name='Tipo do Veículo', max_length=20, choices=[('taxi', 'Táxi'), ('alternativo', 'Alternativo'), ('escolar', 'Escolar'), ('frete', 'Frete')])),
-                ('marca_modelo', models.CharField(verbose_name='Marca/Modelo do Veículo', max_length=255)),
-                ('ano', models.IntegerField(verbose_name='Ano do Veículo')),
-                ('cor', models.CharField(verbose_name='Cor do Veículo', max_length=255)),
-                ('chassi', models.CharField(verbose_name='Chassi do Veículo', max_length=255)),
-                ('qnt_passageiros', models.IntegerField(verbose_name='Quant. de Passageiros')),
-                ('qnt_portas', models.IntegerField(verbose_name='Quant. de Portas')),
+                ('codigo_renavan', models.BigIntegerField(serialize=False, primary_key=True)),
+                ('veiculo_proprio', models.BooleanField(default=True)),
+                ('exercicio', models.DateField()),
                 ('placa', models.CharField(verbose_name='Placa do Veículo', max_length=8)),
-                ('motorista', models.BooleanField(verbose_name='Proprietário é Motorista desse Veículo?')),
-                ('categoria', models.CharField(verbose_name='Categoria do Veículo', max_length=50, choices=[('oficial', 'Oficial'), ('representacao_diplomatica', 'Representação Diplomática'), ('particular', 'Particular'), ('aluguel', 'Aluguel'), ('aprendizagem', 'Aprendizagem')])),
-                ('id_proprietario', models.ForeignKey(verbose_name='Proprietário do Veículo', to='sistran.Proprietario')),
-            ],
-        ),
-        migrations.CreateModel(
-            name='VeiculoTemCobrador',
-            fields=[
-                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
-                ('data_posse', models.DateField(auto_now=True)),
-                ('status', models.CharField(max_length=10, choices=[('Ativo', 'Ativo'), ('Inativo', 'Inativo')])),
-                ('id_cobrador', models.ForeignKey(to='sistran.Cobrador')),
-                ('id_veiculo', models.ForeignKey(to='sistran.Veiculo')),
-            ],
-        ),
-        migrations.CreateModel(
-            name='VeiculoTemMotorista',
-            fields=[
-                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
-                ('data_posse', models.DateField(auto_now=True)),
-                ('status', models.CharField(max_length=10, choices=[('Ativo', 'Ativo'), ('Inativo', 'Inativo')])),
-                ('id_motorista', models.ForeignKey(to='sistran.Motorista')),
-                ('id_veiculo', models.ForeignKey(to='sistran.Veiculo')),
-            ],
-        ),
-        migrations.CreateModel(
-            name='Vistoria',
-            fields=[
-                ('id', models.AutoField(serialize=False, primary_key=True)),
-                ('data', models.DateField()),
-                ('aprovado', models.BooleanField()),
-                ('observacao', models.CharField(max_length=255)),
-                ('veiculo', models.ForeignKey(to='sistran.Veiculo')),
-            ],
-        ),
-        migrations.CreateModel(
-            name='VistoriaItem',
-            fields=[
-                ('id', models.BigIntegerField(serialize=False, primary_key=True)),
-                ('nome_item', models.CharField(max_length=255)),
-            ],
-        ),
-        migrations.CreateModel(
-            name='VistoriaTemVistoriaItem',
-            fields=[
-                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
-                ('status', models.CharField(max_length=20, choices=[('Aprovado', 'Aprovado'), ('Reprovado', 'Reprovado')])),
-                ('id_vistoria', models.ForeignKey(to='sistran.Vistoria')),
-                ('id_vistoria_item', models.ForeignKey(to='sistran.VistoriaItem')),
+                ('chassi', models.CharField(verbose_name='Chassi do Veículo', max_length=255)),
+                ('num_passageiros', models.IntegerField(verbose_name='Número de Passageiros')),
+                ('combustivel', models.CharField(verbose_name='Combustível', max_length=255)),
+                ('marca_modelo', models.CharField(verbose_name='Marca/Modelo', max_length=255)),
+                ('ano_fabricacao', models.CharField(verbose_name='Ano de Fabricação', max_length=255)),
+                ('categoria', models.CharField(verbose_name='Categoria', max_length=155, choices=[('OFICIAL', 'OFICIAL'), ('REPRESENTAÇÃO DIPLOMÁTICA', 'REPRESENTAÇÃO DIPLOMÁTICA'), ('PARTICULAR', 'PARTICULAR'), ('ALUGUEL', 'ALUGUEL'), ('APRENDIZAGEM', 'APRENDIZAGEM')])),
+                ('cor_predominante', models.CharField(verbose_name='Cor Predominante', max_length=255)),
             ],
         ),
         migrations.AddField(
-            model_name='reclamacao',
+            model_name='permissaotemveiculo',
             name='veiculo',
             field=models.ForeignKey(to='sistran.Veiculo'),
         ),
         migrations.AddField(
-            model_name='proprietariotemveiculo',
-            name='id_veiculo',
-            field=models.ForeignKey(to='sistran.Veiculo'),
+            model_name='permissaotemproprietario',
+            name='permissao_veiculo',
+            field=models.ForeignKey(to='sistran.PermissaoTemVeiculo'),
         ),
         migrations.AddField(
-            model_name='anexo',
+            model_name='permissaotemproprietario',
+            name='proprietario',
+            field=models.ForeignKey(to='sistran.Proprietario'),
+        ),
+        migrations.AddField(
+            model_name='permissaotemmotorista',
+            name='permissao_veiculo',
+            field=models.ForeignKey(to='sistran.PermissaoTemVeiculo'),
+        ),
+        migrations.AddField(
+            model_name='permissaotemcobrador',
+            name='permissao_veiculo',
+            field=models.ForeignKey(to='sistran.PermissaoTemVeiculo'),
+        ),
+        migrations.AddField(
+            model_name='anexopermissao',
+            name='permissao',
+            field=models.ForeignKey(to='sistran.Permissao'),
+        ),
+        migrations.AddField(
+            model_name='anexocidadao',
             name='cidadao',
             field=models.ForeignKey(to='pessoal.Cidadao'),
         ),

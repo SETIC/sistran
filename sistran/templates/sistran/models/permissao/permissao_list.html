@@ -2,11 +2,13 @@
 {% load staticfiles %}
 
 {% block title %}
-    Lista de Proprietários - SISTRAN
+    Lista de Permissões - SISTRAN
 {% endblock %}
 
 {% block css-dashboard %}{% endblock %}
-{% block style-login %}{% endblock %}
+{% block style-login %}
+
+{% endblock %}
 
 {% block wrapper %}
 <div class="wrapper">
@@ -23,12 +25,12 @@
     {% block content-header %}
     <section class="content-header">
       <h1>
-        Proprietários
+        Permissões
         <small>Visualização e Gerenciamento</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="/sistran/"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Proprietários</li>
+        <li class="active">Permissões</li>
       </ol>
     </section>
     {% endblock %}
@@ -55,34 +57,20 @@
             <thead>
               <tr>
                 <th>Opções</th>
-                <th>Nome</th>
-                <th>CPF</th>
-                <th>Número CNH</th>
-                <th>Categoria CNH</th>
+                <th>Marca</th>
+                <th>Placa</th>
+                <th>Proprietário</th>
+                <th>Categoria Veículo</th>
               </tr>
             </thead>
             <tbody>
-            {% for proprietario in proprietarios %}
+            {% for permissao in permissoes %}
               <tr>
-                <th>
-                {% if perms.sistran.change_proprietario %}
-                      <a class="btn btn-primary btn-sm btn-flat" href="{% url "proprietario_edit" pk=proprietario.pk %}">
-                        <i class="fa fa-pencil"></i>
-                      </a>
-                  {%endif%}
-                  {% if perms.sistran.delete_proprietario %}
-                      <a class="btn btn-danger btn-sm btn-flat" href="javascript:confirmDelete('{% url "proprietario_remove" pk=proprietario.pk %}')">
-                          <i class="fa fa-remove"></i>
-                      </a>
-                  {%endif%}
-                    <a class="btn btn-info btn-sm btn-flat" href="">
-                    <i class="fa fa-car"></i>
-                  </a>
-                </th>
-                <td><a href="{% url "sistran.views.proprietario_detail" pk=proprietario.pk %}">{{ proprietario.id }}</a></td>
-                <td>{{ proprietario.id.id.id.cpf_cnpj }}</td>
-                <td>{{ proprietario.num_cnh }}</td>
-                <td>{{ proprietario.cat_cnh }}</td>
+                <th>{{ permissao.numero|upper }}</th>
+                <td>{{ permissao.data|upper }}</td>
+                <td>{{ permissao.tipo_concessao|upper }}</td>
+                <td>{{ permissao.data|upper }}</td>
+                <td>{{ permissao.tipo_concessao|upper }}</td>
               </tr>
             {% endfor %}
             </tbody>
@@ -128,16 +116,16 @@
           </div>
         </div>
       </div><!--/.col (left) -->
-      {% if perms.sistran.add_proprietario %}
-          <a href="{% url "sistran.views.proprietario_new" %}" class="btn btn-success btn-flat"><i class="fa fa-plus"></i>
-            Adicionar Proprietário
+      {% if perms.sistran.add_permissao %}
+          <a href="{% url "sistran.views.permissao_new" %}" class="btn btn-success btn-flat"><i class="fa fa-plus"></i>
+            Adicionar Permissão
           </a>
-      {% endif %}
+      {% endif %}   
       <!-- right column -->
     </section>
     <script>
       function confirmDelete(deleteUrl) {
-        if (confirm("Tem certeza de que deseja excluir este Proprietário?")) {
+        if (confirm("Tem certeza de que deseja excluir esta Permissão?")) {
           document.location = deleteUrl;
         }
       }

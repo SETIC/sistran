@@ -18,8 +18,8 @@ class Migration(migrations.Migration):
                 ('contato_telefonico', models.CharField(max_length=255)),
             ],
             options={
-                'db_table': 'assessoria',
                 'managed': False,
+                'db_table': 'assessoria',
             },
         ),
         migrations.CreateModel(
@@ -27,11 +27,11 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigIntegerField(serialize=False, primary_key=True)),
                 ('cargo', models.CharField(max_length=255)),
-                ('moeda_salario', models.FloatField(blank=True, null=True)),
+                ('moeda_salario', models.FloatField(null=True, blank=True)),
             ],
             options={
-                'db_table': 'cargo',
                 'managed': False,
+                'db_table': 'cargo',
             },
         ),
         migrations.CreateModel(
@@ -42,8 +42,8 @@ class Migration(migrations.Migration):
                 ('contato_telefonico', models.CharField(max_length=255)),
             ],
             options={
-                'db_table': 'celula',
                 'managed': False,
+                'db_table': 'celula',
             },
         ),
         migrations.CreateModel(
@@ -51,15 +51,15 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigIntegerField(serialize=False, primary_key=True)),
                 ('data_inicio', models.DateField()),
-                ('data_termino', models.DateField(blank=True, null=True)),
+                ('data_termino', models.DateField(null=True, blank=True)),
                 ('situacao', models.CharField(max_length=255)),
                 ('funcao', models.CharField(max_length=255)),
-                ('vinculo', models.CharField(blank=True, max_length=255, null=True)),
-                ('turno', models.CharField(blank=True, max_length=255, null=True)),
+                ('vinculo', models.CharField(null=True, max_length=255, blank=True)),
+                ('turno', models.CharField(null=True, max_length=255, blank=True)),
             ],
             options={
-                'db_table': 'lotacao',
                 'managed': False,
+                'db_table': 'lotacao',
             },
         ),
         migrations.CreateModel(
@@ -70,8 +70,8 @@ class Migration(migrations.Migration):
                 ('organismo', models.CharField(max_length=255)),
             ],
             options={
-                'db_table': 'organismo',
                 'managed': False,
+                'db_table': 'organismo',
             },
         ),
     ]

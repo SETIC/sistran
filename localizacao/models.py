@@ -4,11 +4,14 @@ from django.db import models
 class Bairro(models.Model):
     id = models.OneToOneField('DivisaoAdministrativa', db_column='id', primary_key=True)
     bairro = models.CharField(max_length=255)
-    municipio = models.ForeignKey('Municipio', blank=True, null=True)
+    municipio = models.ForeignKey('Municipio', blank=True, null=True, verbose_name='Município')
+    
+    def __str__(self):
+        return self.bairro
 
     class Meta:
         managed = False
-        db_table = 'bairro'
+        db_table = '"cadastro_unico_localizacao"."bairro"'
 
 class Comercial(models.Model):
     id = models.OneToOneField('UnidadeEdificada', db_column='id', primary_key=True)
@@ -40,9 +43,12 @@ class Estado(models.Model):
     abreviacao = models.CharField(max_length=255)
     estado = models.CharField(max_length=255)
 
+    def __str__(self):
+        return self.estado
+    
     class Meta:
         managed = False
-        db_table = 'estado'
+        db_table = '"cadastro_unico_localizacao"."estado"'
 
 class EstadoMunicipio(models.Model):
     estado_municipio = models.ForeignKey(Estado, blank=True, null=True)
@@ -92,9 +98,12 @@ class Logradouro(models.Model):
     tipo_logradouro = models.ForeignKey('TipoLogradouro')
     logradouro = models.CharField(max_length=255)
 
+    def __str__(self):
+        return self.logradouro
+    
     class Meta:
         managed = False
-        db_table = 'logradouro'
+        db_table = '"cadastro_unico_localizacao"."logradouro"'
 
 class Lote(models.Model):
     id = models.BigIntegerField(primary_key=True)
@@ -114,12 +123,15 @@ class Lote(models.Model):
 
 class Municipio(models.Model):
     id = models.BigIntegerField(primary_key=True)
-    estado = models.ForeignKey(Estado)
     municipio = models.CharField(max_length=255)
-
+    estado = models.ForeignKey(Estado)
+    
+    def __str__(self):
+        return self.municipio
+    
     class Meta:
         managed = False
-        db_table = 'municipio'
+        db_table = '"cadastro_unico_localizacao"."municipio"'
 
 class Quadra(models.Model):
     id = models.BigIntegerField(primary_key=True)
@@ -153,7 +165,7 @@ class TipoLogradouro(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'tipo_logradouro'
+        db_table = '"cadastro_unico_localizacao"."tipo_logradouro"'
 
 class TipoLogradouroLogradouro(models.Model):
     tipo_logradouro_logradouro = models.ForeignKey(TipoLogradouro, blank=True, null=True)
@@ -161,7 +173,7 @@ class TipoLogradouroLogradouro(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'tipo_logradouro_logradouro'
+        db_table = '"cadastro_unico_localizacao"."tipo_logradouro_logradouro"'
 
 class UnidadeEdificada(models.Model):
     id = models.BigIntegerField(primary_key=True)

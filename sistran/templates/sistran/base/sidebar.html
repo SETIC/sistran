@@ -37,6 +37,13 @@
           <i class="fa fa-users"></i> <span>Administrativo</span> <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
+         {% if perms.sistran.add_permissao or perms.sistran.delete_permissao or perms.sistran.change_permissao %}
+              <li>
+                 <a href="/sistran/permissao/">
+                     <i class="fa fa-circle-o"></i> Permissões
+                 </a>
+              </li>
+         {% endif %}
          {% if perms.sistran.add_cobrador or perms.sistran.delete_cobradora or perms.sistran.change_cobrador%}
               <li>
                  <a href="/sistran/cobrador/">

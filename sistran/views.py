@@ -7,15 +7,53 @@ from .models import *
 from .forms import *
 from pessoal.forms import *
 from pessoal.views import *
+from localizacao.forms import *
+from localizacao.views import *
 
 @login_required
 def home(request):
-    vistorias = Vistoria.objects.all()
-    return render(request, 'sistran/index.html', {'vistorias': vistorias})
+    return render(request, 'sistran/index.html')
 
 @login_required
 def permission_denied(request):
     return render(request, 'sistran/permission_denied.html', {})
+
+# CRUD PERMISSÃO
+
+@login_required
+def permissao_list(request):
+    permissoes = Permissao.objects.all()
+    return render(request, 'sistran/models/permissao/permissao_list.html', {'permissoes': permissoes})
+
+@login_required
+@permission_required('sistran.add_permissao',login_url='/sistran/permission_denied/')
+def permissao_new(request):
+    if request.method == "POST":
+            return render_to_response('sistran/models/permissao/permissao_edit.html', {'error':'error'}, context_instance=RequestContext(request))
+    else:
+        
+        
+        formPermissao = PermissaoForm()
+        formVeiculo = VeiculoForm()
+        formCidadao = CidadaoForm()
+        formPessoaFisica = PessoaFisicaForm()
+        formPessoa = PessoaForm()
+        formLogradouro = LogradouroForm()
+        formBairro = BairroForm()
+        formMunicipio = MunicipioForm()
+        formReside = ResideForm()
+        
+        return render(request, 'sistran/models/permissao/permissao_edit.html',
+            {'form': formPermissao, 
+             'veiculoForm':formVeiculo, 
+             'cidadaoForm':formCidadao, 
+             'pessoaFisicaForm':formPessoaFisica, 
+             'logradouroForm':formPessoa,
+             'pessoaForm':formLogradouro,
+             'bairroForm':formBairro,
+             'municipioForm':formMunicipio,
+             'resideForm':formReside
+            })
 
 # CRUD MOTORISTA
 

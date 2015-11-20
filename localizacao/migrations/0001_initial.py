@@ -17,8 +17,8 @@ class Migration(migrations.Migration):
                 ('nome', models.CharField(max_length=255)),
             ],
             options={
-                'db_table': 'divisao_administrativa',
                 'managed': False,
+                'db_table': 'divisao_administrativa',
             },
         ),
         migrations.CreateModel(
@@ -29,29 +29,29 @@ class Migration(migrations.Migration):
                 ('estado', models.CharField(max_length=255)),
             ],
             options={
-                'db_table': 'estado',
                 'managed': False,
+                'db_table': 'estado',
             },
         ),
         migrations.CreateModel(
             name='EstadoMunicipio',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', auto_created=True, primary_key=True, serialize=False)),
+                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
             ],
             options={
-                'db_table': 'estado_municipio',
                 'managed': False,
+                'db_table': 'estado_municipio',
             },
         ),
         migrations.CreateModel(
             name='FaceDaQuadra',
             fields=[
                 ('id', models.BigIntegerField(serialize=False, primary_key=True)),
-                ('face_da_quadra', models.CharField(blank=True, max_length=255, null=True)),
+                ('face_da_quadra', models.CharField(null=True, max_length=255, blank=True)),
             ],
             options={
-                'db_table': 'face_da_quadra',
                 'managed': False,
+                'db_table': 'face_da_quadra',
             },
         ),
         migrations.CreateModel(
@@ -61,8 +61,8 @@ class Migration(migrations.Migration):
                 ('foto', models.CharField(max_length=255)),
             ],
             options={
-                'db_table': 'foto_lote',
                 'managed': False,
+                'db_table': 'foto_lote',
             },
         ),
         migrations.CreateModel(
@@ -72,8 +72,8 @@ class Migration(migrations.Migration):
                 ('foto', models.CharField(max_length=255)),
             ],
             options={
-                'db_table': 'foto_unidade_edificada',
                 'managed': False,
+                'db_table': 'foto_unidade_edificada',
             },
         ),
         migrations.CreateModel(
@@ -83,8 +83,8 @@ class Migration(migrations.Migration):
                 ('logradouro', models.CharField(max_length=255)),
             ],
             options={
-                'db_table': 'logradouro',
                 'managed': False,
+                'db_table': 'logradouro',
             },
         ),
         migrations.CreateModel(
@@ -98,11 +98,11 @@ class Migration(migrations.Migration):
                 ('topografia', models.CharField(max_length=255)),
                 ('valor_venal', models.FloatField()),
                 ('zeragem_de_quadrra', models.CharField(max_length=255)),
-                ('identificacao', models.CharField(blank=True, max_length=50, null=True)),
+                ('identificacao', models.CharField(null=True, max_length=50, blank=True)),
             ],
             options={
-                'db_table': 'lote',
                 'managed': False,
+                'db_table': 'lote',
             },
         ),
         migrations.CreateModel(
@@ -112,30 +112,30 @@ class Migration(migrations.Migration):
                 ('municipio', models.CharField(max_length=255)),
             ],
             options={
-                'db_table': 'municipio',
                 'managed': False,
+                'db_table': 'municipio',
             },
         ),
         migrations.CreateModel(
             name='Quadra',
             fields=[
                 ('id', models.BigIntegerField(serialize=False, primary_key=True)),
-                ('quadra', models.CharField(blank=True, max_length=255, null=True)),
+                ('quadra', models.CharField(null=True, max_length=255, blank=True)),
             ],
             options={
-                'db_table': 'quadra',
                 'managed': False,
+                'db_table': 'quadra',
             },
         ),
         migrations.CreateModel(
             name='Setor',
             fields=[
                 ('id', models.BigIntegerField(serialize=False, primary_key=True)),
-                ('setor', models.CharField(blank=True, max_length=255, null=True)),
+                ('setor', models.CharField(null=True, max_length=255, blank=True)),
             ],
             options={
-                'db_table': 'setor',
                 'managed': False,
+                'db_table': 'setor',
             },
         ),
         migrations.CreateModel(
@@ -145,18 +145,18 @@ class Migration(migrations.Migration):
                 ('tipo_logradouro', models.CharField(max_length=255)),
             ],
             options={
-                'db_table': 'tipo_logradouro',
                 'managed': False,
+                'db_table': 'tipo_logradouro',
             },
         ),
         migrations.CreateModel(
             name='TipoLogradouroLogradouro',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', auto_created=True, primary_key=True, serialize=False)),
+                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
             ],
             options={
-                'db_table': 'tipo_logradouro_logradouro',
                 'managed': False,
+                'db_table': 'tipo_logradouro_logradouro',
             },
         ),
         migrations.CreateModel(
@@ -165,66 +165,66 @@ class Migration(migrations.Migration):
                 ('id', models.BigIntegerField(serialize=False, primary_key=True)),
                 ('area_edificada', models.FloatField()),
                 ('area_total_construida', models.FloatField()),
-                ('identificacao', models.CharField(blank=True, max_length=50, null=True)),
+                ('identificacao', models.CharField(null=True, max_length=50, blank=True)),
             ],
             options={
-                'db_table': 'unidade_edificada',
                 'managed': False,
+                'db_table': 'unidade_edificada',
             },
         ),
         migrations.CreateModel(
             name='Bairro',
             fields=[
-                ('id', models.ForeignKey(primary_key=True, db_column='id', to='localizacao.DivisaoAdministrativa', serialize=False)),
+                ('id', models.OneToOneField(db_column='id', serialize=False, primary_key=True, to='localizacao.DivisaoAdministrativa')),
                 ('bairro', models.CharField(max_length=255)),
             ],
             options={
-                'db_table': 'bairro',
                 'managed': False,
+                'db_table': 'bairro',
             },
         ),
         migrations.CreateModel(
             name='Comercial',
             fields=[
-                ('id', models.ForeignKey(primary_key=True, db_column='id', to='localizacao.UnidadeEdificada', serialize=False)),
-                ('reservado', models.CharField(blank=True, max_length=255, null=True)),
+                ('id', models.OneToOneField(db_column='id', serialize=False, primary_key=True, to='localizacao.UnidadeEdificada')),
+                ('reservado', models.CharField(null=True, max_length=255, blank=True)),
             ],
             options={
-                'db_table': 'comercial',
                 'managed': False,
+                'db_table': 'comercial',
             },
         ),
         migrations.CreateModel(
             name='Distrito',
             fields=[
-                ('id', models.ForeignKey(primary_key=True, db_column='id', to='localizacao.DivisaoAdministrativa', serialize=False)),
+                ('id', models.OneToOneField(db_column='id', serialize=False, primary_key=True, to='localizacao.DivisaoAdministrativa')),
                 ('distrito', models.CharField(max_length=255)),
             ],
             options={
-                'db_table': 'distrito',
                 'managed': False,
+                'db_table': 'distrito',
             },
         ),
         migrations.CreateModel(
             name='Industrial',
             fields=[
-                ('id', models.ForeignKey(primary_key=True, db_column='id', to='localizacao.UnidadeEdificada', serialize=False)),
-                ('reservado', models.CharField(blank=True, max_length=255, null=True)),
+                ('id', models.OneToOneField(db_column='id', serialize=False, primary_key=True, to='localizacao.UnidadeEdificada')),
+                ('reservado', models.CharField(null=True, max_length=255, blank=True)),
             ],
             options={
-                'db_table': 'industrial',
                 'managed': False,
+                'db_table': 'industrial',
             },
         ),
         migrations.CreateModel(
             name='Residencial',
             fields=[
-                ('id', models.ForeignKey(primary_key=True, db_column='id', to='localizacao.UnidadeEdificada', serialize=False)),
-                ('reservado', models.CharField(blank=True, max_length=255, null=True)),
+                ('id', models.OneToOneField(db_column='id', serialize=False, primary_key=True, to='localizacao.UnidadeEdificada')),
+                ('reservado', models.CharField(null=True, max_length=255, blank=True)),
             ],
             options={
-                'db_table': 'residencial',
                 'managed': False,
+                'db_table': 'residencial',
             },
         ),
     ]
