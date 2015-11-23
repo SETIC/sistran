@@ -197,15 +197,15 @@ class Funcionario(models.Model):
         db_table = '"cadastro_unico_pessoal"."funcionario"'
 
 #class Motorista(models.Model):
- #   id = models.ForeignKey(Funcionario, db_column='id', primary_key=True)
-  #  categoria = models.CharField(max_length=255)
-   # cnh = models.CharField(max_length=255)
-  #  cnh_validade = models.DateField()
-  #  data_de_emissao = models.DateField()
+#   id = models.ForeignKey(Funcionario, db_column='id', primary_key=True)
+#   categoria = models.CharField(max_length=255)
+#   cnh = models.CharField(max_length=255)
+#   cnh_validade = models.DateField()
+#   data_de_emissao = models.DateField()
 
-   # class Meta:
-   #     managed = False
-   #     db_table = '"cadastro_unico_pessoal"."motorista"'
+# class Meta:
+#   managed = False
+#   db_table = '"cadastro_unico_pessoal"."motorista"'
 
 class DetemPropriedade(models.Model):
     id = models.BigIntegerField(primary_key=True)
@@ -245,10 +245,10 @@ class Professor(models.Model):
 
 class Reside(models.Model):
     id = models.BigIntegerField(primary_key=True)
-    cep = models.CharField(max_length=9, blank=True, null=True, verbose_name='CEP')
-    logradouro = models.ForeignKey('localizacao.Logradouro')
+    logradouro = models.ForeignKey('localizacao.Logradouro')    
     numero = models.CharField(max_length=20, blank=True, null=True, verbose_name='Número')
     complemento = models.CharField(max_length=300, blank=True, null=True)
+    cep = models.CharField(max_length=9, blank=True, null=True, verbose_name='CEP')
     bairro = models.ForeignKey('localizacao.Bairro')
     pessoa = models.ForeignKey(Pessoa)
 
@@ -258,7 +258,8 @@ class Reside(models.Model):
 
 class TipoContato(models.Model):
     id = models.BigIntegerField(primary_key=True)
-    tipo_contato = models.CharField(unique=True, max_length=255)
+    TIPO_CONTATO_CHOICES = (("TELEFONE", "TELEFONE"), ("CELULAR","CELULAR"), ("EMAIL","EMAIL"))
+    tipo_contato = models.CharField(unique=True, max_length=255, choices=TIPO_CONTATO_CHOICES, verbose_name='Tipo do Contato')
 
     class Meta:
         managed = False

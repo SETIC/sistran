@@ -33,18 +33,3 @@ class VeiculoForm(forms.ModelForm):
         model = Veiculo
         exclude = ['id']
         fields = ('__all__')
-
-#class VistoriaForm(forms.ModelForm):
-#    data = forms.DateField(widget=extras.SelectDateWidget(
-#        years=range(1990, datetime.date.today().year+1),        
-#        attrs={'class': 'form-control', 'style':'max-width:100px; float:left;'}))
-#    aprovado = forms.TypedChoiceField(
-#                   coerce=lambda x: x == 'True',
-#                   choices=((False, 'Não'), (True, 'Sim')),
-#                   widget=forms.RadioSelect,
-#                   label='Veículo aprovado?'
-#                )
-#    class Meta:
-#        model = Vistoria
-#        exclude = ['id']
-#        fields = ('__all__')

@@ -163,6 +163,9 @@ class TipoLogradouro(models.Model):
     id = models.BigIntegerField(primary_key=True)
     tipo_logradouro = models.CharField(max_length=255)
 
+    def __str__(self):
+        return self.tipo_logradouro
+    
     class Meta:
         managed = False
         db_table = '"cadastro_unico_localizacao"."tipo_logradouro"'

@@ -101,6 +101,30 @@
                 <br/>
               </div>
             {% endfor %}
+            {% for fieldTipoContato in tipoContatoForm %}
+              <div class="form-group">
+                <label for="{{ fieldTipoContato.name }}" class="col-sm-2 control-label">
+                  {{ fieldTipoContato.label }}
+                </label>
+                <div class="col-sm-10">
+                  {{ fieldTipoContato|addcss:'form-control' }}
+                  <div class="text-red">{{ fieldTipoContato.errors }}</div>
+                </div>
+                <br/>
+              </div>
+            {% endfor %}
+            {% for fieldContato in contatoForm %}
+              <div class="form-group">
+                <label for="{{ fieldContato.name }}" class="col-sm-2 control-label">
+                  {{ fieldContato.label }}
+                </label>
+                <div class="col-sm-10">
+                  {{ fieldContato|addcss:'form-control' }}
+                  <div class="text-red">{{ fieldContato.errors }}</div>
+                </div>
+                <br/>
+              </div>
+            {% endfor %}
             <div class="box-header with-border">
                 <h3 class="box-title">Endereço do Permissionário</h3>
                 <!-- Button trigger modal -->
@@ -126,6 +150,18 @@
                 </div>
               </div>
             </div>
+            {% for fieldLogradouro in logradouroForm %}
+              <div class="form-group">
+                <label for="{{ fieldLogradouro.name }}" class="col-sm-2 control-label">
+                  {{ fieldLogradouro.label }}
+                </label>
+                <div class="col-sm-10">
+                  {{ fieldLogradouro|addcss:'form-control' }}
+                  <div class="text-red">{{ fieldLogradouro.errors }}</div>
+                </div>
+                <br/>
+              </div>
+            {% endfor %}
             {% for fieldReside in resideForm %}
               <div class="form-group">
                 <label for="{{ fieldReside.name }}" class="col-sm-2 control-label">
@@ -137,7 +173,7 @@
                 </div>
                 <br/>
               </div>
-            {% endfor %}
+            {% endfor %}            
             {% for fieldBairro in bairroForm %}
               <div class="form-group">
                 <label for="{{ fieldBairro.name }}" class="col-sm-2 control-label">

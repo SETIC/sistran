@@ -29,31 +29,43 @@ def permissao_list(request):
 @permission_required('sistran.add_permissao',login_url='/sistran/permission_denied/')
 def permissao_new(request):
     if request.method == "POST":
-            return render_to_response('sistran/models/permissao/permissao_edit.html', {'error':'error'}, context_instance=RequestContext(request))
+        formPermissao = PermissaoForm(request.POST)
+        formVeiculo = VeiculoForm(request.POST)
+        formCidadao = CidadaoForm(request.POST)
+        formPessoaFisica = PessoaFisicaForm(request.POST)
+        formPessoa = PessoaForm(request.POST)
+        formTipoContato = TipoContatoForm(request.POST)
+        formContato = ContatoForm(request.POST)
+        formTipoLogradouro = TipoLogradouroForm(request.POST)
+        formLogradouro = LogradouroForm(request.POST)
+        formBairro = BairroForm(request.POST)
+        formMunicipio = MunicipioForm(request.POST)
+        formReside = ResideForm(request.POST)
+
+        if formPermissao.is_valid() and formVeiculo.is_valid() and formCidadao.is_valid() and formPessoaFisica.is_valid() and formPessoa.is_valid() and formTipoContato.is_valid() and formContato.is_valid() and formTipoLogradouro.is_valid() and formContato.is_valid() and formTipoLogradouro.is_valid() and formLogradouro.is_valid() and formBairro.is_valid() and formMunicipio.is_valid() and formReside.is_valid():
+            
+            permissao = formPermissao.save(commit=False)
+            permissao.id = cidadao_new(request)
+            permissao.save()
+            return redirect('sistran.views.permissao_detail', pk=permissao.pk)
+        else:
+            return render_to_response('sistran/models/permissao/permissao_edit.html',
+                {'form': formPermissao, 'veiculoForm':formVeiculo, 'cidadaoForm':formCidadao, 'pessoaFisicaForm':formPessoaFisica, 'pessoaForm':formPessoa, 'tipoContatoForm':formTipoContato, 'contatoForm':formContato, 'tipoLogradouroForm':formTipoLogradouro, 'logradouroForm':formLogradouro, 'bairroForm':formBairro, 'municipioForm':formMunicipio, 'resideForm':formReside}, context_instance=RequestContext(request)) 
     else:
-        
-        
         formPermissao = PermissaoForm()
         formVeiculo = VeiculoForm()
         formCidadao = CidadaoForm()
         formPessoaFisica = PessoaFisicaForm()
         formPessoa = PessoaForm()
+        formTipoContato = TipoContatoForm()
+        formContato = ContatoForm()
+        formTipoLogradouro = TipoLogradouroForm()
         formLogradouro = LogradouroForm()
         formBairro = BairroForm()
         formMunicipio = MunicipioForm()
         formReside = ResideForm()
-        
         return render(request, 'sistran/models/permissao/permissao_edit.html',
-            {'form': formPermissao, 
-             'veiculoForm':formVeiculo, 
-             'cidadaoForm':formCidadao, 
-             'pessoaFisicaForm':formPessoaFisica, 
-             'logradouroForm':formPessoa,
-             'pessoaForm':formLogradouro,
-             'bairroForm':formBairro,
-             'municipioForm':formMunicipio,
-             'resideForm':formReside
-            })
+            {'form': formPermissao, 'veiculoForm':formVeiculo, 'cidadaoForm':formCidadao, 'pessoaFisicaForm':formPessoaFisica, 'pessoaForm':formPessoa, 'tipoContatoForm':formTipoContato, 'contatoForm':formContato, 'tipoLogradouroForm':formTipoLogradouro, 'logradouroForm':formLogradouro, 'bairroForm':formBairro, 'municipioForm':formMunicipio, 'resideForm':formReside})
 
 # CRUD MOTORISTA
 

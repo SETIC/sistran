@@ -102,6 +102,9 @@
         margin-bottom: 6px;
         padding: 6px;
       }
+      .form-control {
+        text-transform: uppercase;
+      }
     </style>
   </head>
   <body class="{% block bodyclass %}hold-transition skin-green sidebar-mini{% endblock %}">
@@ -155,27 +158,21 @@
     <script src="{% static "js/demo.js" %}"></script>
     {% endblock %}
     <script type="text/javascript">
-       jQuery(function($){
-      $("#id_cpf_cnpj").mask("999.999.999-99");    
+      jQuery(function($){
+           $("#id_cpf_cnpj").mask("999.999.999-99");
+           $("#id_placa").mask("aaa-9999");
+           $("#id_contato").mask("(99)9999-9999?9");
       });
-    </script>
-
-    <script type="text/javascript">
-       jQuery(function($){
-      $("#id_placa").mask("aaa-9999");    
-      });
-    </script>    
-    <script>
-        var jets = new Jets({
+      var jets = new Jets({
           searchTag: '#jetsSearch',
           contentTag: '#jetsContent'
-        });
-        $(document).ready(function() {
-          $("#id_logradouro").select2();
-          $("#id_bairro").select2();
-          $("#id_municipio").select2();
-          $("#id_estado").select2();
-        });
+      });
+      $(document).ready(function() {
+        $("#id_logradouro").select2();
+        $("#id_bairro").select2();
+        $("#id_municipio").select2();
+        $("#id_estado").select2();
+      });
     </script>
   </body>
 </html>

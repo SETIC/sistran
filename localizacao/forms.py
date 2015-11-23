@@ -3,10 +3,16 @@ from django import forms
 from .models import *
 from django.forms import extras
 
+class TipoLogradouroForm(forms.ModelForm):
+    class Meta:
+        model=TipoLogradouro
+        exclude = ['id']
+        fields = ('__all__')
+
 class LogradouroForm(forms.ModelForm):
     class Meta:
         model=Logradouro
-        exclude = ['id']
+        exclude = ['id', 'logradouro']
         fields = ('__all__')
 
 class BairroForm(forms.ModelForm):

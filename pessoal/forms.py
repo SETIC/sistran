@@ -8,7 +8,7 @@ class PessoaForm(forms.ModelForm):
     cpf_cnpj =  BRCPFField(label='CPF')
     data_de_nascimento = forms.DateField(widget=extras.SelectDateWidget(
         years=range(1920,datetime.date.today().year-17),
-        attrs={'class': 'form-control', 'style':'max-width:100px; float:left;'}))
+        attrs={'class': 'form-control', 'style':'max-width:110px; float:left;'}))
     class Meta:
         model=Pessoa
         exclude = ['id']
@@ -25,7 +25,19 @@ class CidadaoForm(forms.ModelForm):
         model = Cidadao
         exclude = ['id', 'rg_data_de_emissao', 'te_numero', 'te_secao', 'te_zona']
         fields = ('naturalidade', 'num_registro_cnh', 'validade_cnh', 'categoria_cnh')
-    
+
+class TipoContatoForm(forms.ModelForm):
+    class Meta:
+        model=TipoContato
+        exclude = ['id']
+        fields = ('__all__') 
+        
+class ContatoForm(forms.ModelForm):
+    class Meta:
+        model=Contato
+        exclude = ['id', 'pessoa', 'tipo_contato']
+        fields = ('__all__')        
+
 class ResideForm(forms.ModelForm):
     class Meta:
         model=Reside
