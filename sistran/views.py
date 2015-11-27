@@ -23,6 +23,10 @@ def permission_denied(request):
 @login_required
 def permissao_list(request):
     permissoes = Permissao.objects.all()
+
+    def search_permissionario():
+        permissionario = get_object_or_404(Prop, pk=pk)
+
     return render(request, 'sistran/models/permissao/permissao_list.html', {'permissoes': permissoes})
 
 @login_required
@@ -31,6 +35,7 @@ def permissao_new(request):
     if request.method == "POST":
         formPermissao = PermissaoForm(request.POST)
         formVeiculo = VeiculoForm(request.POST)
+        formProprietario = ProprietarioForm(request.POST)
         formCidadao = CidadaoForm(request.POST)
         formPessoaFisica = PessoaFisicaForm(request.POST)
         formPessoa = PessoaForm(request.POST)
@@ -42,18 +47,39 @@ def permissao_new(request):
         formMunicipio = MunicipioForm(request.POST)
         formReside = ResideForm(request.POST)
 
-        if formPermissao.is_valid() and formVeiculo.is_valid() and formCidadao.is_valid() and formPessoaFisica.is_valid() and formPessoa.is_valid() and formTipoContato.is_valid() and formContato.is_valid() and formTipoLogradouro.is_valid() and formContato.is_valid() and formTipoLogradouro.is_valid() and formLogradouro.is_valid() and formBairro.is_valid() and formMunicipio.is_valid() and formReside.is_valid():
-            
+        if formPermissao.is_valid() and formVeiculo.is_valid() and formProprietario.is_valid() and formCidadao.is_valid() and formPessoaFisica.is_valid() and formPessoa.is_valid() and formTipoContato.is_valid() and formContato.is_valid() and formTipoLogradouro.is_valid() and formContato.is_valid() and formTipoLogradouro.is_valid() and formLogradouro.is_valid() and formBairro.is_valid() and formMunicipio.is_valid() and formReside.is_valid():
+
+            proprietario = formProprietario.save(commit=False)
+            proprietario.id = cidadao_new(request)
+            proprietario.save()
+
+            veiculo = formVeiculo.save(commit=False)
+            veiculo.id = veiculo_new(request)
+            veiculo.save()
+
             permissao = formPermissao.save(commit=False)
-            permissao.id = cidadao_new(request)
             permissao.save()
+
+            permissaoTemVeiculo = PermissaoTemVeiculo()
+            permissaoTemVeiculo.permissao = permissao
+            permissaoTemVeiculo.veiculo = veiculo
+            permissaoTemVeiculo.status = 'ATIVO'
+            permissaoTemVeiculo.save()
+
+            permissaoTemProprietario = PermissaoTemProprietario()
+            permissaoTemProprietario.permissao_veiculo = permissaoTemVeiculo
+            permissaoTemProprietario.proprietario = proprietario
+            permissaoTemProprietario.status = 'ATIVO'
+            permissaoTemProprietario.save()
+
             return redirect('sistran.views.permissao_detail', pk=permissao.pk)
         else:
             return render_to_response('sistran/models/permissao/permissao_edit.html',
-                {'form': formPermissao, 'veiculoForm':formVeiculo, 'cidadaoForm':formCidadao, 'pessoaFisicaForm':formPessoaFisica, 'pessoaForm':formPessoa, 'tipoContatoForm':formTipoContato, 'contatoForm':formContato, 'tipoLogradouroForm':formTipoLogradouro, 'logradouroForm':formLogradouro, 'bairroForm':formBairro, 'municipioForm':formMunicipio, 'resideForm':formReside}, context_instance=RequestContext(request)) 
+                {'form': formPermissao, 'veiculoForm':formVeiculo, 'proprietarioForm':formProprietario, 'cidadaoForm':formCidadao, 'pessoaFisicaForm':formPessoaFisica, 'pessoaForm':formPessoa, 'tipoContatoForm':formTipoContato, 'contatoForm':formContato, 'tipoLogradouroForm':formTipoLogradouro, 'logradouroForm':formLogradouro, 'bairroForm':formBairro, 'municipioForm':formMunicipio, 'resideForm':formReside}, context_instance=RequestContext(request))
     else:
         formPermissao = PermissaoForm()
         formVeiculo = VeiculoForm()
+        formProprietario = ProprietarioForm()
         formCidadao = CidadaoForm()
         formPessoaFisica = PessoaFisicaForm()
         formPessoa = PessoaForm()
@@ -65,7 +91,7 @@ def permissao_new(request):
         formMunicipio = MunicipioForm()
         formReside = ResideForm()
         return render(request, 'sistran/models/permissao/permissao_edit.html',
-            {'form': formPermissao, 'veiculoForm':formVeiculo, 'cidadaoForm':formCidadao, 'pessoaFisicaForm':formPessoaFisica, 'pessoaForm':formPessoa, 'tipoContatoForm':formTipoContato, 'contatoForm':formContato, 'tipoLogradouroForm':formTipoLogradouro, 'logradouroForm':formLogradouro, 'bairroForm':formBairro, 'municipioForm':formMunicipio, 'resideForm':formReside})
+            {'form': formPermissao, 'veiculoForm':formVeiculo, 'proprietarioForm':formProprietario, 'cidadaoForm':formCidadao, 'pessoaFisicaForm':formPessoaFisica, 'pessoaForm':formPessoa, 'tipoContatoForm':formTipoContato, 'contatoForm':formContato, 'tipoLogradouroForm':formTipoLogradouro, 'logradouroForm':formLogradouro, 'bairroForm':formBairro, 'municipioForm':formMunicipio, 'resideForm':formReside})
 
 # CRUD MOTORISTA
 
@@ -396,7 +422,7 @@ def veiculo_remove(request, pk):
 def vistoria_list(request):
     vistorias = Vistoria.objects.all()
     return render(request, 'sistran/models/vistoria/vistoria_list.html', {'vistorias': vistorias})
-    
+
 @login_required
 def vistoria_detail(request, pk):
     vistoria = get_object_or_404(Vistoria, pk=pk)

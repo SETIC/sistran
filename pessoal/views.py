@@ -4,7 +4,16 @@ from django.utils import timezone
 from .models import *
 from .forms import *
 
-# Create your views here.
+def reside_new(request, pessoa):
+    if request.method == "POST":
+        formReside = ResideForm(request.POST)
+
+        if formReside.is_valid():
+            reside = formReside.save(commit=False)
+            reside.pessoa = pessoa
+            reside.save()
+            return reside
+
 
 def pessoa_new(request):
     if request.method == "POST":
@@ -13,17 +22,10 @@ def pessoa_new(request):
         if formPessoa.is_valid():
             pessoa = formPessoa.save(commit=False)
             pessoa.save()
+            reside_new(request, pessoa)
             return pessoa
 
-def reside_new(request):
-    if request.method == "POST":
-        formReside = ResideForm(request.POST)
 
-        if formReside.is_valid():
-            reside = formReside.save(commit=False)
-            reside.save()
-            return reside
-        
 def pessoaFisica_new(request):
     if request.method == "POST":
         formPessoaFisica = PessoaFisicaForm(request.POST)
@@ -33,6 +35,7 @@ def pessoaFisica_new(request):
             pessoaFisica.id = pessoa_new(request)
             pessoaFisica.save()
             return pessoaFisica
+
 
 def cidadao_new(request):
     if request.method == "POST":

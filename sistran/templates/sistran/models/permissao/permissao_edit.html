@@ -101,6 +101,18 @@
                 <br/>
               </div>
             {% endfor %}
+            {% for fieldProprietario in proprietarioForm %}
+              <div class="form-group">
+                <label for="{{ fieldProprietario.name }}" class="col-sm-2 control-label">
+                  {{ fieldProprietario.label }}
+                </label>
+                <div class="col-sm-10">
+                  {{ fieldProprietario|addcss:'form-control' }}
+                  <div class="text-red">{{ fieldProprietario.errors }}</div>
+                </div>
+                <br/>
+              </div>
+            {% endfor %}
             {% for fieldTipoContato in tipoContatoForm %}
               <div class="form-group">
                 <label for="{{ fieldTipoContato.name }}" class="col-sm-2 control-label">
@@ -173,7 +185,7 @@
                 </div>
                 <br/>
               </div>
-            {% endfor %}            
+            {% endfor %}
             {% for fieldBairro in bairroForm %}
               <div class="form-group">
                 <label for="{{ fieldBairro.name }}" class="col-sm-2 control-label">
