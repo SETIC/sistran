@@ -219,7 +219,13 @@
                   {{ fieldVeiculo.label }}
                 </label>
                 <div class="col-sm-10">
-                  {{ fieldVeiculo|addcss:'form-control' }}
+                    {% if fieldVeiculo.name == 'combustivel' %}
+                      {{ fieldVeiculo }}
+                    {% elif fieldVeiculo.name == 'veiculo_proprio' %}
+                      {{ fieldVeiculo }}
+                    {% else %}
+                      {{ fieldVeiculo|addcss:'form-control' }}
+                    {% endif %}
                   <div class="text-red">{{ fieldVeiculo.errors }}</div>
                 </div>
                 <br/>

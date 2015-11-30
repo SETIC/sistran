@@ -24,8 +24,8 @@ def permission_denied(request):
 def permissao_list(request):
     permissoes = Permissao.objects.all()
 
-    def search_permissionario():
-        permissionario = get_object_or_404(Prop, pk=pk)
+    for permissao in permissoes:
+        print (permissao.id)
 
     return render(request, 'sistran/models/permissao/permissao_list.html', {'permissoes': permissoes})
 
@@ -92,6 +92,11 @@ def permissao_new(request):
         formReside = ResideForm()
         return render(request, 'sistran/models/permissao/permissao_edit.html',
             {'form': formPermissao, 'veiculoForm':formVeiculo, 'proprietarioForm':formProprietario, 'cidadaoForm':formCidadao, 'pessoaFisicaForm':formPessoaFisica, 'pessoaForm':formPessoa, 'tipoContatoForm':formTipoContato, 'contatoForm':formContato, 'tipoLogradouroForm':formTipoLogradouro, 'logradouroForm':formLogradouro, 'bairroForm':formBairro, 'municipioForm':formMunicipio, 'resideForm':formReside})
+
+@login_required
+def permissao_detail(request, pk):
+    permissao = get_object_or_404(Permissao, pk=pk)
+    return render(request, 'sistran/models/permissao/permissao_detail.html', {'permissao': permissao})
 
 # CRUD MOTORISTA
 

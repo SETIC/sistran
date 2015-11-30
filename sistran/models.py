@@ -16,13 +16,13 @@ class AnexoCidadao(models.Model):
     cidadao = models.ForeignKey('pessoal.Cidadao')
     nome_documento = models.CharField(max_length=255)
     caminho = models.FileField()
-    
+
 class AnexoPermissao(models.Model):
     id = models.AutoField(primary_key=True)
     permissao = models.ForeignKey('Permissao')
     nome_documento = models.CharField(max_length=255)
     caminho = models.FileField()
-    
+
 class Proprietario(models.Model):
     id = models.OneToOneField('pessoal.Cidadao', primary_key=True)
 
@@ -37,7 +37,7 @@ class Motorista(models.Model):
 
 class Cobrador(models.Model):
     id = models.OneToOneField('pessoal.Cidadao', primary_key=True)
-    
+
     def __str__(self):
         return self.id.id.id.nome
 
@@ -53,7 +53,8 @@ class Veiculo(models.Model):
     ano_fabricacao = models.CharField(max_length=255, null=False, blank=False, verbose_name='Ano de Fabricação')
     CATEGORIA_CHOICES = (("OFICIAL","OFICIAL"), ("REPRESENTAÇÃO DIPLOMÁTICA","REPRESENTAÇÃO DIPLOMÁTICA"), ("PARTICULAR","PARTICULAR"), ("ALUGUEL","ALUGUEL"), ("APRENDIZAGEM","APRENDIZAGEM"))
     categoria = models.CharField(max_length=155, choices=CATEGORIA_CHOICES, verbose_name='Categoria')
-    cor_predominante = models.CharField(max_length=255, blank=False, verbose_name='Cor Predominante')
+    COR_CHOICES = (("BRANCO","BRANCO"), ("PRATA","PRATA"), ("PRETO","PRETO"), ("CINZA","CINZA"), ("VERMELHO","VERMELHO"), ("MARROM","MARROM"), ("BEGE","BEGE"), ("AZUL","AZUL"), ("VERDE","VERDE"), ("AMARELO","AMARELO"), ("DOURADO","DOURADO"))
+    cor_predominante = models.CharField(max_length=255, blank=False, choices=COR_CHOICES, verbose_name='Cor Predominante')
 
     def __str__(self):
         return self.marca_modelo + " - " + self.placa
@@ -64,7 +65,7 @@ class PermissaoTemProprietario(models.Model):
     data_posse = models.DateField(auto_now=True)
     STATUS_CHOICE = (('ATIVO','ATIVO'),	('TRANSFERIDO','TRANSFERIDO'), ('INATIVO','INATIVO'))
     status = models.CharField(max_length=10, choices=STATUS_CHOICE)
-    
+
 class PermissaoTemVeiculo(models.Model):
     permissao = models.ForeignKey('Permissao')
     veiculo = models.ForeignKey('Veiculo')
