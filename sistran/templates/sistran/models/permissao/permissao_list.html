@@ -57,20 +57,20 @@
             <thead>
               <tr>
                 <th>Número</th>
-                <th>Marca</th>
+                <th>Marca/Modelo</th>
                 <th>Placa</th>
-                <th>Data</th>
+                <th>Data de Cadastramento</th>
                 <th>Tipo de Concessão</th>
               </tr>
             </thead>
             <tbody>
-            {% for permissao in permissoes %}
+            {% for permissao_veiculo in permissoes_veiculos %}
               <tr>
-                <th>{{ permissao.numero|upper }}</th>
-                <td></td>
-                <td></td>
-                <td>{{ permissao.data|date:"d/F/y"|upper }}</td>
-                <td>{{ permissao.tipo_concessao|upper }}</td>
+                <th>{{ permissao_veiculo.permissao.numero }}</th>
+                <td>{{ permissao_veiculo.veiculo.marca }}/{{ permissao_veiculo.veiculo.modelo }}</td>
+                <td>{{ permissao_veiculo.veiculo.placa }}</td>
+                <td>{{ permissao_veiculo.permissao.data|date:"d/F/y"|upper }}</td>
+                <td>{{ permissao_veiculo.permissao.tipo_concessao }}</td>
               </tr>
             {% endfor %}
             </tbody>

@@ -30,7 +30,7 @@ class ProprietarioForm(forms.ModelForm):
         fields = ('__all__')
 
 class VeiculoForm(forms.ModelForm):
-    VEICULO_PROPRIO_CHOICES = (('TRUE', 'SIM',), ('FALSE', 'NÃO',))
+    VEICULO_PROPRIO_CHOICES = (('True', 'SIM',), ('False', 'NÃO',))
     COMBUSTIVEL_CHOICES = (
         ('GASOLINA', 'GASOLINA'),
         ('ÁLCOOL', 'ÁLCOOL'),

@@ -246,7 +246,7 @@ class Professor(models.Model):
 class Reside(models.Model):
     id = models.AutoField(primary_key=True)
     logradouro = models.ForeignKey('localizacao.Logradouro')
-    numero = models.CharField(max_length=20, blank=True, null=True, verbose_name='Número')
+    numero = models.IntegerField(blank=False, null=False, verbose_name='Número')
     complemento = models.CharField(max_length=300, blank=True, null=True)
     cep = models.CharField(max_length=9, blank=True, null=True, verbose_name='CEP')
     bairro = models.ForeignKey('localizacao.Bairro')

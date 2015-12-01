@@ -22,12 +22,9 @@ def permission_denied(request):
 
 @login_required
 def permissao_list(request):
-    permissoes = Permissao.objects.all()
+    permissoes_veiculos = PermissaoTemVeiculo.objects.all()
 
-    for permissao in permissoes:
-        print (permissao.id)
-
-    return render(request, 'sistran/models/permissao/permissao_list.html', {'permissoes': permissoes})
+    return render(request, 'sistran/models/permissao/permissao_list.html', {'permissoes_veiculos': permissoes_veiculos})
 
 @login_required
 @permission_required('sistran.add_permissao',login_url='/sistran/permission_denied/')

@@ -21,6 +21,9 @@ class PessoaFisicaForm(forms.ModelForm):
         fields = ['sexo']
 
 class CidadaoForm(forms.ModelForm):
+    validade_cnh = forms.DateField(label='Validade da CNH', widget=extras.SelectDateWidget(
+        years=range(1920,datetime.date.today().year+1),
+        attrs={'class': 'form-control', 'style':'max-width:110px; float:left;'}))
     class Meta:
         model = Cidadao
         exclude = ['id', 'rg_data_de_emissao', 'te_numero', 'te_secao', 'te_zona']
