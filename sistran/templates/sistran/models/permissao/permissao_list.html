@@ -63,14 +63,14 @@
                 <th>Tipo de Concessão</th>
               </tr>
             </thead>
-            <tbody>
-            {% for permissao_veiculo in permissoes_veiculos %}
-              <tr>
-                <th>{{ permissao_veiculo.permissao.numero }}</th>
-                <td>{{ permissao_veiculo.veiculo.marca }}/{{ permissao_veiculo.veiculo.modelo }}</td>
-                <td>{{ permissao_veiculo.veiculo.placa }}</td>
-                <td>{{ permissao_veiculo.permissao.data|date:"d/F/y"|upper }}</td>
-                <td>{{ permissao_veiculo.permissao.tipo_concessao }}</td>
+            <tbody class="upper">
+            {% for permissao in permissoes %}
+              <tr class="row-detail" data-href="{% url "sistran.views.permissao_detail" pk=permissao.pk %}">
+                <th>{{ permissao.permissao_veiculo.permissao.num_permissao }}</th>
+                <td>{{ permissao.permissao_veiculo.veiculo.marca }}/{{ permissao.permissao_veiculo.veiculo.modelo }}</td>
+                <td>{{ permissao.permissao_veiculo.veiculo.placa }}</td>
+                <td>{{ permissao.permissao_veiculo.permissao.data|date:"d/F/y"|upper }}</td>
+                <td>{{ permissao.permissao_veiculo.permissao.tipo_concessao }}</td>
               </tr>
             {% endfor %}
             </tbody>
@@ -124,6 +124,11 @@
       <!-- right column -->
     </section>
     <script>
+      jQuery(document).ready(function($) {
+          $(".row-detail").click(function() {
+              window.document.location = $(this).data("href");
+          });
+      });
       function confirmDelete(deleteUrl) {
         if (confirm("Tem certeza de que deseja excluir esta Permissão?")) {
           document.location = deleteUrl;

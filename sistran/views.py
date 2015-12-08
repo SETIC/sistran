@@ -22,9 +22,9 @@ def permission_denied(request):
 
 @login_required
 def permissao_list(request):
-    permissoes_veiculos = PermissaoTemVeiculo.objects.all()
+    permissoes = PermissaoTemProprietario.objects.all()
 
-    return render(request, 'sistran/models/permissao/permissao_list.html', {'permissoes_veiculos': permissoes_veiculos})
+    return render(request, 'sistran/models/permissao/permissao_list.html', {'permissoes': permissoes})
 
 @login_required
 @permission_required('sistran.add_permissao',login_url='/sistran/permission_denied/')
@@ -36,7 +36,6 @@ def permissao_new(request):
         formCidadao = CidadaoForm(request.POST)
         formPessoaFisica = PessoaFisicaForm(request.POST)
         formPessoa = PessoaForm(request.POST)
-        formTipoContato = TipoContatoForm(request.POST)
         formContato = ContatoForm(request.POST)
         formTipoLogradouro = TipoLogradouroForm(request.POST)
         formLogradouro = LogradouroForm(request.POST)
@@ -49,6 +48,10 @@ def permissao_new(request):
             proprietario = formProprietario.save(commit=False)
             proprietario.id = cidadao_new(request)
             proprietario.save()
+
+            contato = formContato.save(commit=False)
+            contato.pessoa = proprietario.id.id.id
+            contato.save()
 
             veiculo = formVeiculo.save(commit=False)
             veiculo.id = veiculo_new(request)
@@ -72,7 +75,7 @@ def permissao_new(request):
             return redirect('sistran.views.permissao_detail', pk=permissao.pk)
         else:
             return render_to_response('sistran/models/permissao/permissao_edit.html',
-                {'form': formPermissao, 'veiculoForm':formVeiculo, 'proprietarioForm':formProprietario, 'cidadaoForm':formCidadao, 'pessoaFisicaForm':formPessoaFisica, 'pessoaForm':formPessoa, 'tipoContatoForm':formTipoContato, 'contatoForm':formContato, 'tipoLogradouroForm':formTipoLogradouro, 'logradouroForm':formLogradouro, 'bairroForm':formBairro, 'municipioForm':formMunicipio, 'resideForm':formReside}, context_instance=RequestContext(request))
+                {'form': formPermissao, 'veiculoForm':formVeiculo, 'proprietarioForm':formProprietario, 'cidadaoForm':formCidadao, 'pessoaFisicaForm':formPessoaFisica, 'pessoaForm':formPessoa, 'contatoForm':formContato, 'tipoLogradouroForm':formTipoLogradouro, 'logradouroForm':formLogradouro, 'bairroForm':formBairro, 'municipioForm':formMunicipio, 'resideForm':formReside}, context_instance=RequestContext(request))
     else:
         formPermissao = PermissaoForm()
         formVeiculo = VeiculoForm()
@@ -80,7 +83,6 @@ def permissao_new(request):
         formCidadao = CidadaoForm()
         formPessoaFisica = PessoaFisicaForm()
         formPessoa = PessoaForm()
-        formTipoContato = TipoContatoForm()
         formContato = ContatoForm()
         formTipoLogradouro = TipoLogradouroForm()
         formLogradouro = LogradouroForm()
@@ -88,11 +90,11 @@ def permissao_new(request):
         formMunicipio = MunicipioForm()
         formReside = ResideForm()
         return render(request, 'sistran/models/permissao/permissao_edit.html',
-            {'form': formPermissao, 'veiculoForm':formVeiculo, 'proprietarioForm':formProprietario, 'cidadaoForm':formCidadao, 'pessoaFisicaForm':formPessoaFisica, 'pessoaForm':formPessoa, 'tipoContatoForm':formTipoContato, 'contatoForm':formContato, 'tipoLogradouroForm':formTipoLogradouro, 'logradouroForm':formLogradouro, 'bairroForm':formBairro, 'municipioForm':formMunicipio, 'resideForm':formReside})
+            {'form': formPermissao, 'veiculoForm':formVeiculo, 'proprietarioForm':formProprietario, 'cidadaoForm':formCidadao, 'pessoaFisicaForm':formPessoaFisica, 'pessoaForm':formPessoa, 'contatoForm':formContato, 'tipoLogradouroForm':formTipoLogradouro, 'logradouroForm':formLogradouro, 'bairroForm':formBairro, 'municipioForm':formMunicipio, 'resideForm':formReside})
 
 @login_required
 def permissao_detail(request, pk):
-    permissao = get_object_or_404(Permissao, pk=pk)
+    permissao = get_object_or_404(PermissaoTemProprietario, pk=pk)
     return render(request, 'sistran/models/permissao/permissao_detail.html', {'permissao': permissao})
 
 # CRUD MOTORISTA
