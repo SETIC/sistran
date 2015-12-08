@@ -10,7 +10,7 @@ urlpatterns = [
     #-- PERMISSÃO --#
     url(r'^sistran/permissao/', include([
             url(r'^$', views.permissao_list),
-            url(r'^(?P<pk>[0-9]+)/$', views.motorista_detail),
+            url(r'^(?P<pk>[0-9]+)/$', views.permissao_detail),
             url(r'^new/$', views.permissao_new, name='permissao_new'),
         ])),
     #-- MOTORISTA --#

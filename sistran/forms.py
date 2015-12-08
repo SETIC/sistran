@@ -41,6 +41,7 @@ class VeiculoForm(forms.ModelForm):
     exercicio = forms.ChoiceField(label='Ano de Exercício', choices=[(x, x) for x in range(1990, date.today().year+1)], required=True)
     combustivel = forms.MultipleChoiceField(label='Combustível', required=True, widget=forms.CheckboxSelectMultiple, choices=COMBUSTIVEL_CHOICES)
     ano_fabricacao = forms.ChoiceField(label='Ano de Fabricação', choices=[(x, x) for x in range(1980, date.today().year+1)], required=True)
+    ano_modelo = forms.ChoiceField(label='Ano do Modelo', choices=[(x, x) for x in range(1980, date.today().year+2)], required=True)
     class Meta:
         model = Veiculo
         exclude = ['id']

@@ -12,7 +12,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{% static "css/font-awesome.min.css" %}">
     <!-- Select2 -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.1-rc.1/css/select2.min.css" rel="stylesheet" />
+    <link href="{% static "css/select2.min.css" %}" rel="stylesheet" />
     {% block css-dashboard %}
     <!-- jvectormap -->
     <link rel="stylesheet" href="{% static "plugins/jvectormap/jquery-jvectormap-1.2.2.css" %}">
@@ -23,6 +23,8 @@
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="{% static "css/skins/skin-green.min.css" %}">
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,500,400italic,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <!-- jQuery 2.1.4 -->
+    <script src="{% static "plugins/jQuery/jQuery-2.1.4.min.js" %}"></script>
     {% block style-login %}
     <style>
       .login-page, register-page {
@@ -105,6 +107,15 @@
       .form-control {
         text-transform: uppercase;
       }
+      .row-detail:hover{
+        cursor: pointer !important;
+      }
+      .upper {
+        text-transform: uppercase; 
+      }
+      .lbl-featured {
+        font-weight: 700;
+      }
     </style>
   </head>
   <body class="{% block bodyclass %}hold-transition skin-green sidebar-mini{% endblock %}">
@@ -128,8 +139,6 @@
       {% endblock %}
     </div><!-- ./wrapper -->
     {% endblock %}
-    <!-- jQuery 2.1.4 -->
-    <script src="{% static "plugins/jQuery/jQuery-2.1.4.min.js" %}"></script>
      <!--jQuery Masked Input -->
     <script src="{% static "js/jquery.maskedinput.min.js" %}"></script>
     <!-- Jets Search Engine -->
@@ -139,7 +148,7 @@
     <!-- FastClick -->
     <script src="{% static "plugins/fastclick/fastclick.min.js" %}"></script>
     <!-- Select2 -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.1-rc.1/js/select2.min.js"></script>
+    <script src="{% static "js/select2.min.js" %}"></script>
     <!-- AdminLTE App -->
     <script src="{% static "js/app.min.js" %}"></script>
     {% block js-dashboard %}

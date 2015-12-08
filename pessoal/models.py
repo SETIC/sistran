@@ -9,17 +9,18 @@ class Aluno(models.Model):
     numero_de_inscricao = models.CharField(unique=True, max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = '"cadastro_unico_pessoal"."aluno"'
 
 class Contato(models.Model):
-    id = models.BigIntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     pessoa = models.ForeignKey('Pessoa')
-    tipo_contato = models.ForeignKey('TipoContato')
+    TIPO_CONTATO_CHOICES = (("TELEFONE", "TELEFONE"), ("CELULAR","CELULAR"), ("EMAIL","EMAIL"))
+    tipo_contato = models.CharField(max_length=255, choices=TIPO_CONTATO_CHOICES, blank=True, null=False, verbose_name="Tipo do Contato")
     contato = models.CharField(max_length=255)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = '"cadastro_unico_pessoal"."contato"'
 
 class DadosBancarios(models.Model):
@@ -31,7 +32,7 @@ class DadosBancarios(models.Model):
     banco_operacao = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = '"cadastro_unico_pessoal"."dados_bancarios"'
 
 class Editora(models.Model):
@@ -39,7 +40,7 @@ class Editora(models.Model):
     reservado = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'editora'
 
 class Escola(models.Model):
@@ -49,7 +50,7 @@ class Escola(models.Model):
     longitude = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'escola'
 
 class Fornecedor(models.Model):
@@ -57,7 +58,7 @@ class Fornecedor(models.Model):
     reservado = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'fornecedor'
 
 class Contrato(models.Model):
@@ -74,7 +75,7 @@ class Contrato(models.Model):
     aditivo_vigente = models.CharField(max_length=255)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'contrato'
 
 class Aditivo(models.Model):
@@ -89,7 +90,7 @@ class Aditivo(models.Model):
     saldo_restante = models.FloatField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'aditivo'
 
 class Paciente(models.Model):
@@ -97,7 +98,7 @@ class Paciente(models.Model):
     prontuario = models.CharField(max_length=255)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = '"cadastro_unico_pessoal"."paciente"'
 
 class Pessoa(models.Model):
@@ -111,7 +112,7 @@ class Pessoa(models.Model):
     esc_id_destino = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = '"cadastro_unico_pessoal"."pessoa"'
 
     def status_color(self):
@@ -142,7 +143,7 @@ class PessoaFisica(models.Model):
     tipo_sanguineo = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = '"cadastro_unico_pessoal"."pessoa_fisica"'
 
     def __str__(self):
@@ -176,7 +177,7 @@ class Cidadao(models.Model):
         return self.id.id.nome
 
     class Meta:
-        managed = False
+        managed = True
         db_table = '"cadastro_unico_pessoal"."cidadao"'
 
 class Funcionario(models.Model):
@@ -192,7 +193,7 @@ class Funcionario(models.Model):
         return self.id.id.id.nome
 
     class Meta:
-        managed = False
+        managed = True
         db_table = '"cadastro_unico_pessoal"."funcionario"'
 
 #class Motorista(models.Model):
@@ -214,7 +215,7 @@ class DetemPropriedade(models.Model):
     data_termino = models.DateField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = '"cadastro_unico_pessoal"."detem_propriedade"'
 
 class PessoaJuridica(models.Model):
@@ -223,7 +224,7 @@ class PessoaJuridica(models.Model):
     razao_social = models.CharField(unique=True, max_length=255)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = '"cadastro_unico_pessoal"."pessoa_juridica"'
 
 class Prefeitura(models.Model):
@@ -231,7 +232,7 @@ class Prefeitura(models.Model):
     brasao = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'prefeitura'
 
 class Professor(models.Model):
@@ -239,7 +240,7 @@ class Professor(models.Model):
     identificacao = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'professor'
 
 class Reside(models.Model):
@@ -252,15 +253,35 @@ class Reside(models.Model):
     pessoa = models.ForeignKey(Pessoa)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = '"cadastro_unico_pessoal"."reside"'
 
 class TipoContato(models.Model):
-    id = models.BigIntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     TIPO_CONTATO_CHOICES = (("TELEFONE", "TELEFONE"), ("CELULAR","CELULAR"), ("EMAIL","EMAIL"))
-    tipo_contato = models.CharField(unique=True, max_length=255, choices=TIPO_CONTATO_CHOICES, verbose_name='Tipo do Contato')
+    tipo_contato = models.CharField(unique=False, max_length=255, choices=TIPO_CONTATO_CHOICES, verbose_name='Tipo do Contato')
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'tipo_contato'
         db_table = '"cadastro_unico_pessoal"."tipo_contato"'
+
+class NecessidadesEspeciais(models.Model):
+    id = models.BigIntegerField(primary_key=True)
+    descricao = models.CharField(max_length=255, blank=True, null=True, verbose_name='Descrição')
+
+    class Meta:
+        managed = True
+        db_table = 'necessidades_especiais'
+        db_table = '"cadastro_unico_pessoal"."necessidades_especiais"'
+
+class PessoaFisicaNecessidadesEspeciais(models.Model):
+    id = models.BigIntegerField(primary_key=True)
+    necessidades_especiais = models.ForeignKey('NecessidadesEspeciais')
+    pessoa_fisica = models.ForeignKey('PessoaFisica')
+    observacao = models.CharField(max_length=255, blank=True, null=True, verbose_name='Observação')
+
+    class Meta:
+        managed = True
+        db_table = 'pessoa_fisica_necessidades_especiais'
+        db_table = '"cadastro_unico_pessoal"."pessoa_fisica_necessidades_especiais"'

@@ -6,7 +6,7 @@ from localizacao.models import *
 
 class Permissao(models.Model):
     id = models.AutoField(primary_key=True)
-    numero = models.IntegerField(null=False, blank=False, verbose_name='Número da Permissão')
+    num_permissao = models.IntegerField(null=False, blank=False, verbose_name='Número da Permissão')
     data = models.DateField(auto_now=True)
     TIPO_CONCESSAO_CHOICES = (("TÁXI","TÁXI"), ("ALTERNATIVO","ALTERNATIVO"), ("ESCOLAR","ESCOLAR"), ("FRETE","FRETE"))
     tipo_concessao = models.CharField(max_length=20, choices=TIPO_CONCESSAO_CHOICES, verbose_name='Tipo do Veículo')
@@ -49,13 +49,14 @@ class Veiculo(models.Model):
     chassi = models.CharField(max_length=255, null=False, blank=False, verbose_name='Chassi do Veículo')
     num_passageiros = models.IntegerField(verbose_name='Número de Passageiros')
     combustivel = models.CharField(max_length=255, blank=False, verbose_name='Combustível')
-    MARCA_CHOICES = (("AGRALE","AGRALE"), ("ASTON MARTIN","ASTON MARTIN"), ("AUDI","AUDI"), ("BENTLEY","BENTLEY"), ("BMW","BMW"), ("CHANGAN","CHANGAN"), ("CHERY","CHERY"), ("GM/CHEVROLET","GM/CHEVROLET"), ("CHRYSLER","CHRYSLER"), ("CITROËN","CITROËN"), ("DODGE","DODGE"), ("EFFA","EFFA"), ("FERRARI","FERRARI"), ("FIAT","FIAT"), ("FORD","FORD"), ("GEELY","GEELY"), ("HAFEI","HAFEI"), ("HONDA","HONDA"), ("HYUNDAI","HYUNDAI"), ("IVECO","IVECO"), ("JAC MOTORS","JAC MOTORS"), ("JAGUAR","JAGUAR"), ("JEEP","JEEP"), ("JINBEI","JINBEI"), ("KIA","KIA"), ("LAMBORGHINI","LAMBORGHINI"), ("LAND ROVER","LAND ROVER"), ("LEXUS","LEXUS"), ("LIFAN","LIFAN"), ("MAHINDRA","MAHINDRA"), ("MASERATI","MASERATI"), ("MERCEDES-BENZ","MERCEDES-BENZ"), ("MG MOTORS","MG MOTORS"), ("MINI","MINI"), ("MITSUBISHI","MITSUBISHI"), ("NISSAN","NISSAN"), ("PEUGEOT","PEUGEOT"), ("PORSCHE","PORSCHE"), ("RAM","RAM"), ("RENAULT","RENAULT"), ("SMART","SMART"), ("SSANGYONG","SSANGYONG"), ("SUBARU","SUBARU"), ("SUZUKI","SUZUKI"), ("TOYOTA","TOYOTA"), ("TROLLER","TROLLER"), ("VOLKSWAGEN","VOLKSWAGEN"), ("VOLVO","VOLVO"))
+    MARCA_CHOICES = (("AGRALE","AGRALE"), ("ASTON MARTIN","ASTON MARTIN"), ("AUDI","AUDI"), ("BENTLEY","BENTLEY"), ("BMW","BMW"), ("CHANGAN","CHANGAN"), ("CHERY","CHERY"), ("CHEVROLET","CHEVROLET"), ("CHRYSLER","CHRYSLER"), ("CITROËN","CITROËN"), ("DODGE","DODGE"), ("EFFA","EFFA"), ("FERRARI","FERRARI"), ("FIAT","FIAT"), ("FORD","FORD"), ("GEELY","GEELY"), ("HAFEI","HAFEI"), ("HONDA","HONDA"), ("HYUNDAI","HYUNDAI"), ("IVECO","IVECO"), ("JAC MOTORS","JAC MOTORS"), ("JAGUAR","JAGUAR"), ("JEEP","JEEP"), ("JINBEI","JINBEI"), ("KIA","KIA"), ("LAMBORGHINI","LAMBORGHINI"), ("LAND ROVER","LAND ROVER"), ("LEXUS","LEXUS"), ("LIFAN","LIFAN"), ("MAHINDRA","MAHINDRA"), ("MASERATI","MASERATI"), ("MERCEDES-BENZ","MERCEDES-BENZ"), ("MG MOTORS","MG MOTORS"), ("MINI","MINI"), ("MITSUBISHI","MITSUBISHI"), ("NISSAN","NISSAN"), ("PEUGEOT","PEUGEOT"), ("PORSCHE","PORSCHE"), ("RAM","RAM"), ("RENAULT","RENAULT"), ("SMART","SMART"), ("SSANGYONG","SSANGYONG"), ("SUBARU","SUBARU"), ("SUZUKI","SUZUKI"), ("TOYOTA","TOYOTA"), ("TROLLER","TROLLER"), ("VOLKSWAGEN","VOLKSWAGEN"), ("VOLVO","VOLVO"))
     marca = models.CharField(max_length=255, choices=MARCA_CHOICES, null=False, blank=False, verbose_name='Marca')
     modelo = models.CharField(max_length=255, null=False, blank=False, verbose_name='Modelo')
     ano_fabricacao = models.CharField(max_length=255, null=False, blank=False, verbose_name='Ano de Fabricação')
+    ano_modelo = models.CharField(max_length=255, null=False, blank=False, verbose_name='Ano do Modelo')
     CATEGORIA_CHOICES = (("OFICIAL","OFICIAL"), ("REPRESENTAÇÃO DIPLOMÁTICA","REPRESENTAÇÃO DIPLOMÁTICA"), ("PARTICULAR","PARTICULAR"), ("ALUGUEL","ALUGUEL"), ("APRENDIZAGEM","APRENDIZAGEM"))
     categoria = models.CharField(max_length=155, choices=CATEGORIA_CHOICES, verbose_name='Categoria')
-    COR_CHOICES = (("BRANCO","BRANCO"), ("PRATA","PRATA"), ("PRETO","PRETO"), ("CINZA","CINZA"), ("VERMELHO","VERMELHO"), ("MARROM","MARROM"), ("BEGE","BEGE"), ("AZUL","AZUL"), ("VERDE","VERDE"), ("AMARELO","AMARELO"), ("DOURADO","DOURADO"))
+    COR_CHOICES = (("BRANCA","BRANCA"), ("PRATA","PRATA"), ("PRETA","PRETA"), ("CINZA","CINZA"), ("VERMELHA","VERMELHA"), ("MARROM","MARROM"), ("BEGE","BEGE"), ("AZUL","AZUL"), ("VERDE","VERDE"), ("AMARELA","AMARELA"), ("DOURADA","DOURADA"))
     cor_predominante = models.CharField(max_length=255, blank=False, choices=COR_CHOICES, verbose_name='Cor Predominante')
 
     def __str__(self):
