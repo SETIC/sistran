@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+#coding: utf8 
+
 from __future__ import unicode_literals
 from django.db import models
 

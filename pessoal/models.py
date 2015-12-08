@@ -131,7 +131,6 @@ class PessoaFisica(models.Model):
     cor = models.CharField(max_length=255, blank=True, null=True)
     foto = models.CharField(max_length=255, blank=True, null=True)
     grau_de_instrucao = models.CharField(max_length=255, blank=True, null=True)
-    necessidades_especiais = models.CharField(max_length=255, blank=True, null=True)
     rc_data_do_registro = models.DateField(blank=True, null=True)
     rc_folha_do_livro = models.CharField(max_length=255, blank=True, null=True)
     rc_nome_do_cartorio = models.CharField(max_length=255, blank=True, null=True)

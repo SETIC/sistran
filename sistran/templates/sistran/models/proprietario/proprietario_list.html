@@ -79,10 +79,10 @@
                     <i class="fa fa-car"></i>
                   </a>
                 </th>
-                <td><a href="{% url "sistran.views.proprietario_detail" pk=proprietario.pk %}">{{ proprietario.id }}</a></td>
+                <td><a href="{% url "sistran.views.proprietario_detail" pk=proprietario.pk %}">{{ proprietario.id|upper }}</a></td>
                 <td>{{ proprietario.id.id.id.cpf_cnpj }}</td>
                 <td>{{ proprietario.num_cnh }}</td>
-                <td>{{ proprietario.cat_cnh }}</td>
+                <td>{{ proprietario.cat_cnh|upper }}</td>
               </tr>
             {% endfor %}
             </tbody>

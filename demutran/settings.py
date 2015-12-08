@@ -86,7 +86,7 @@ WSGI_APPLICATION = 'demutran.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'db_sgg_testes',
+        'NAME': 'db_sgg_int',
         'USER': 'postgres',
         'PASSWORD': '123',
         'HOST': 'localhost',

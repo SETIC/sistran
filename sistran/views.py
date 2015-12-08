@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+#coding: utf8 
+
 import pdb
 from django.shortcuts import render, redirect, get_object_or_404, render_to_response
 from django.contrib.auth.decorators import permission_required, user_passes_test, login_required
