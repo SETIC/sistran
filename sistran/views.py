@@ -43,7 +43,7 @@ def permissao_new(request):
         formMunicipio = MunicipioForm(request.POST)
         formReside = ResideForm(request.POST)
 
-        if formPermissao.is_valid() and formVeiculo.is_valid() and formProprietario.is_valid() and formCidadao.is_valid() and formPessoaFisica.is_valid() and formPessoa.is_valid() and formTipoContato.is_valid() and formContato.is_valid() and formTipoLogradouro.is_valid() and formContato.is_valid() and formTipoLogradouro.is_valid() and formLogradouro.is_valid() and formBairro.is_valid() and formMunicipio.is_valid() and formReside.is_valid():
+        if formPermissao.is_valid() and formVeiculo.is_valid() and formProprietario.is_valid() and formCidadao.is_valid() and formPessoaFisica.is_valid() and formPessoa.is_valid() and formContato.is_valid() and formTipoLogradouro.is_valid() and formContato.is_valid() and formTipoLogradouro.is_valid() and formLogradouro.is_valid() and formBairro.is_valid() and formMunicipio.is_valid() and formReside.is_valid():
 
             proprietario = formProprietario.save(commit=False)
             proprietario.id = cidadao_new(request)
@@ -90,12 +90,15 @@ def permissao_new(request):
         formMunicipio = MunicipioForm()
         formReside = ResideForm()
         return render(request, 'sistran/models/permissao/permissao_edit.html',
-            {'form': formPermissao, 'veiculoForm':formVeiculo, 'proprietarioForm':formProprietario, 'cidadaoForm':formCidadao, 'pessoaFisicaForm':formPessoaFisica, 'pessoaForm':formPessoa, 'contatoForm':formContato, 'tipoLogradouroForm':formTipoLogradouro, 'logradouroForm':formLogradouro, 'bairroForm':formBairro, 'municipioForm':formMunicipio, 'resideForm':formReside})
+            {'form': formPermissao, 'veiculoForm':formVeiculo, 'proprietarioForm':formProprietario, 'cidadaoForm':formCidadao, 'pessoaFisicaForm':formPessoaFisica, 'pessoaForm':formPessoa, 'contatoForm':formContato, 'logradouroForm':formLogradouro, 'bairroForm':formBairro, 'municipioForm':formMunicipio, 'resideForm':formReside})
 
 @login_required
 def permissao_detail(request, pk):
     permissao = get_object_or_404(PermissaoTemProprietario, pk=pk)
-    return render(request, 'sistran/models/permissao/permissao_detail.html', {'permissao': permissao})
+    contato_permissionario = Contato.objects.get(pessoa=permissao.proprietario.id.id.id.id)
+    endereco_permissionario = Reside.objects.get(pessoa=permissao.proprietario.id.id.id.id)
+
+    return render(request, 'sistran/models/permissao/permissao_detail.html', {'permissao': permissao, 'endereco_permissionario': endereco_permissionario, 'contato_permissionario':contato_permissionario})
 
 # CRUD MOTORISTA
 

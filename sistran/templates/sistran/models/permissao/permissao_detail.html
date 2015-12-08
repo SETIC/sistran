@@ -1,5 +1,6 @@
 {% extends "sistran/base/base_site.html" %}
 {% load staticfiles %}
+{% load filters %}
 
 {% block title %}
     Detalhes da Permissão - SISTRAN
@@ -99,6 +100,16 @@
             <div class="col-sm-10 upper">{{ permissao.proprietario.id.categoria_cnh }}</div>
           </div>
           <br/>
+          <div class="row">
+            <div class="col-sm-2 lbl-featured">Contato</div>
+            <div class="col-sm-10 upper">{{ contato_permissionario.contato }}</div>
+          </div>
+          <br/>
+          <div class="row">
+            <div class="col-sm-2 lbl-featured">Endereço</div>
+            <div class="col-sm-10 upper">{{ endereco_permissionario.logradouro.tipo_logradouro }} {{ endereco_permissionario.logradouro.logradouro }}, {{ endereco_permissionario.numero }}, {{ endereco_permissionario.complemento }}, {{ endereco_permissionario.bairro.bairro }}, {{ endereco_permissionario.bairro.municipio.municipio }}/{{ endereco_permissionario.bairro.municipio.estado.abreviacao }} | CEP {{ endereco_permissionario.cep }}</div>
+          </div>
+          <br/>
           <div class="box-header with-border">
             <h3 class="box-title">Dados do Veículo</h3>
           </div>
@@ -109,7 +120,11 @@
           <br/>
           <div class="row">
             <div class="col-sm-2 lbl-featured">Veículo Próprio?</div>
-            <div class="col-sm-10 upper">{{ permissao.permissao_veiculo.veiculo.veiculo_proprio }}</div>
+            {% if permissao.permissao_veiculo.veiculo.veiculo_proprio %}
+                <div class="col-sm-10 upper">SIM</div>
+            {% else %}
+                <div class="col-sm-10 upper">NÃO</div>
+            {% endif %}
           </div>
           <br/>
           <div class="row">
@@ -134,7 +149,7 @@
           <br/>
           <div class="row">
             <div class="col-sm-2 lbl-featured">Combustível</div>
-            <div class="col-sm-10 upper">{{ permissao.permissao_veiculo.veiculo.combustivel }}</div>
+            <div class="col-sm-10 upper">{{ permissao.permissao_veiculo.veiculo.combustivel|slugify|replace:"-" }}</div>
           </div>
           <br/>
           <div class="row">
