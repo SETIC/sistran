@@ -5,10 +5,10 @@ from django.template import RequestContext
 from django.utils import timezone
 from .models import *
 from .forms import *
-from pessoal.forms import *
-from pessoal.views import *
-from localizacao.forms import *
-from localizacao.views import *
+from demutran.pessoal.forms import *
+from demutran.pessoal.views import *
+from demutran.localizacao.forms import *
+from demutran.localizacao.views import *
 
 @login_required
 def home(request):
@@ -72,7 +72,7 @@ def permissao_new(request):
             permissaoTemProprietario.status = 'ATIVO'
             permissaoTemProprietario.save()
 
-            return redirect('sistran.views.permissao_detail', pk=permissao.pk)
+            return redirect('demutran.sistran.views.permissao_detail', pk=permissao.pk)
         else:
             return render_to_response('sistran/models/permissao/permissao_edit.html',
                 {'form': formPermissao, 'veiculoForm':formVeiculo, 'proprietarioForm':formProprietario, 'cidadaoForm':formCidadao, 'pessoaFisicaForm':formPessoaFisica, 'pessoaForm':formPessoa, 'contatoForm':formContato, 'tipoLogradouroForm':formTipoLogradouro, 'logradouroForm':formLogradouro, 'bairroForm':formBairro, 'municipioForm':formMunicipio, 'resideForm':formReside}, context_instance=RequestContext(request))

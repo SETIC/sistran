@@ -1,10 +1,5 @@
-from __future__ import unicode_literals
-
 from django.db import models
-
-from pessoal.models import *
-
-# Create your models here.
+from demutran.pessoal.models import *
 
 class Organismo(models.Model):
     id = models.BigIntegerField(primary_key=True)

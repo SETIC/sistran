@@ -34,10 +34,10 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'sistran',
-    'pessoal',
-    'administracao',
-    'localizacao',
+    'demutran.sistran',
+    'demutran.pessoal',
+    'demutran.administracao',
+    'demutran.localizacao',
 )
 
 MIDDLEWARE_CLASSES = (

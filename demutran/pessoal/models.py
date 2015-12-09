@@ -1,8 +1,6 @@
- # -*- coding: utf8 -*-
-from __future__ import unicode_literals
 from django.db import models
-from administracao.models import *
-from localizacao.models import *
+from demutran.administracao.models import *
+from demutran.localizacao.models import *
 
 class Aluno(models.Model):
     id = models.OneToOneField('Cidadao', db_column='id', primary_key=True)

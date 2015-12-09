@@ -1,8 +1,6 @@
- # -*- coding: utf8 -*-
-from __future__ import unicode_literals
 from django.db import models
-from pessoal.models import *
-from localizacao.models import *
+from demutran.pessoal.models import *
+from demutran.localizacao.models import *
 
 class Permissao(models.Model):
     id = models.AutoField(primary_key=True)
