@@ -1,10 +1,12 @@
 {% extends "sistran/base/base.html" %}
 
 {% block title %}
-SISTRAN | Login
+Login · SISTRAN
 {% endblock %}
 
+{% block css-extra %}{% endblock %}
 {% block css-dashboard %}{% endblock %}
+{% block js-jquery %}{% endblock %}
 
 {% block bodyclass %}hold-transition login-page{% endblock %}
 {% block wrapper %}
@@ -41,5 +43,7 @@ SISTRAN | Login
 {% block footer %}
 {% include "sistran/base/footer.html" %}
 {% endblock %}
+{% block js-default %}{% endblock %}
+{% block js-extra %}{% endblock %}
 {% block js-dashboard %}{% endblock %}
 {% endblock %}

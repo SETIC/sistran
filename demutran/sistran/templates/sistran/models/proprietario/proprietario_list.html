@@ -64,22 +64,40 @@
             <tbody>
             {% for proprietario in proprietarios %}
               <tr>
-                <th>
-                {% if perms.sistran.change_proprietario %}
+                <td>
+                  {% if perms.sistran.change_proprietario %}
                       <a class="btn btn-primary btn-sm btn-flat" href="{% url "proprietario_edit" pk=proprietario.pk %}">
                         <i class="fa fa-pencil"></i>
                       </a>
-                  {%endif%}
-                  {% if perms.sistran.delete_proprietario %}
-                      <a class="btn btn-danger btn-sm btn-flat" href="javascript:confirmDelete('{% url "proprietario_remove" pk=proprietario.pk %}')">
-                          <i class="fa fa-remove"></i>
-                      </a>
-                  {%endif%}
-                    <a class="btn btn-info btn-sm btn-flat" href="">
+                  {% endif %}
+                  {% if perms.sistran.delete_proprietario %}                    
+                      <button type="button" class="btn btn-danger btn-sm btn-flat" data-toggle="modal" data-target="#modalConfirmDelete{{ proprietario.pk }}">
+                        <i class="fa fa-remove"></i>
+                      </button>
+                      <!-- Modal Confirm Delete -->
+                      <div class="modal fade" id="modalConfirmDelete{{ proprietario.pk }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document" style="width: 36rem;">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                              <h4 class="modal-title" id="myModalLabel">Confirm delete</h4>
+                            </div>
+                            <div class="modal-body">
+                              Are you sure you want to delete <strong>{{ proprietario.id|upper }}</strong>?
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Cancel</button>
+                              <a type="button" class="btn btn-danger btn-flat" href="{% url "proprietario_remove" pk=proprietario.pk %}">Delete</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                  {% endif %}
+                  <a class="btn btn-info btn-sm btn-flat" href="">
                     <i class="fa fa-car"></i>
                   </a>
-                </th>
-                <td><a href="{% url "sistran.views.proprietario_detail" pk=proprietario.pk %}">{{ proprietario.id }}</a></td>
+                </td>
+                <td><a href="{% url "sistran.views.proprietario_detail" pk=proprietario.pk %}">{{ proprietario.id|upper }}</a></td>
                 <td>{{ proprietario.id.id.id.cpf_cnpj }}</td>
                 <td>{{ proprietario.num_cnh }}</td>
                 <td>{{ proprietario.cat_cnh }}</td>

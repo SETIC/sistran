@@ -2,6 +2,7 @@ from django.conf.urls import include, url
 from . import views
 
 urlpatterns = [
+    url(r'^$', views.home),
     url(r'^sistran/$', views.home),
     url(r'^sistran/permission_denied/$', views.permission_denied),
     #-- PERMISSÃO --#

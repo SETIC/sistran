@@ -1,0 +1,74 @@
+body {
+  font-family: 'Roboto', sans-serif;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Roboto', sans-serif;
+}
+.main-header .logo {
+  font-family: 'Roboto', sans-serif;
+  font-size: 3.5rem;
+}
+.sidebar-mini.sidebar-collapse .main-header .logo > .logo-mini {
+  font-size: 2.2rem;
+}
+.box-header>.fa, .box-header>.glyphicon, .box-header > .ion, .box-header .box-title {
+  font-weight: 300;
+}
+#sidebar .active {
+    color: #fff !important;
+}
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+.errorlist {
+  list-style: none;
+  padding-left: 0;
+}
+.with-border {
+  margin-bottom: 6px;
+  padding: 6px;
+}
+.form-control {
+  text-transform: uppercase;
+}
+.row-detail:hover{
+  cursor: pointer !important;
+}
+.upper {
+  text-transform: uppercase; 
+}
+.lbl-featured {
+  font-weight: 700;
+}
+.txt-rgt {
+  text-align: right;
+}
+.btn-pagination {
+  color: #00a65a;
+}
+.btn-pagination:hover {
+  color: #008d4c;
+}
+.mg-t-0 {
+  margin-top: 0;
+}
+.mg-b-0 {
+  margin-bottom: 0;
+}
+.mg-t-06 {
+  margin-top: 0.6rem;
+}
+.pager>.active>a, .pager>.active>a:focus, .pager>.active>a:hover, .pager>.active>span, .pager>.active>span:focus, .pager>.active>span:hover {
+  z-index: 3;
+  color: #fff;
+  cursor: default;
+  background-color: #00a65a;
+  border-color: #00a65a;
+}
+.link-green {
+  color: #00a65a;        
+}
+.link-green:focus, .link-green:hover {
+  color: #008d4c;
+}

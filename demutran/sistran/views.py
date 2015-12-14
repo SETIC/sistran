@@ -1,6 +1,7 @@
 import pdb
 from django.shortcuts import render, redirect, get_object_or_404, render_to_response
 from django.contrib.auth.decorators import permission_required, user_passes_test, login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.template import RequestContext
 from django.utils import timezone
 from .models import *
@@ -22,9 +23,20 @@ def permission_denied(request):
 
 @login_required
 def permissao_list(request):
-    permissoes = PermissaoTemProprietario.objects.all()
+    permissoes_list = PermissaoTemProprietario.objects.all()
+    paginator = Paginator(permissoes_list, 10)
 
-    return render(request, 'sistran/models/permissao/permissao_list.html', {'permissoes': permissoes})
+    page = request.GET.get('page')
+    try:
+        permissoes = paginator.page(page)
+    except PageNotAnInteger:
+        permissoes = paginator.page(1)
+    except EmptyPage:
+        permissoes = paginator.page(paginator.num_pages)
+
+    return render(request, 'sistran/models/permissao/permissao_list.html', {"permissoes": permissoes})
+
+
 
 @login_required
 @permission_required('sistran.add_permissao',login_url='/sistran/permission_denied/')
