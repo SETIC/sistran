@@ -56,7 +56,6 @@
           <table class="table table-hover">
             <thead>
               <tr>
-                <th>Opções</th>
                 <th>Número</th>
                 <th>Marca/Modelo</th>
                 <th>Placa</th>
@@ -67,13 +66,6 @@
             <tbody class="upper" id="jetsTableContent">
             {% for permissao in permissoes %}
               <tr class="row-detail" data-href="{% url "sistran.views.permissao_detail" pk=permissao.pk %}">
-                <td>
-                  {% if perms.sistran.change_permissao %}
-                    <a class="btn btn-primary btn-sm btn-flat" href="{% url "permissao_edit" pk=permissao.pk %}">
-                      <i class="fa fa-pencil"></i>
-                    </a>
-                  {% endif %}
-                </td>
                 <th>{{ permissao.permissao_veiculo.permissao.num_permissao }}</th>
                 <td>{{ permissao.permissao_veiculo.veiculo.marca }}/{{ permissao.permissao_veiculo.veiculo.modelo }}</td>
                 <td>{{ permissao.permissao_veiculo.veiculo.placa }}</td>
