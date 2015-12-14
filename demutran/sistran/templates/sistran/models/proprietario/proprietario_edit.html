@@ -1,0 +1,118 @@
+{% extends "sistran/base/base.html" %}
+{% load staticfiles %}
+{% load filters %}
+
+{% block title %}
+    Novo/Editar Proprietário - SISTRAN
+{% endblock %}
+
+{% block css-dashboard %}{% endblock %}
+{% block style-login %}{% endblock %}
+
+{% block wrapper %}
+<div class="wrapper">
+  {% block header %}
+  {% include "sistran/base/header.html" %}
+  {% endblock %}
+
+  {% block sidebar %}
+  {% include "sistran/base/sidebar.html" %}
+  {% endblock %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    {% block content-header %}
+    <section class="content-header">
+      <h1>
+        Proprietário
+        <small>Cadastro e Edição</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="/sistran/"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="/sistran/proprietario/"> Proprietários</a></li>
+        <li class="active">Novo/Editar Proprietário</li>
+      </ol>
+    </section>
+    {% endblock %}
+
+    {% block content %}
+    <!-- Main content -->
+    <section class="content">
+      <form role="form" class="form-horizontal" method="POST">{% csrf_token %}
+        <!-- general form elements -->
+        <div class="box">
+          <!-- form start -->
+          <div class="box-body">
+            {% if error %}
+              <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h4><i class="icon fa fa-ban"></i> Falha ao Cadastrar!</h4>
+                <p>Verifique os campos abaixo e corrija os erros.</p>
+              </div>
+            {% endif %}
+            {% for fieldPessoa in pessoaForm %}
+              <div class="form-group">
+                <label for="{{ fieldPessoa.name }}" class="col-sm-2 control-label">
+                  {{ fieldPessoa.label }}
+                </label>
+                <div class="col-sm-10">
+                  {{ fieldPessoa|addcss:'form-control' }}
+                  <div class="text-red">{{ fieldPessoa.errors }}</div>
+                </div>
+                <br/>
+              </div>
+            {% endfor %}
+            {% for fieldPessoaFisica in pessoaFisicaForm %}
+              <div class="form-group">
+                <label for="{{ fieldPessoaFisica.name }}" class="col-sm-2 control-label">
+                  {{ fieldPessoaFisica.label }}
+                </label>
+                <div class="col-sm-10">
+                  {{ fieldPessoaFisica|addcss:'form-control' }}
+                  <div class="text-red">{{ fieldPessoaFisica.errors }}</div>
+                </div>
+                <br/>
+              </div>
+            {% endfor %}
+            {% for fieldCidadao in cidadaoForm %}
+              <div class="form-group">
+                <label for="{{ fieldCidadao.name }}" class="col-sm-2 control-label">
+                  {{ fieldCidadao.label }}
+                </label>
+                <div class="col-sm-10">
+                  {{ fieldCidadao|addcss:'form-control' }}
+                  <div class="text-red">{{ fieldCidadao.errors }}</div>
+                </div>
+                <br/>
+              </div>
+            {% endfor %}
+            {% for field in form %}
+              <div class="form-group">
+                <label for="{{ field.name }}" class="col-sm-2 control-label">
+                  {{ field.label }}
+                </label>
+                <div class="col-sm-10">
+                  {{ field|addcss:'form-control' }}
+                  <div class="text-red">{{ field.errors }}</div>
+                </div>
+                <br/>
+              </div>
+            {% endfor %}
+          </div>
+        </div><!-- /.box -->
+        <div class="box-footer" style="text-align: right; background: none;">
+            <a href="/sistran/proprietario/" class="btn btn-danger btn-flat">Cancelar</a>
+            <input type="submit" value="Salvar" class="btn btn-success btn-flat" name="_save">
+            <input type="submit" value="Salvar e adicionar outro(a)" class="btn btn-success btn-flat" name="_addanother">
+            <input type="submit" value="Salvar e continuar editando" class="btn btn-success btn-flat" name="_continue">
+        </div>
+      </form>
+    </section>
+    {% endblock %}
+  </div>
+  {% block footer %}
+  {% include "sistran/base/footer.html" %}
+  {% endblock %}
+</div>
+{% endblock %}
+{% block js-dashboard %}{% endblock %}

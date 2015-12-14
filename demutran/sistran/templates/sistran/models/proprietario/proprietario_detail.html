@@ -1,0 +1,90 @@
+{% extends "sistran/base/base.html" %}
+{% load staticfiles %}
+
+{% block title %}
+    Detalhes do Proprietário - SISTRAN
+{% endblock %}
+
+{% block css-dashboard %}{% endblock %}
+{% block style-login %}{% endblock %}
+
+{% block wrapper %}
+<div class="wrapper">
+  {% block header %}
+  {% include "sistran/base/header.html" %}
+  {% endblock %}
+
+  {% block sidebar %}
+  {% include "sistran/base/sidebar.html" %}
+  {% endblock %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    {% block content-header %}
+    <section class="content-header">
+      <h1>
+        Proprietário
+        <small>Detalhes e Consulta de dados</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="/sistran/"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="/sistran/proprietario/"> Proprietários</a></li>
+        <li class="active">Detalhes do Proprietário</li>
+      </ol>
+    </section>
+    {% endblock %}
+
+    {% block content %}
+    <!-- Main content -->
+    <section class="content">
+      <!-- general form elements -->
+      <div class="box">
+        <!-- form start -->
+        <div class="box-body">
+          <div class="row">
+            <div class="col-sm-2">Nome</div>
+            <div class="col-sm-10">{{ proprietario.id }}</div>
+          </div>
+          <br/>
+          <div class="row">
+            <div class="col-sm-2">CPF</div>
+            <div class="col-sm-10">{{ proprietario.id.id.id.cpf_cnpj }}</div>
+          </div>
+          <br/>
+          <div class="row">
+            <div class="col-sm-2">Estado Civil</div>
+            <div class="col-sm-10">{{ proprietario.id.estado_civil}}</div>
+          </div>
+          <br/>
+          <div class="row">
+            <div class="col-sm-2">Sexo</div>
+            <div class="col-sm-10">{{ proprietario.id.id.sexo }}</div>
+          </div>
+          <br/>
+          <div class="row">
+            <div class="col-sm-2">Número da CNH</div>
+            <div class="col-sm-10">{{ proprietario.num_cnh }}</div>
+          </div>
+          <br/>
+          <div class="row">
+            <div class="col-sm-2">Categoria da CNH</div>
+            <div class="col-sm-10">{{ proprietario.cat_cnh }}</div>
+          </div>
+          <br/>
+          <div class="row">
+            <div class="col-sm-2">Núm. RG</div>
+            <div class="col-sm-10">{{ proprietario.id.rg_numero }}</div>
+          </div>
+          <br/>
+        </div>
+      </div><!-- /.box -->
+      <a href="/sistran/proprietario/" class="btn btn-success btn-flat">Voltar</a>
+    </section>
+    {% endblock %}
+  </div>
+  {% block footer %}
+  {% include "sistran/base/footer.html" %}
+  {% endblock %}
+</div>
+{% endblock %}
+{% block js-dashboard %}{% endblock %}

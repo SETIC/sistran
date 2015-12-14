@@ -1,0 +1,75 @@
+{% extends "sistran/base/base.html" %}
+{% load staticfiles %}
+
+{% block title %}
+    Detalhes do Vistoria - SISTRAN
+{% endblock %}
+
+{% block css-dashboard %}{% endblock %}
+{% block style-login %}{% endblock %}
+
+{% block wrapper %}
+<div class="wrapper">
+  {% block header %}
+  {% include "sistran/base/header.html" %}
+  {% endblock %}
+
+  {% block sidebar %}
+  {% include "sistran/base/sidebar.html" %}
+  {% endblock %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    {% block content-header %}
+    <section class="content-header">
+      <h1>
+        Vistoria
+        <small>Detalhes e Consulta de dados</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="/sistran/"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="/sistran/vistoria/"> Vistorias</a></li>
+        <li class="active">Detalhes do Vistoria</li>
+      </ol>
+    </section>
+    {% endblock %}
+
+    {% block content %}
+    <!-- Main content -->
+    <section class="content">
+      <!-- general form elements -->
+      <div class="box">
+        <!-- form start -->
+        <div class="box-body">
+          <div class="row">
+            <div class="col-sm-2">Veículo</div>
+            <div class="col-sm-10">{{ vistoria.veiculo }}</div>
+          </div>
+          <br/>
+          <div class="row">
+            <div class="col-sm-2">Data</div>
+            <div class="col-sm-10">{{ vistoria.data }}</div>
+          </div>
+          <br/>
+          <div class="row">
+            <div class="col-sm-2">Aprovado</div>
+            <div class="col-sm-10">{{ vistoria.aprovado }}</div>
+          </div>
+          <br/>
+          <div class="row">
+            <div class="col-sm-2">Observacao</div>
+            <div class="col-sm-10">{{ vistoria.observacao }}</div>
+          </div>
+          <br/>
+        </div>
+      </div><!-- /.box -->
+      <a href="/sistran/vistoria/" class="btn btn-success btn-flat">Voltar</a>
+    </section>
+    {% endblock %}
+  </div>
+  {% block footer %}
+  {% include "sistran/base/footer.html" %}
+  {% endblock %}
+</div>
+{% endblock %}
+{% block js-dashboard %}{% endblock %}
