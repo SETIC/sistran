@@ -1,3 +1,9 @@
+@font-face {
+  font-family: 'Roboto';
+  font-weight: 400;
+  font-style: normal;
+  src: url('../fonts/Roboto/Roboto-Regular.ttf');
+}
 body {
   font-family: 'Roboto', sans-serif;
 }
