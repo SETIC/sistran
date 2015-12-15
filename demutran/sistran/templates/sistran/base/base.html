@@ -65,16 +65,24 @@
     <script src="{% static "plugins/fastclick/fastclick.min.js" %}"></script>
     <!-- AdminLTE App -->
     <script src="{% static "js/app.min.js" %}"></script>
-    {% endblock %}
-    {% block js-extra %}
-    <!--jQuery Masked Input -->
-    <script src="{% static "js/jquery.maskedinput.min.js" %}"></script>
     <!-- Jets Search Engine -->
     <script src="{% static "js/jets.min.js" %}"></script>
+    <!-- Script Jets Search Sidebar -->
+    <script src="{% static "js/scripts-jets-search-sidebar.js" %}"></script>
+    {% endblock %}
+    {% block js-extra-form %}
+    <!--jQuery Masked Input -->
+    <script src="{% static "js/jquery.maskedinput.min.js" %}"></script>
+    <!-- Script Mask Input -->
+    <script src="{% static "js/scripts-maskedinput.js" %}"></script>    
     <!-- Select2 -->
     <script src="{% static "js/select2.min.js" %}"></script>
-    <!-- Scripts site -->
-    <script src="{% static "js/scripts.js" %}"></script>
+    <!-- Script Select2 -->
+    <script src="{% static "js/scripts-select2.js" %}"></script>
+    {% endblock %}
+    {% block js-extra-table %}
+    <!-- Script Jets Search Table -->
+    <script src="{% static "js/scripts-jets-search-table.js" %}"></script>
     {% endblock %}
     {% block js-dashboard %}
     <!-- Sparkline -->
