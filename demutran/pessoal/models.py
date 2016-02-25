@@ -2,6 +2,7 @@ from django.db import models
 from demutran.administracao.models import *
 from demutran.localizacao.models import *
 
+
 class Aluno(models.Model):
     id = models.OneToOneField('Cidadao', db_column='id', primary_key=True)
     numero_de_inscricao = models.CharField(unique=True, max_length=255, blank=True, null=True)
@@ -9,6 +10,7 @@ class Aluno(models.Model):
     class Meta:
         managed = True
         db_table = '"cadastro_unico_pessoal"."aluno"'
+
 
 class Contato(models.Model):
     id = models.AutoField(primary_key=True)
@@ -20,6 +22,7 @@ class Contato(models.Model):
     class Meta:
         managed = True
         db_table = '"cadastro_unico_pessoal"."contato"'
+
 
 class DadosBancarios(models.Model):
     id = models.BigIntegerField(primary_key=True)
@@ -33,6 +36,7 @@ class DadosBancarios(models.Model):
         managed = True
         db_table = '"cadastro_unico_pessoal"."dados_bancarios"'
 
+
 class Editora(models.Model):
     id = models.OneToOneField('PessoaJuridica', db_column='id', primary_key=True)
     reservado = models.CharField(max_length=255, blank=True, null=True)
@@ -40,6 +44,7 @@ class Editora(models.Model):
     class Meta:
         managed = True
         db_table = 'editora'
+
 
 class Escola(models.Model):
     id = models.OneToOneField('PessoaJuridica', db_column='id', primary_key=True)
@@ -51,6 +56,7 @@ class Escola(models.Model):
         managed = True
         db_table = 'escola'
 
+
 class Fornecedor(models.Model):
     id = models.OneToOneField('PessoaJuridica', db_column='id', primary_key=True)
     reservado = models.CharField(max_length=255, blank=True, null=True)
@@ -58,6 +64,7 @@ class Fornecedor(models.Model):
     class Meta:
         managed = True
         db_table = 'fornecedor'
+
 
 class Contrato(models.Model):
     id = models.BigIntegerField(primary_key=True)
@@ -76,6 +83,7 @@ class Contrato(models.Model):
         managed = True
         db_table = 'contrato'
 
+
 class Aditivo(models.Model):
     id = models.BigIntegerField(primary_key=True)
     contrato = models.ForeignKey(Contrato)
@@ -91,6 +99,7 @@ class Aditivo(models.Model):
         managed = True
         db_table = 'aditivo'
 
+
 class Paciente(models.Model):
     id = models.OneToOneField('PessoaFisica', db_column='id', primary_key=True)
     prontuario = models.CharField(max_length=255)
@@ -98,6 +107,7 @@ class Paciente(models.Model):
     class Meta:
         managed = True
         db_table = '"cadastro_unico_pessoal"."paciente"'
+
 
 class Pessoa(models.Model):
     id = models.AutoField(primary_key=True)
@@ -125,6 +135,7 @@ class Pessoa(models.Model):
     def __str__(self):
         return self.nome
 
+
 class PessoaFisica(models.Model):
     id = models.OneToOneField('Pessoa', db_column='id', primary_key=True)
     cor = models.CharField(max_length=255, blank=True, null=True)
@@ -146,6 +157,7 @@ class PessoaFisica(models.Model):
 
     def __str__(self):
         return self.id.nome
+
 
 class Cidadao(models.Model):
     id = models.OneToOneField('PessoaFisica', db_column='id', primary_key=True)
@@ -178,6 +190,7 @@ class Cidadao(models.Model):
         managed = True
         db_table = '"cadastro_unico_pessoal"."cidadao"'
 
+
 class Funcionario(models.Model):
     id = models.OneToOneField('Cidadao', db_column='id', primary_key=True)
     carga_horaria = models.CharField(max_length=255)
@@ -205,6 +218,7 @@ class Funcionario(models.Model):
 #   managed = False
 #   db_table = '"cadastro_unico_pessoal"."motorista"'
 
+
 class DetemPropriedade(models.Model):
     id = models.BigIntegerField(primary_key=True)
     cidadao = models.ForeignKey(Cidadao)
@@ -216,6 +230,7 @@ class DetemPropriedade(models.Model):
         managed = True
         db_table = '"cadastro_unico_pessoal"."detem_propriedade"'
 
+
 class PessoaJuridica(models.Model):
     id = models.OneToOneField(Pessoa, db_column='id', primary_key=True)
     inscricao_estadual = models.CharField(max_length=255, blank=True, null=True)
@@ -225,6 +240,7 @@ class PessoaJuridica(models.Model):
         managed = True
         db_table = '"cadastro_unico_pessoal"."pessoa_juridica"'
 
+
 class Prefeitura(models.Model):
     id = models.OneToOneField(PessoaJuridica, db_column='id', primary_key=True)
     brasao = models.CharField(max_length=255, blank=True, null=True)
@@ -233,6 +249,7 @@ class Prefeitura(models.Model):
         managed = True
         db_table = 'prefeitura'
 
+
 class Professor(models.Model):
     id = models.OneToOneField(Funcionario, db_column='id', primary_key=True)
     identificacao = models.CharField(max_length=255, blank=True, null=True)
@@ -240,6 +257,7 @@ class Professor(models.Model):
     class Meta:
         managed = True
         db_table = 'professor'
+
 
 class Reside(models.Model):
     id = models.AutoField(primary_key=True)
@@ -254,6 +272,7 @@ class Reside(models.Model):
         managed = True
         db_table = '"cadastro_unico_pessoal"."reside"'
 
+
 class TipoContato(models.Model):
     id = models.AutoField(primary_key=True)
     TIPO_CONTATO_CHOICES = (("TELEFONE", "TELEFONE"), ("CELULAR","CELULAR"), ("EMAIL","EMAIL"))
@@ -261,8 +280,8 @@ class TipoContato(models.Model):
 
     class Meta:
         managed = True
-        db_table = 'tipo_contato'
         db_table = '"cadastro_unico_pessoal"."tipo_contato"'
+
 
 class NecessidadesEspeciais(models.Model):
     id = models.BigIntegerField(primary_key=True)
@@ -270,8 +289,8 @@ class NecessidadesEspeciais(models.Model):
 
     class Meta:
         managed = True
-        db_table = 'necessidades_especiais'
         db_table = '"cadastro_unico_pessoal"."necessidades_especiais"'
+
 
 class PessoaFisicaNecessidadesEspeciais(models.Model):
     id = models.BigIntegerField(primary_key=True)
@@ -281,5 +300,4 @@ class PessoaFisicaNecessidadesEspeciais(models.Model):
 
     class Meta:
         managed = True
-        db_table = 'pessoa_fisica_necessidades_especiais'
         db_table = '"cadastro_unico_pessoal"."pessoa_fisica_necessidades_especiais"'

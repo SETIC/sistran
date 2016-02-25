@@ -43,11 +43,11 @@ urlpatterns = [
             url(r'^(?P<pk>[0-9]+)/edit/$', views.veiculo_edit, name='veiculo_edit'),
             url(r'^(?P<pk>[0-9]+)/remove/$', views.veiculo_remove, name='veiculo_remove'),
         ])),
-    #url(r'^sistran/vistoria/', include([
-            #url(r'^$', views.vistoria_list),
-            #url(r'^(?P<pk>[0-9]+)/$', views.vistoria_detail),
-            #url(r'^new/$', views.vistoria_new, name='vistoria_new'),
+    url(r'^sistran/vistoria/', include([
+            url(r'^$', views.vistoria_list),
+            url(r'^(?P<pk>[0-9]+)/$', views.vistoria_detail),
+            url(r'^new/$', views.vistoria_new, name='vistoria_new'),
             #url(r'^(?P<pk>[0-9]+)/edit/$', views.vistoria_edit, name='vistoria_edit'),
             #url(r'^(?P<pk>[0-9]+)/remove/$', views.vistoria_remove, name='vistoria_remove'),
-        #])),
+        ])),
 ]

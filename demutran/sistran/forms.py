@@ -1,33 +1,42 @@
- # -*- coding: utf8 -*-
-from django import forms
-from django.forms.extras.widgets import SelectDateWidget
+import datetime
 from datetime import date
-from .models import *
+
+from django import forms
 from django.forms import extras
+from .models import *
+
 
 class PermissaoForm(forms.ModelForm):
+
     class Meta:
         model = Permissao
         exclude = ['id', 'data']
         fields = ('__all__')
 
+
 class MotoristaForm(forms.ModelForm):
+
     class Meta:
         model = Motorista
         exclude = ['id']
         fields = ('__all__')
 
+
 class CobradorForm(forms.ModelForm):
+
     class Meta:
         model = Cobrador
         exclude = ['id']
         fields = ('__all__')
 
+
 class ProprietarioForm(forms.ModelForm):
+
     class Meta:
         model = Proprietario
         exclude = ['id']
         fields = ('__all__')
+
 
 class VeiculoForm(forms.ModelForm):
     VEICULO_PROPRIO_CHOICES = (('True', 'SIM',), ('False', 'NÃO',))
@@ -42,7 +51,25 @@ class VeiculoForm(forms.ModelForm):
     combustivel = forms.MultipleChoiceField(label='Combustível', required=True, widget=forms.CheckboxSelectMultiple, choices=COMBUSTIVEL_CHOICES)
     ano_fabricacao = forms.ChoiceField(label='Ano de Fabricação', choices=[(x, x) for x in range(1980, date.today().year+1)], required=True)
     ano_modelo = forms.ChoiceField(label='Ano do Modelo', choices=[(x, x) for x in range(1980, date.today().year+2)], required=True)
+
     class Meta:
         model = Veiculo
+        exclude = ['id']
+        fields = ('__all__')
+
+
+class VistoriaForm(forms.ModelForm):
+    data = forms.DateField(widget=extras.SelectDateWidget(
+        years=range(2000, datetime.date.today().year+1),
+        attrs={'class': 'form-control', 'style':'max-width:100px; float:left;'}))
+    aprovado = forms.TypedChoiceField(
+                   coerce=lambda x: x == 'True',
+                   choices=((False, 'Não'), (True, 'Sim')),
+                   widget=forms.RadioSelect,
+                   label='Veículo aprovado?'
+                )
+
+    class Meta:
+        model = Vistoria
         exclude = ['id']
         fields = ('__all__')
