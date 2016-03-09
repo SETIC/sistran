@@ -2,12 +2,14 @@ from django.db import models
 from demutran.pessoal.models import *
 from demutran.localizacao.models import *
 
+
 class Permissao(models.Model):
     id = models.AutoField(primary_key=True)
-    num_permissao = models.IntegerField(null=False, blank=False, verbose_name='Número da Permissão')
+    num_permissao = models.IntegerField(null=True, blank=True, verbose_name='Número da Permissão')
     data = models.DateField(auto_now=True)
     TIPO_CONCESSAO_CHOICES = (("TÁXI","TÁXI"), ("ALTERNATIVO","ALTERNATIVO"), ("ESCOLAR","ESCOLAR"), ("FRETE","FRETE"))
     tipo_concessao = models.CharField(max_length=20, choices=TIPO_CONCESSAO_CHOICES, verbose_name='Tipo do Veículo')
+
 
 class AnexoCidadao(models.Model):
     id = models.AutoField(primary_key=True)
@@ -15,11 +17,13 @@ class AnexoCidadao(models.Model):
     nome_documento = models.CharField(max_length=255)
     caminho = models.FileField()
 
+
 class AnexoPermissao(models.Model):
     id = models.AutoField(primary_key=True)
     permissao = models.ForeignKey('Permissao')
     nome_documento = models.CharField(max_length=255)
     caminho = models.FileField()
+
 
 class Proprietario(models.Model):
     id = models.OneToOneField('pessoal.Cidadao', primary_key=True)
@@ -27,17 +31,20 @@ class Proprietario(models.Model):
     def __str__(self):
         return self.id.id.id.nome
 
+
 class Motorista(models.Model):
     id = models.OneToOneField('pessoal.Cidadao', primary_key=True)
 
     def __str__(self):
         return self.id.id.id.nome
 
+
 class Cobrador(models.Model):
     id = models.OneToOneField('pessoal.Cidadao', primary_key=True)
 
     def __str__(self):
         return self.id.id.id.nome
+
 
 class Veiculo(models.Model):
     codigo_renavan = models.BigIntegerField(primary_key=True, verbose_name='Código Renavan')
@@ -51,14 +58,15 @@ class Veiculo(models.Model):
     marca = models.CharField(max_length=255, choices=MARCA_CHOICES, null=False, blank=False, verbose_name='Marca')
     modelo = models.CharField(max_length=255, null=False, blank=False, verbose_name='Modelo')
     ano_fabricacao = models.CharField(max_length=255, null=False, blank=False, verbose_name='Ano de Fabricação')
-    ano_modelo = models.CharField(max_length=255, null=False, blank=False, verbose_name='Ano do Modelo')
+    ano_modelo = models.CharField(max_length=255, null=True, blank=False, verbose_name='Ano do Modelo')
     CATEGORIA_CHOICES = (("OFICIAL","OFICIAL"), ("REPRESENTAÇÃO DIPLOMÁTICA","REPRESENTAÇÃO DIPLOMÁTICA"), ("PARTICULAR","PARTICULAR"), ("ALUGUEL","ALUGUEL"), ("APRENDIZAGEM","APRENDIZAGEM"))
     categoria = models.CharField(max_length=155, choices=CATEGORIA_CHOICES, verbose_name='Categoria')
     COR_CHOICES = (("BRANCA","BRANCA"), ("PRATA","PRATA"), ("PRETA","PRETA"), ("CINZA","CINZA"), ("VERMELHA","VERMELHA"), ("MARROM","MARROM"), ("BEGE","BEGE"), ("AZUL","AZUL"), ("VERDE","VERDE"), ("AMARELA","AMARELA"), ("DOURADA","DOURADA"))
     cor_predominante = models.CharField(max_length=255, blank=False, choices=COR_CHOICES, verbose_name='Cor Predominante')
 
     def __str__(self):
-        return self.marca_modelo + " - " + self.placa
+        return self.marca + "/" + self.modelo + " - " + self.placa
+
 
 class PermissaoTemProprietario(models.Model):
     permissao_veiculo = models.ForeignKey('PermissaoTemVeiculo')
@@ -67,12 +75,14 @@ class PermissaoTemProprietario(models.Model):
     STATUS_CHOICE = (('ATIVO','ATIVO'),	('TRANSFERIDO','TRANSFERIDO'), ('INATIVO','INATIVO'))
     status = models.CharField(max_length=10, choices=STATUS_CHOICE)
 
+
 class PermissaoTemVeiculo(models.Model):
     permissao = models.ForeignKey('Permissao')
     veiculo = models.ForeignKey('Veiculo')
     data_posse = models.DateField(auto_now=True)
     STATUS_CHOICE = (('ATIVO','ATIVO'),	('TRANSFERIDO','TRANSFERIDO'), ('INATIVO','INATIVO'))
     status = models.CharField(max_length=10, choices=STATUS_CHOICE)
+
 
 class PermissaoTemMotorista(models.Model):
     permissao_veiculo = models.ForeignKey('PermissaoTemVeiculo')
@@ -81,9 +91,42 @@ class PermissaoTemMotorista(models.Model):
     STATUS_CHOICE = (('ATIVO','ATIVO'),	('INATIVO','INATIVO'))
     status = models.CharField(max_length=10, choices=STATUS_CHOICE)
 
+
 class PermissaoTemCobrador(models.Model):
     permissao_veiculo = models.ForeignKey('PermissaoTemVeiculo')
     cobrador = models.ForeignKey('Cobrador')
     data_posse = models.DateField(auto_now=True)
     STATUS_CHOICE = (('ATIVO','ATIVO'),	('INATIVO','INATIVO'))
     status = models.CharField(max_length=10, choices=STATUS_CHOICE)
+
+
+class VistoriaItem(models.Model):
+    id = models.AutoField(primary_key=True)
+    nome_item = models.CharField(max_length=255)
+
+
+class Vistoria(models.Model):
+    id = models.AutoField(primary_key=True)
+    veiculo = models.ForeignKey('Veiculo')
+    data = models.DateField(blank=False, null=False)
+    aprovado = models.BooleanField()
+    observacao = models.TextField(max_length=255)
+    ordem_servico = models.ForeignKey('OrdemServico', default=False)
+
+
+class VistoriaTemVistoriaItem(models.Model):
+    id_vistoria_item = models.ForeignKey('VistoriaItem')
+    id_vistoria = models.ForeignKey('Vistoria')
+
+
+class TipoServico(models.Model):
+    nome = models.CharField(max_length=100)
+    descricao = models.CharField(max_length=255)
+    valor = models.DecimalField(max_digits=6, decimal_places=2)
+
+
+class OrdemServico(models.Model):
+    permissao = models.ForeignKey('Permissao')
+    tipo_servico = models.ForeignKey('TipoServico')
+    data = models.DateTimeField(auto_now_add=True)
+    pago = models.BooleanField()
