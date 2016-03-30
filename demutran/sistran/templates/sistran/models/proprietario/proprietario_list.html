@@ -63,14 +63,14 @@
             </thead>
             <tbody>
             {% for proprietario in proprietarios %}
-              <tr>
+              <tr class="row-detail" data-href="{% url "sistran.views.proprietario_detail" pk=proprietario.pk %}">
                 <td>
                   {% if perms.sistran.change_proprietario %}
                       <a class="btn btn-primary btn-sm btn-flat" href="{% url "proprietario_edit" pk=proprietario.pk %}">
                         <i class="fa fa-pencil"></i>
                       </a>
                   {% endif %}
-                  {% if perms.sistran.delete_proprietario %}                    
+                  {% if perms.sistran.delete_proprietario %}
                       <button type="button" class="btn btn-danger btn-sm btn-flat" data-toggle="modal" data-target="#modalConfirmDelete{{ proprietario.pk }}">
                         <i class="fa fa-remove"></i>
                       </button>
@@ -97,10 +97,10 @@
                     <i class="fa fa-car"></i>
                   </a>
                 </td>
-                <td><a href="{% url "sistran.views.proprietario_detail" pk=proprietario.pk %}">{{ proprietario.id|upper }}</a></td>
+                <td>{{ proprietario.id }}</td>
                 <td>{{ proprietario.id.id.id.cpf_cnpj }}</td>
-                <td>{{ proprietario.num_cnh }}</td>
-                <td>{{ proprietario.cat_cnh }}</td>
+                <td>{{ proprietario.id.num_registro_cnh }}</td>
+                <td>{{ proprietario.id.categoria_cnh }}</td>
               </tr>
             {% endfor %}
             </tbody>
@@ -154,8 +154,13 @@
       <!-- right column -->
     </section>
     <script>
+      jQuery(document).ready(function($) {
+          $(".row-detail").click(function() {
+              window.document.location = $(this).data("href");
+          });
+      });
       function confirmDelete(deleteUrl) {
-        if (confirm("Tem certeza de que deseja excluir este Proprietário?")) {
+        if (confirm("Tem certeza de que deseja excluir esta Proprietario?")) {
           document.location = deleteUrl;
         }
       }
