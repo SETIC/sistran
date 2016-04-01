@@ -13,7 +13,9 @@ from demutran.localizacao.views import *
 
 @login_required
 def home(request):
-    return render(request, 'sistran/dashboard.html')
+    taxisCount = Permissao.objects.filter(tipo_concessao='TÁXI').count()
+    permissionariosCount = Proprietario.objects.count()
+    return render(request, 'sistran/dashboard.html', {'taxisCount':taxisCount, 'permissionariosCount':permissionariosCount})
 
 @login_required
 def permission_denied(request):
@@ -458,7 +460,18 @@ def proprietario_remove(request, pk):
 
 @login_required
 def veiculo_list(request):
-    veiculos = Veiculo.objects.all()
+
+    veiculos_list = Veiculo.objects.all()
+    paginator = Paginator(veiculos_list, 12)
+
+    page = request.GET.get('page')
+    try:
+        veiculos = paginator.page(page)
+    except PageNotAnInteger:
+        veiculos = paginator.page(1)
+    except EmptyPage:
+        veiculos = paginator.page(paginator.num_pages)
+
     return render(request, 'sistran/models/veiculo/veiculo_list.html', {'veiculos': veiculos})
 
 @login_required

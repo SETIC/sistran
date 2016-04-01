@@ -26,7 +26,7 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.1.246']
 
 # Application definition
 
-INSTALLED_APPS = (d
+INSTALLED_APPS = (
     'django_extensions',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -86,7 +86,7 @@ DATABASES = {
         'NAME': 'db_sgg_int',
         'USER': 'admin_stc',
         'PASSWORD': 'xdr5tgbhu8ik,',
-        'HOST': 'localhost',
+        'HOST': '192.168.1.246',
         'PORT': '5432',
     }
 }
