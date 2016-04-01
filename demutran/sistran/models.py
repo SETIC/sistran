@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.db import models
 from demutran.pessoal.models import *
 from demutran.localizacao.models import *
@@ -29,7 +31,7 @@ class Proprietario(models.Model):
     id = models.OneToOneField('pessoal.Cidadao', primary_key=True)
 
     def __str__(self):
-        return self.id.id.id.nome
+        return self.id
 
 
 class Motorista(models.Model):
@@ -108,10 +110,10 @@ class VistoriaItem(models.Model):
 class Vistoria(models.Model):
     id = models.AutoField(primary_key=True)
     veiculo = models.ForeignKey('Veiculo')
-    data = models.DateField(blank=False, null=False)
-    aprovado = models.BooleanField()
     observacao = models.TextField(max_length=255)
     ordem_servico = models.ForeignKey('OrdemServico', default=False)
+    aprovado = models.BooleanField('aprovado', default=False)
+    criado_em = models.DateTimeField('criado em', auto_now_add=True, null=True, blank=True)
 
 
 class VistoriaTemVistoriaItem(models.Model):

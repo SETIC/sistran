@@ -56,10 +56,8 @@
                   {{ field.label }}
                 </label>
                 <div class="col-sm-10">
-                      {% if  field.name == 'motorista'%}
-                          <div class="radio">
-                             {{ field|addcss:'form-radio' }}
-                          </div>
+                      {% if  field.name == 'combustivel' or field.name == 'veiculo_proprio' %}
+                          {{ field }}
                       {% else %}
                           {{ field|addcss:'form-control' }}
                       {% endif %}

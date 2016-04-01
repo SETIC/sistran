@@ -13,7 +13,7 @@ from demutran.localizacao.views import *
 
 @login_required
 def home(request):
-    return render(request, 'sistran/index.html')
+    return render(request, 'sistran/dashboard.html')
 
 @login_required
 def permission_denied(request):
@@ -360,7 +360,6 @@ def cobrador_edit(request, pk):
 @login_required
 @permission_required('sistran.delete_cobrador',login_url='/sistran/permission_denied/')
 def cobrador_remove(request, pk):
-
     pessoa = get_object_or_404(Pessoa, pk=pk)
     pessoa.delete()
 
@@ -371,6 +370,7 @@ def cobrador_remove(request, pk):
 @login_required
 def proprietario_list(request):
     proprietarios = Proprietario.objects.all()
+
     return render(request, 'sistran/models/proprietario/proprietario_list.html', {'proprietarios': proprietarios})
 
 @login_required

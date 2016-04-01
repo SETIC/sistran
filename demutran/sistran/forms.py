@@ -1,8 +1,6 @@
-import datetime
 from datetime import date
 
 from django import forms
-from django.forms import extras
 from .models import *
 
 
@@ -39,14 +37,12 @@ class ProprietarioForm(forms.ModelForm):
 
 
 class VeiculoForm(forms.ModelForm):
-    VEICULO_PROPRIO_CHOICES = (('True', 'SIM',), ('False', 'NÃO',))
     COMBUSTIVEL_CHOICES = (
         ('GASOLINA', 'GASOLINA'),
         ('ÁLCOOL', 'ÁLCOOL'),
         ('GNV', 'GNV'),
         ('DIESEL', 'DIESEL'),
     )
-    veiculo_proprio = forms.ChoiceField(label='Veículo Próprio?', widget=forms.RadioSelect, choices=VEICULO_PROPRIO_CHOICES)
     exercicio = forms.ChoiceField(label='Ano de Exercício', choices=[(x, x) for x in range(1990, date.today().year+1)], required=True)
     combustivel = forms.MultipleChoiceField(label='Combustível', required=True, widget=forms.CheckboxSelectMultiple, choices=COMBUSTIVEL_CHOICES)
     ano_fabricacao = forms.ChoiceField(label='Ano de Fabricação', choices=[(x, x) for x in range(1980, date.today().year+1)], required=True)
@@ -59,15 +55,6 @@ class VeiculoForm(forms.ModelForm):
 
 
 class VistoriaForm(forms.ModelForm):
-    data = forms.DateField(widget=extras.SelectDateWidget(
-        years=range(2000, datetime.date.today().year+1),
-        attrs={'class': 'form-control', 'style':'max-width:100px; float:left;'}))
-    aprovado = forms.TypedChoiceField(
-                   coerce=lambda x: x == 'True',
-                   choices=((False, 'Não'), (True, 'Sim')),
-                   widget=forms.RadioSelect,
-                   label='Veículo aprovado?'
-                )
 
     class Meta:
         model = Vistoria

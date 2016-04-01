@@ -14,7 +14,7 @@ class Aluno(models.Model):
 
 class Contato(models.Model):
     id = models.AutoField(primary_key=True)
-    pessoa = models.ForeignKey('Pessoa')
+    pessoa = models.ForeignKey('Pessoa', null=True, blank=True)
     TIPO_CONTATO_CHOICES = (("TELEFONE", "TELEFONE"), ("CELULAR","CELULAR"), ("EMAIL","EMAIL"))
     tipo_contato = models.CharField(max_length=255, choices=TIPO_CONTATO_CHOICES, blank=True, null=False, verbose_name="Tipo do Contato")
     contato = models.CharField(max_length=255)
