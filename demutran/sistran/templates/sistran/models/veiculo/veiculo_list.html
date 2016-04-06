@@ -81,8 +81,6 @@
                 <td>{{ veiculo.modelo|upper}}</td>
 
                 <td><a href="{% url "sistran.views.veiculo_detail" pk=veiculo.pk %}">{{ veiculo.placa|upper }}</a></td>
-                <td></td>
-                <!-- ESTUDAR
 
                 {% with veiculo.permissaotemveiculo_set.all|first as ptv %}
 
@@ -91,7 +89,7 @@
                   {% endwith %}
                 {% endwith %}
 
-                  ESTUDAR -->
+                   <td>{{ veiculo.}}</td>
 
                 <td>{{ veiculo.categoria|upper }}</td>
               </tr>

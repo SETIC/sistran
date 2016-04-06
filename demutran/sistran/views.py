@@ -25,7 +25,7 @@ def permission_denied(request):
 
 @login_required
 def permissao_list(request):
-    permissoes_list = PermissaoTemProprietario.objects.all()
+    permissoes_list = PermissaoTemProprietario.objects.all().order_by('permissao_veiculo__permissao__num_permissao')
     paginator = Paginator(permissoes_list, 10)
 
     page = request.GET.get('page')

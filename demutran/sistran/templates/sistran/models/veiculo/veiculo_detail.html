@@ -48,27 +48,27 @@
           <br/>
           <div class="row">
             <div class="col-sm-2">Marca/Modelo</div>
-            <div class="col-sm-10">{{ veiculo.marca_modelo }}</div>
+            <div class="col-sm-10">{{ veiculo.marca|upper }}/{{ veiculo.modelo|upper }}</div>
           </div>
           <br/>
           <div class="row">
             <div class="col-sm-2">Ano</div>
-            <div class="col-sm-10">{{ veiculo.ano }}</div>
+            <div class="col-sm-10">{{ veiculo.ano_fabricacao }}</div>
           </div>
           <br/>
           <div class="row">
             <div class="col-sm-2">Cor</div>
-            <div class="col-sm-10">{{ veiculo.cor }}</div>
+            <div class="col-sm-10">{{ veiculo.cor_predominante }}</div>
           </div>
           <br/>
           <div class="row">
             <div class="col-sm-2">Chassi</div>
-            <div class="col-sm-10">{{ veiculo.chassi }}</div>
+            <div class="col-sm-10">{{ veiculo.chassi|upper }}</div>
           </div>
           <br/>
            <div class="row">
             <div class="col-sm-2">Quant. de Passageiros</div>
-            <div class="col-sm-10">{{ veiculo.qnt_passageiros }}</div>
+            <div class="col-sm-10">{{ veiculo.num_passageiros }}</div>
           </div>
           <br/>
            <div class="row">
@@ -78,7 +78,7 @@
           <br/>
            <div class="row">
             <div class="col-sm-2">Placa do Veículo</div>
-            <div class="col-sm-10">{{ veiculo.placa }}</div>
+            <div class="col-sm-10">{{ veiculo.placa|upper }}</div>
           </div>
           <br/>
            <div class="row">
