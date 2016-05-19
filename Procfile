@@ -1,0 +1,1 @@
+web: gunicorn sistran.wsgi --log-file -

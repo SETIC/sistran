@@ -39,146 +39,150 @@
     <!-- Main content -->
     <section class="content">
       <!-- general form elements -->
+      <div class="row">
+      <div class="col-md-9">
       <div class="box">
         <!-- form start -->
         <div class="box-body">
           <div class="row">
-            <div class="col-sm-2 lbl-featured">Número</div>
-            <div class="col-sm-10 upper">{{ permissao.permissao_veiculo.permissao.num_permissao }}</div>
+            <div class="col-sm-3 lbl-featured">Número</div>
+            <div class="col-sm-9 upper">{{ permissao.permissao_veiculo.permissao.num_permissao }}</div>
           </div>
           <br/>
           <div class="row">
-            <div class="col-sm-2 lbl-featured">Tipo da Concessão</div>
-            <div class="col-sm-10 upper">{{ permissao.permissao_veiculo.permissao.tipo_concessao }}</div>
+            <div class="col-sm-3 lbl-featured">Tipo da Concessão</div>
+            <div class="col-sm-9 upper">{{ permissao.permissao_veiculo.permissao.tipo_concessao }}</div>
           </div>
           <br/>
           <div class="row">
-            <div class="col-sm-2 lbl-featured">Data</div>
-            <div class="col-sm-10 upper">{{ permissao.permissao_veiculo.permissao.data|date:"d/F/y"|upper }}</div>
+            <div class="col-sm-3 lbl-featured">Data</div>
+            <div class="col-sm-9 upper">{{ permissao.permissao_veiculo.permissao.data|date:"d/F/y"|upper }}</div>
           </div>
           <br/>
           <div class="box-header with-border">
             <h3 class="box-title">Dados do Permissionário</h3>
           </div>
           <div class="row">
-            <div class="col-sm-2 lbl-featured">Nome</div>
-            <div class="col-sm-10 upper">{{ permissao.proprietario.id }}</div>
+            <div class="col-sm-3 lbl-featured">Nome</div>
+            <div class="col-sm-9 upper">{{ permissao.proprietario.id }}</div>
           </div>
           <br/>
           <div class="row">
-            <div class="col-sm-2 lbl-featured">Data de Nascimento</div>
-            <div class="col-sm-10 upper">{{ permissao.proprietario.id.id.id.data_de_nascimento }}</div>
+            <div class="col-sm-3 lbl-featured">Data de Nascimento</div>
+            <div class="col-sm-9 upper">{{ permissao.proprietario.id.id.id.data_de_nascimento }}</div>
           </div>
           <br/>
           <div class="row">
-            <div class="col-sm-2 lbl-featured">CPF</div>
-            <div class="col-sm-10 upper">{{ permissao.proprietario.id.id.id.cpf_cnpj }}</div>
+            <div class="col-sm-3 lbl-featured">CPF</div>
+            <div class="col-sm-9 upper">{{ permissao.proprietario.id.id.id.cpf_cnpj }}</div>
           </div>
           <br/>
           <div class="row">
-            <div class="col-sm-2 lbl-featured">Sexo</div>
-            <div class="col-sm-10 upper">{{ permissao.proprietario.id.id.sexo }}</div>
+            <div class="col-sm-3 lbl-featured">Sexo</div>
+            <div class="col-sm-9 upper">{{ permissao.proprietario.id.id.sexo }}</div>
           </div>
           <br/>
           <div class="row">
-            <div class="col-sm-2 lbl-featured">Naturalidade</div>
-            <div class="col-sm-10 upper">{{ permissao.proprietario.id.naturalidade }}</div>
+            <div class="col-sm-3 lbl-featured">Naturalidade</div>
+            <div class="col-sm-9 upper">{{ permissao.proprietario.id.naturalidade }}</div>
           </div>
           <br/>
           <div class="row">
-            <div class="col-sm-2 lbl-featured">Número do Registro da CNH</div>
-            <div class="col-sm-10 upper">{{ permissao.proprietario.id.num_registro_cnh }}</div>
+            <div class="col-sm-3 lbl-featured">Número do Registro da CNH</div>
+            <div class="col-sm-9 upper">{{ permissao.proprietario.id.num_registro_cnh }}</div>
           </div>
           <br/>
           <div class="row">
-            <div class="col-sm-2 lbl-featured">Validade da CNH</div>
-            <div class="col-sm-10 upper">{{ permissao.proprietario.id.validade_cnh }}</div>
+            <div class="col-sm-3 lbl-featured">Validade da CNH</div>
+            <div class="col-sm-9 upper">{{ permissao.proprietario.id.validade_cnh }}</div>
           </div>
           <br/>
           <div class="row">
-            <div class="col-sm-2 lbl-featured">Categoria da CNH</div>
-            <div class="col-sm-10 upper">{{ permissao.proprietario.id.categoria_cnh }}</div>
+            <div class="col-sm-3 lbl-featured">Categoria da CNH</div>
+            <div class="col-sm-9 upper">{{ permissao.proprietario.id.categoria_cnh }}</div>
           </div>
           <br/>
           <div class="row">
-            <div class="col-sm-2 lbl-featured">Contato</div>
-            <div class="col-sm-10 upper">{{ contato_permissionario.contato }}</div>
+            <div class="col-sm-3 lbl-featured">Contato</div>
+            <div class="col-sm-9 upper">{{ contato_permissionario.contato }}</div>
           </div>
           <br/>
           <div class="row">
-            <div class="col-sm-2 lbl-featured">Endereço</div>
-            <div class="col-sm-10 upper">{{ endereco_permissionario.logradouro.tipo_logradouro }} {{ endereco_permissionario.logradouro.logradouro }}, {{ endereco_permissionario.numero }}, {{ endereco_permissionario.complemento }}, {{ endereco_permissionario.bairro.bairro }}, {{ endereco_permissionario.bairro.municipio.municipio }}/{{ endereco_permissionario.bairro.municipio.estado.abreviacao }} | CEP {{ endereco_permissionario.cep }}</div>
+            <div class="col-sm-3 lbl-featured">Endereço</div>
+            <div class="col-sm-9 upper">{{ endereco_permissionario.logradouro.tipo_logradouro }} {{ endereco_permissionario.logradouro.logradouro }}, {{ endereco_permissionario.numero }}, {{ endereco_permissionario.complemento }}, {{ endereco_permissionario.bairro.bairro }}, {{ endereco_permissionario.bairro.municipio.municipio }}/{{ endereco_permissionario.bairro.municipio.estado.abreviacao }} | CEP {{ endereco_permissionario.cep }}</div>
           </div>
           <br/>
           <div class="box-header with-border">
             <h3 class="box-title">Dados do Veículo</h3>
           </div>
           <div class="row">
-            <div class="col-sm-2 lbl-featured">Código Renavan</div>
-            <div class="col-sm-10 upper">{{ permissao.permissao_veiculo.veiculo.codigo_renavan }}</div>
+            <div class="col-sm-3 lbl-featured">Código Renavan</div>
+            <div class="col-sm-9 upper">{{ permissao.permissao_veiculo.veiculo.codigo_renavan }}</div>
           </div>
           <br/>
           <div class="row">
-            <div class="col-sm-2 lbl-featured">Veículo Próprio?</div>
+            <div class="col-sm-3 lbl-featured">Veículo Próprio?</div>
             {% if permissao.permissao_veiculo.veiculo.veiculo_proprio %}
-                <div class="col-sm-10 upper">SIM</div>
+                <div class="col-sm-9 upper">SIM</div>
             {% else %}
-                <div class="col-sm-10 upper">NÃO</div>
+                <div class="col-sm-9 upper">NÃO</div>
             {% endif %}
           </div>
           <br/>
           <div class="row">
-            <div class="col-sm-2 lbl-featured">Ano de Exercício</div>
-            <div class="col-sm-10 upper">{{ permissao.permissao_veiculo.veiculo.exercicio }}</div>
+            <div class="col-sm-3 lbl-featured">Ano de Exercício</div>
+            <div class="col-sm-9 upper">{{ permissao.permissao_veiculo.veiculo.exercicio }}</div>
           </div>
           <br/>
           <div class="row">
-            <div class="col-sm-2 lbl-featured">Placa</div>
-            <div class="col-sm-10 upper">{{ permissao.permissao_veiculo.veiculo.placa }}</div>
+            <div class="col-sm-3 lbl-featured">Placa</div>
+            <div class="col-sm-9 upper">{{ permissao.permissao_veiculo.veiculo.placa }}</div>
           </div>
           <br/>
           <div class="row">
-            <div class="col-sm-2 lbl-featured">Chassi do Veículo</div>
-            <div class="col-sm-10 upper">{{ permissao.permissao_veiculo.veiculo.chassi }}</div>
+            <div class="col-sm-3 lbl-featured">Chassi do Veículo</div>
+            <div class="col-sm-9 upper">{{ permissao.permissao_veiculo.veiculo.chassi }}</div>
           </div>
           <br/>
           <div class="row">
-            <div class="col-sm-2 lbl-featured">Número de Passageiros</div>
-            <div class="col-sm-10 upper">{{ permissao.permissao_veiculo.veiculo.num_passageiros }}</div>
+            <div class="col-sm-3 lbl-featured">Número de Passageiros</div>
+            <div class="col-sm-9 upper">{{ permissao.permissao_veiculo.veiculo.num_passageiros }}</div>
           </div>
           <br/>
           <div class="row">
-            <div class="col-sm-2 lbl-featured">Combustível</div>
-            <div class="col-sm-10 upper">{{ permissao.permissao_veiculo.veiculo.combustivel|slugify|replace:"-" }}</div>
+            <div class="col-sm-3 lbl-featured">Combustível</div>
+            <div class="col-sm-9 upper">{{ permissao.permissao_veiculo.veiculo.combustivel|slugify|replace:"-" }}</div>
           </div>
           <br/>
           <div class="row">
-            <div class="col-sm-2 lbl-featured">Marca/Modelo</div>
-            <div class="col-sm-10 upper">{{ permissao.permissao_veiculo.veiculo.marca }}/{{ permissao.permissao_veiculo.veiculo.modelo }}</div>
+            <div class="col-sm-3 lbl-featured">Marca/Modelo</div>
+            <div class="col-sm-9 upper">{{ permissao.permissao_veiculo.veiculo.marca }}/{{ permissao.permissao_veiculo.veiculo.modelo }}</div>
           </div>
           <br/>
           <div class="row">
-            <div class="col-sm-2 lbl-featured">Ano de Fabricação</div>
-            <div class="col-sm-10 upper">{{ permissao.permissao_veiculo.veiculo.ano_fabricacao }}</div>
+            <div class="col-sm-3 lbl-featured">Ano de Fabricação</div>
+            <div class="col-sm-9 upper">{{ permissao.permissao_veiculo.veiculo.ano_fabricacao }}</div>
           </div>
           <br/>
           <div class="row">
-            <div class="col-sm-2 lbl-featured">Ano do Modelo</div>
-            <div class="col-sm-10 upper">{{ permissao.permissao_veiculo.veiculo.ano_modelo }}</div>
+            <div class="col-sm-3 lbl-featured">Ano do Modelo</div>
+            <div class="col-sm-9 upper">{{ permissao.permissao_veiculo.veiculo.ano_modelo }}</div>
           </div>
           <br/>
           <div class="row">
-            <div class="col-sm-2 lbl-featured">Categoria</div>
-            <div class="col-sm-10 upper">{{ permissao.permissao_veiculo.veiculo.categoria }}</div>
+            <div class="col-sm-3 lbl-featured">Categoria</div>
+            <div class="col-sm-9 upper">{{ permissao.permissao_veiculo.veiculo.categoria }}</div>
           </div>
           <br/>
           <div class="row">
-            <div class="col-sm-2 lbl-featured">Cor Predominante</div>
-            <div class="col-sm-10 upper">{{ permissao.permissao_veiculo.veiculo.cor_predominante }}</div>
+            <div class="col-sm-3 lbl-featured">Cor Predominante</div>
+            <div class="col-sm-9 upper">{{ permissao.permissao_veiculo.veiculo.cor_predominante }}</div>
           </div>
           <br/>
         </div>
       </div><!-- /.box -->
+      </div></div>
+
       <a href="/sistran/permissao/" class="btn btn-success btn-flat">Voltar</a>
     </section>
     {% endblock %}
