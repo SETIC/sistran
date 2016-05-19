@@ -59,3 +59,9 @@ target/
 
 #Project
 .setic/
+
+.env
+
+*.json
+
+static/
