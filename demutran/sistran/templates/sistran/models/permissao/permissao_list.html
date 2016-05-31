@@ -92,7 +92,13 @@
                     </a>
                   </li>
                   {% for page in permissoes.paginator.page_range %}
-                    <li class="{% if permissoes.number == page %}active{% endif %}"><a class="btn-pagination" href="?page={{ page }}">{{ page }}</a></li>
+                    {% if page == 6 %}
+                        <li class="disabled"><a class="btn-pagination" href="#">...</a></li>
+                        <li class="{% if permissoes.number == page %}active{% endif %}"><a class="btn-pagination" href="?page={{ permissoes.paginator.num_pages }}">{{ permissoes.paginator.num_pages }}</a></li>
+                    {% endif %}
+                    {% if page < 6 %}
+                        <li class="{% if permissoes.number == page %}active{% endif %}"><a class="btn-pagination" href="?page={{ page }}">{{ page }}</a></li>
+                    {% endif %}
                   {% endfor %}
                   <li class="{% if not permissoes.has_next %}disabled{% endif %}">
                     <a class="btn-pagination" href="?page={% if permissoes.has_next %}{{ permissoes.next_page_number }}{% endif %}" aria-label="Próximo">
