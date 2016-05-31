@@ -1,1 +1,1 @@
-web: gunicorn sistran.wsgi --log-file -
+web: gunicorn demutran.wsgi --log-file -

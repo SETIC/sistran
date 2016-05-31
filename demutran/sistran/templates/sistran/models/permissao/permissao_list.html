@@ -43,12 +43,14 @@
         <div class="box-header">
           <h3 class="box-title"></h3>
           <div class="box-tools">
+           <form id="changelist-search" method="GET">
             <div class="input-group" style="width: 18rem;">
-              <input type="search" id="jetsTableSearch" class="form-control input-sm pull-right" placeholder="Buscar">
+              <input type="text" id="id_text_search" class="form-control input-sm pull-right" placeholder="Buscar Permissão" name="q" value="{{ query }}">
               <div class="input-group-btn">
-                <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+                <button type="submit" class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
               </div>
             </div>
+            </form>
           </div>
         </div><!-- /.box-header -->
         <!-- form start -->
@@ -79,7 +81,7 @@
         <div class="box-footer clearfix">
           <div class="row">
             <div class="col-xs-5 col-sm-7 mg-t-06">
-              <span>              
+              <span>
                 Mostrando {{ permissoes.start_index }} até {{ permissoes.end_index }} de {{ permissoes.paginator.count }} registros
               </span>
             </div>
@@ -91,7 +93,6 @@
                       <span aria-hidden="true">&laquo;</span>
                     </a>
                   </li>
-
                   {% if permissoes.number >= 1 and permissoes.number < 5 %}
                     {% for page in permissoes.paginator.page_range %}
                       {% if page <= 5 %}
@@ -157,7 +158,6 @@
                       {% endif %}
                     {% endfor %}
                   {% endif %}
-
                   <li class="{% if not permissoes.has_next %}disabled{% endif %}">
                     <a class="btn-pagination" href="?page={% if permissoes.has_next %}{{ permissoes.next_page_number }}{% endif %}" aria-label="Próximo">
                       <span aria-hidden="true">&raquo;</span>
