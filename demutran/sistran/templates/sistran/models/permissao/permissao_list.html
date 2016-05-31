@@ -89,7 +89,7 @@
               <nav>
                 <ul class="pager txt-rgt mg-t-0 mg-b-0">
                   <li class="{% if not permissoes.has_previous %}disabled{% endif %}">
-                    <a class="btn-pagination" href="?page={% if permissoes.has_previous %}{{ permissoes.previous_page_number }}{% endif %}" aria-label="Anterior">
+                    <a class="btn-pagination" href="?q={{query}}&page={% if permissoes.has_previous %}{{ permissoes.previous_page_number }}{% endif %}" aria-label="Anterior">
                       <span aria-hidden="true">&laquo;</span>
                     </a>
                   </li>
@@ -97,7 +97,7 @@
                     {% for page in permissoes.paginator.page_range %}
                       {% if page <= 5 %}
                         <li class="{% if permissoes.number == page %}active{% endif %}">
-                          <a class="btn-pagination" href="?page={{ page }}">{{ page }}</a>
+                          <a class="btn-pagination" href="?q={{query}}&page={{ page }}">{{ page }}</a>
                         </li>
                       {% endif %}
                     {% endfor %}
@@ -108,7 +108,7 @@
                       {% if permissoes.number == permissoes.paginator.num_pages %}
                         active
                       {% endif %}">
-                      <a class="btn-pagination" href="?page={{ permissoes.paginator.num_pages }}">
+                      <a class="btn-pagination" href="?q={{ query }}&page={{ permissoes.paginator.num_pages }}">
                         {{ permissoes.paginator.num_pages }}
                       </a>
                     </li>
@@ -125,7 +125,7 @@
                           <a class="btn-pagination" href="?page={{ permissoes.previous_page_number }}">{{ permissoes.previous_page_number }}</a>
                         </li>
                         <li class="{% if permissoes.number == page %}active{% endif %}">
-                          <a class="btn-pagination" href="?page={{ page }}">{{ page }}</a>
+                          <a class="btn-pagination" href="?q={{query}}&page={{ page }}">{{ page }}</a>
                         </li>
                         <li class="{% if permissoes.number == permissoes.next_page_number %}active{% endif %}">
                           <a class="btn-pagination" href="?page={{ permissoes.next_page_number }}">{{ permissoes.next_page_number }}</a>
@@ -139,7 +139,7 @@
                       {% if permissoes.number == permissoes.paginator.num_pages %}
                         active
                       {% endif %}">
-                      <a class="btn-pagination" href="?page={{ permissoes.paginator.num_pages }}">
+                      <a class="btn-pagination" href="?q={{ query }}&page={{ permissoes.paginator.num_pages }}">
                         {{ permissoes.paginator.num_pages }}
                       </a>
                     </li>
@@ -153,13 +153,13 @@
                     {% for page in permissoes.paginator.page_range %}
                       {% if page >= permissoes.paginator.num_pages|add:"-4" %}
                         <li class="{% if permissoes.number == page %}active{% endif %}">
-                          <a class="btn-pagination" href="?page={{ page }}">{{ page }}</a>
+                          <a class="btn-pagination" href="?q={{query}}&page={{ page }}">{{ page }}</a>
                         </li>
                       {% endif %}
                     {% endfor %}
                   {% endif %}
                   <li class="{% if not permissoes.has_next %}disabled{% endif %}">
-                    <a class="btn-pagination" href="?page={% if permissoes.has_next %}{{ permissoes.next_page_number }}{% endif %}" aria-label="Próximo">
+                    <a class="btn-pagination" href="?q={{query}}&page={% if permissoes.has_next %}{{ permissoes.next_page_number }}{% endif %}" aria-label="Próximo">
                       <span aria-hidden="true">&raquo;</span>
                     </a>
                   </li>
