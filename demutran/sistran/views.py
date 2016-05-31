@@ -10,6 +10,7 @@ from demutran.pessoal.forms import *
 from demutran.pessoal.views import *
 from demutran.localizacao.forms import *
 from demutran.localizacao.views import *
+from django.db.models import Q
 
 @login_required
 def home(request):
@@ -25,7 +26,17 @@ def permission_denied(request):
 
 @login_required
 def permissao_list(request):
-    permissoes_list = PermissaoTemProprietario.objects.all().order_by('permissao_veiculo__permissao__num_permissao')
+    query = request.GET.get('q')
+
+    if query is None:
+        query = ''
+
+    permissoes_list = PermissaoTemProprietario.objects.filter(
+        Q(permissao_veiculo__permissao__num_permissao__icontains=query) |
+        Q(permissao_veiculo__veiculo__marca__icontains=query) |
+        Q(permissao_veiculo__veiculo__modelo__icontains=query) |
+        Q(permissao_veiculo__veiculo__placa__icontains=query)).order_by('permissao_veiculo__permissao__num_permissao')
+
     paginator = Paginator(permissoes_list, 10)
 
     page = request.GET.get('page')
@@ -36,7 +47,7 @@ def permissao_list(request):
     except EmptyPage:
         permissoes = paginator.page(paginator.num_pages)
 
-    return render(request, 'sistran/models/permissao/permissao_list.html', {"permissoes": permissoes})
+    return render(request, 'sistran/models/permissao/permissao_list.html', {"permissoes": permissoes, 'query':query})
 
 @login_required
 @permission_required('sistran.add_permissao', login_url='/sistran/permission_denied/')
