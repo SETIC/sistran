@@ -93,8 +93,8 @@ class Industrial(models.Model):
         db_table = 'industrial'
 
 class Logradouro(models.Model):
-    id = models.BigIntegerField(primary_key=True)
-    tipo_logradouro = models.ForeignKey('TipoLogradouro')
+    id = models.AutoField(primary_key=True)
+    tipo_logradouro = models.ForeignKey('TipoLogradouro', null=True, blank=True)
     logradouro = models.CharField(max_length=255)
 
     def __str__(self):

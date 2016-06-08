@@ -1,7 +1,7 @@
- # -*- coding: utf8 -*-
 from django import forms
 from .models import *
 from django.forms import extras
+
 
 class TipoLogradouroForm(forms.ModelForm):
     class Meta:
@@ -9,11 +9,13 @@ class TipoLogradouroForm(forms.ModelForm):
         exclude = ['id']
         fields = ('__all__')
 
+
 class LogradouroForm(forms.ModelForm):
     class Meta:
         model=Logradouro
         exclude = ['id', 'logradouro']
         fields = ('__all__')
+
 
 class BairroForm(forms.ModelForm):
     class Meta:
@@ -21,6 +23,7 @@ class BairroForm(forms.ModelForm):
         exclude = ['id', 'bairro']
         fields = ('__all__')
         
+
 class MunicipioForm(forms.ModelForm):
     class Meta:
         model=Municipio

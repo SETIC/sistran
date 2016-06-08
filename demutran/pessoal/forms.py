@@ -40,3 +40,10 @@ class ResideForm(forms.ModelForm):
         model=Reside
         exclude = ['id', 'pessoa']
         fields = ('__all__')
+
+
+class AjaxLogradouroForm(forms.ModelForm):
+    class Meta:
+        model = Reside
+        exclude = ['id', 'pessoa', 'bairro', 'complemento', 'numero', 'cep']
+        fields = ('__all__')

@@ -41,16 +41,22 @@
       <!-- general form elements -->
       <div class="box">
         <div class="box-header">
-          <h3 class="box-title"></h3>
-          <div class="box-tools">
-           <form id="changelist-search" method="GET">
-            <div class="input-group" style="width: 18rem;">
-              <input type="text" id="id_text_search" class="form-control input-sm pull-right" placeholder="Buscar Permissão" name="q" value="{{ query }}">
-              <div class="input-group-btn">
-                <button type="submit" class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+          <h3 class="box-title">
+            <form id="changelist-search" method="GET">
+              <div class="input-group" style="width: 18rem;">
+                <input type="text" id="id_text_search" class="form-control input-sm pull-right" placeholder="Buscar Permissão" name="q" value="{{ query }}">
+                <div class="input-group-btn">
+                  <button type="submit" class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+                </div>
               </div>
-            </div>
             </form>
+          </h3>
+          <div class="box-tools">
+           {% if perms.sistran.add_permissao %}
+             <a href="{% url "sistran.views.permissao_new" %}" class="btn btn-success btn-flat btn-block" style="margin-top: 5px;"><i class="fa fa-plus"></i>
+               Adicionar Permissão
+             </a>
+           {% endif %}
           </div>
         </div><!-- /.box-header -->
         <!-- form start -->
@@ -178,11 +184,6 @@
           </div>
         </div>
       </div><!--/.col (left) -->
-      {% if perms.sistran.add_permissao %}
-          <a href="{% url "sistran.views.permissao_new" %}" class="btn btn-success btn-flat"><i class="fa fa-plus"></i>
-            Adicionar Permissão
-          </a>
-      {% endif %}
       <!-- right column -->
     </section>
     <script>

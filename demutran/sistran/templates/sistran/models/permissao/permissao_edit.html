@@ -140,12 +140,12 @@
             <div class="box-header with-border">
                 <h3 class="box-title">Endereço do Permissionário</h3>
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-success btn-xs btn-flat" data-toggle="modal" data-target="#addEndereco">
+                <button type="button" class="btn btn-success btn-xs btn-flat" data-toggle="modal" data-target="#add_endereco">
                     <i class="fa fa-plus"></i>
                 </button>
             </div>
             <!-- Modal -->
-            <div class="modal fade" id="addEndereco" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal fade" id="add_endereco" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -153,11 +153,18 @@
                     <h4 class="modal-title" id="myModalLabel">Novo Endereço</h4>
                   </div>
                   <div class="modal-body">
-                    ...
+                    <div class="form-group">
+                      <label for="id_new_street" class="col-sm-2 control-label">Logradouro</label>
+                      <div class="col-sm-10">
+                        <input class="form-control" id="id_new_street" name="new_street" type="text"/>
+                        <div class="text-red"></div>
+                      </div>
+                      <br/>
+                    </div>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-danger btn-flat" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-success btn-flat">Cadastrar</button>
+                    <button type="button" class="btn btn-success btn-flat" id="btn-new-street">Cadastrar</button>
                   </div>
                 </div>
               </div>
@@ -248,5 +255,54 @@
   {% endblock %}
 </div>
 {% endblock %}
-{% block js-extra-table %}{% endblock %}
+{% block js-extra-table %}
+<script>
+  function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+            // Only send the token to relative URLs i.e. locally.
+            xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+        }
+    }
+});
+$(function () {
+  $("#btn-new-street").click(function () {
+    var new_street = $("#id_new_street").val();
+    $.ajax({
+      url: '/add_street/',
+      type: "POST",
+      data: {
+        'new_street': new_street
+      },
+      beforeSend: function(xhr, settings) {
+        $.ajaxSettings.beforeSend(xhr, settings);
+      },
+      success: function (data) {
+        $('#add_endereco').modal('toggle');
+        var element_street = $('#id_logradouro');
+        element_street.html(data);
+        var recent_street = $('#id_logradouro option:last-child');
+        element_street.val(recent_street.val());
+        $('#select2-id_logradouro-container').html(recent_street.text());
+      }
+    });
+  });
+});
+</script>
+{% endblock %}
 {% block js-dashboard %}{% endblock %}

@@ -1,10 +1,13 @@
 from django.conf.urls import include, url
 from . import views
 
+
 urlpatterns = [
     url(r'^$', views.home),
     url(r'^sistran/$', views.home),
     url(r'^sistran/permission_denied/$', views.permission_denied),
+    url(r'^add_street/$', views.add_street, name='add_street'),
+
     #-- PERMISSÃO --#
     url(r'^sistran/permissao/', include([
             url(r'^$', views.permissao_list),

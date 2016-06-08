@@ -1,4 +1,7 @@
 import pdb
+
+from django.core import serializers
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404, render_to_response
 from django.contrib.auth.decorators import permission_required, user_passes_test, login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -11,6 +14,7 @@ from demutran.pessoal.views import *
 from demutran.localizacao.forms import *
 from demutran.localizacao.views import *
 from django.db.models import Q
+
 
 @login_required
 def home(request):
@@ -573,3 +577,11 @@ def vistoria_new(request):
         vistoriaItens = VistoriaItem.objects.all()
         return render(request, 'sistran/models/vistoria/vistoria_edit.html',
             {'form': formVistoria, 'listVistoriaItens': vistoriaItens})
+
+
+def add_street(request):
+    street = request.POST.get('new_street')
+    Logradouro.objects.create(logradouro=street.upper())
+    logradouros = AjaxLogradouroForm()
+
+    return HttpResponse(logradouros)
