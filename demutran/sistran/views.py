@@ -39,7 +39,8 @@ def permissao_list(request):
         Q(permissao_veiculo__permissao__num_permissao__icontains=query) |
         Q(permissao_veiculo__veiculo__marca__icontains=query) |
         Q(permissao_veiculo__veiculo__modelo__icontains=query) |
-        Q(permissao_veiculo__veiculo__placa__icontains=query)).order_by('permissao_veiculo__permissao__num_permissao')
+        Q(permissao_veiculo__veiculo__placa__icontains=query) |
+        Q(proprietario__id__id__id__nome__icontains=query)).order_by('permissao_veiculo__permissao__num_permissao')
 
     paginator = Paginator(permissoes_list, 10)
 
@@ -386,7 +387,24 @@ def cobrador_remove(request, pk):
 
 @login_required
 def proprietario_list(request):
-    proprietarios = Proprietario.objects.all()
+    query = request.GET.get('q')
+
+    if query is None:
+        query = ''
+
+    proprietarios = Proprietario.objects.filter(
+        Q(id__id__id__nome__icontains=query))
+
+    paginator = Paginator(proprietarios, 10)
+
+    page = request.GET.get('page')
+
+    try:
+        proprietarios = paginator.page(page)
+    except PageNotAnInteger:
+        proprietarios = paginator.page(1)
+    except EmptyPage:
+        proprietarios = paginator.page(paginator.num_pages)
 
     return render(request, 'sistran/models/proprietario/proprietario_list.html', {'proprietarios': proprietarios})
 

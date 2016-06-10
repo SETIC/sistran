@@ -65,6 +65,7 @@
             <thead>
               <tr>
                 <th>Número</th>
+                <th>Proprietário</th>
                 <th>Marca/Modelo</th>
                 <th>Placa</th>
                 <th>Data de Cadastramento</th>
@@ -75,6 +76,7 @@
             {% for permissao in permissoes %}
               <tr class="row-detail" data-href="{% url "sistran.views.permissao_detail" pk=permissao.pk %}">
                 <th>{{ permissao.permissao_veiculo.permissao.num_permissao }}</th>
+                <td><a href="/sistran/proprietario/{{ permissao.proprietario.id.id.id.id }}">{{ permissao.proprietario.id.id.id.nome }}</a></td>
                 <td>{{ permissao.permissao_veiculo.veiculo.marca }}/{{ permissao.permissao_veiculo.veiculo.modelo }}</td>
                 <td>{{ permissao.permissao_veiculo.veiculo.placa }}</td>
                 <td>{{ permissao.permissao_veiculo.permissao.data|date:"d/F/y"|upper }}</td>
