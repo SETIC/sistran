@@ -29,18 +29,24 @@ def permission_denied(request):
 # CRUD PERMISSÃO
 
 @login_required
-def permissao_list(request):
+def permissao_list(request, tipo):
     query = request.GET.get('q')
 
     if query is None:
         query = ''
+
+    tipo = tipo.upper()
+
+    if tipo == 'TAXI':
+        tipo = 'TÁXI'
 
     permissoes_list = PermissaoTemProprietario.objects.filter(
         Q(permissao_veiculo__permissao__num_permissao__icontains=query) |
         Q(permissao_veiculo__veiculo__marca__icontains=query) |
         Q(permissao_veiculo__veiculo__modelo__icontains=query) |
         Q(permissao_veiculo__veiculo__placa__icontains=query) |
-        Q(proprietario__id__id__id__nome__icontains=query)).order_by('permissao_veiculo__permissao__num_permissao')
+        Q(proprietario__id__id__id__nome__icontains=query) and
+        Q(permissao_veiculo__permissao__tipo_concessao__icontains=tipo)).order_by('permissao_veiculo__permissao__num_permissao')
 
     paginator = Paginator(permissoes_list, 10)
 

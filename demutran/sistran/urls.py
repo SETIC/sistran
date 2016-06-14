@@ -10,9 +10,12 @@ urlpatterns = [
 
     #-- PERMISSÃO --#
     url(r'^sistran/permissao/', include([
-            url(r'^$', views.permissao_list),
+            #url(r'^$', views.permissao_list),
             url(r'^(?P<pk>[0-9]+)/$', views.permissao_detail),
             url(r'^new/$', views.permissao_new, name='permissao_new'),
+            url(r'^(?P<tipo>taxi)/$', views.permissao_list),
+            url(r'^(?P<tipo>alternativo)/$', views.permissao_list),
+            url(r'^(?P<tipo>escolar)/$', views.permissao_list)
         ])),
     #-- MOTORISTA --#
     url(r'^sistran/motorista/', include([
