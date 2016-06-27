@@ -64,16 +64,22 @@
           <table class="table table-hover">
             <thead>
               <tr>
-                <th>Opções</th>
+
                 <th>Nome</th>
                 <th>CPF</th>
                 <th>Número CNH</th>
                 <th>Categoria CNH</th>
+                  <th>Opções</th>
               </tr>
             </thead>
             <tbody>
             {% for proprietario in proprietarios %}
               <tr class="row-detail" data-href="{% url "sistran.views.proprietario_detail" pk=proprietario.pk %}">
+
+                <td>{{ proprietario.id|upper }}</td>
+                <td>{{ proprietario.id.id.id.cpf_cnpj }}</td>
+                <td>{{ proprietario.id.num_registro_cnh }}</td>
+                <td>{{ proprietario.id.categoria_cnh }}</td>
                 <td>
                   {% if perms.sistran.change_proprietario %}
                       <a class="btn btn-primary btn-sm btn-flat" href="{% url "proprietario_edit" pk=proprietario.pk %}">
@@ -107,10 +113,6 @@
                     <i class="fa fa-car"></i>
                   </a>
                 </td>
-                <td>{{ proprietario.id|upper }}</td>
-                <td>{{ proprietario.id.id.id.cpf_cnpj }}</td>
-                <td>{{ proprietario.id.num_registro_cnh }}</td>
-                <td>{{ proprietario.id.categoria_cnh }}</td>
               </tr>
             {% endfor %}
             </tbody>
