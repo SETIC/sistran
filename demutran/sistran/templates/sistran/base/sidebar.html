@@ -32,18 +32,38 @@
           <i class="fa fa-dashboard"></i> <span>Dashboard</span>
         </a>
       </li>
+      <li id="permissoes" class="treeview">
+        <a href="#">
+          <i class="fa fa-file-text"></i> <span>Permissões</span> <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+         {% if perms.sistran.add_permissao or perms.sistran.delete_permissao or perms.sistran.change_permissao %}
+              <li>
+                 <a href="/sistran/permissao/taxi">
+                     <i class="fa fa-circle-o"></i> Táxis
+                 </a>
+              </li>
+
+              <li>
+                 <a href="/sistran/permissao/alternativo">
+                     <i class="fa fa-circle-o"></i> Opcionais
+                 </a>
+              </li>
+
+              <li>
+                 <a href="/sistran/permissao/escolar">
+                     <i class="fa fa-circle-o"></i> Escolares
+                 </a>
+              </li>
+          {%endif%}
+
+        </ul>
+      </li>
       <li id="administrativo" class="treeview">
         <a href="#">
           <i class="fa fa-users"></i> <span>Administrativo</span> <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
-         {% if perms.sistran.add_permissao or perms.sistran.delete_permissao or perms.sistran.change_permissao %}
-              <li>
-                 <a href="/sistran/permissao/">
-                     <i class="fa fa-circle-o"></i> Permissões
-                 </a>
-              </li>
-         {% endif %}
          {% if perms.sistran.add_cobrador or perms.sistran.delete_cobradora or perms.sistran.change_cobrador%}
               <li>
                  <a href="/sistran/cobrador/">

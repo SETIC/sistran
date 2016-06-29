@@ -41,16 +41,24 @@
       <!-- general form elements -->
       <div class="box">
         <div class="box-header">
-          <h3 class="box-title"></h3>
-          <div class="box-tools">
-            <div class="input-group" style="width: 150px;">
-              <input type="text" name="table_search" class="form-control input-sm pull-right" placeholder="Search">
-              <div class="input-group-btn">
-                <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+            <h3 class="box-title">
+            <form id="changelist-search" method="GET">
+              <div class="input-group" style="width: 18rem;">
+                <input type="text" id="id_text_search" class="form-control input-sm pull-right" placeholder="Buscar Veículo" name="q" value="{{ query }}">
+                <div class="input-group-btn">
+                  <button type="submit" class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+                </div>
               </div>
+            </form>
+            </h3>
+            <div class="box-tools">
+              {% if perms.sistran.add_veiculo %}
+                <a href="{% url "sistran.views.veiculo_new" %}" class="btn btn-success btn-flat btn-block" style="margin-top: 5px;"><i class="fa fa-plus"></i>
+                  Adicionar Veículo
+                </a>
+              {% endif %}
             </div>
-          </div>
-        </div><!-- /.box-header -->
+        </div>
         <!-- form start -->
         <div class="box-body">
           <table class="table table-hover">
@@ -73,7 +81,8 @@
                         </a>
                   {%endif%}
                    {% if perms.sistran.delete_veiculo %}
-                        <a class="btn btn-danger btn-sm btn-flat" href="javascript:confirmDelete('{% url "veiculo_remove" pk=veiculo.pk %}')">
+                        <a class="btn btn-danger btn-sm btn-flat"
+                        href="javascript:confirmDelete('{% url "veiculo_remove" pk=veiculo.pk %}')">
                             <i class="fa fa-remove"></i>
                         </a>
                   {%endif%}
@@ -96,39 +105,105 @@
           </table>
         </div>
         <div class="box-footer clearfix">
-          <div class="row">
-            <div class="col-xs-5 col-sm-7 mg-t-06">
-              <span>
-                Mostrando {{ veiculos.start_index }} até {{ veiculos.end_index }} de {{ veiculos.paginator.count }} registros
-              </span>
-            </div>
-            <div class="col-xs-7 col-sm-5">
-              <nav>
-                <ul class="pager txt-rgt mg-t-0 mg-b-0">
-                  <li class="{% if not veiculos.has_previous %}disabled{% endif %}">
-                    <a class="btn-pagination" href="?page={% if veiculos.has_previous %}{{ veiculos.previous_page_number }}{% endif %}" aria-label="Anterior">
-                      <span aria-hidden="true">&laquo;</span>
-                    </a>
-                  </li>
-                  {% for page in veiculos.paginator.page_range %}
-                    <li class="{% if veiculos.number == page %}active{% endif %}"><a class="btn-pagination" href="?page={{ page }}">{{ page }}</a></li>
-                  {% endfor %}
-                  <li class="{% if not veiculos.has_next %}disabled{% endif %}">
-                    <a class="btn-pagination" href="?page={% if veiculos.has_next %}{{ veiculos.next_page_number }}{% endif %}" aria-label="Próximo">
-                      <span aria-hidden="true">&raquo;</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-        </div>
+  <div class="row">
+    <div class="col-xs-5 col-sm-7 mg-t-06">
+      <span>
+        Mostrando {{ veiculos.start_index }} até {{ veiculos.end_index }} de {{ veiculos.paginator.count }} registros
+      </span>
+    </div>
+    <div class="col-xs-7 col-sm-5">
+      <nav>
+        <ul class="pager txt-rgt mg-t-0 mg-b-0">
+          <li class="{% if not veiculos.has_previous %}disabled{% endif %}">
+          <a class="btn-pagination" href="?q={{query}}&page={% if veiculos.has_previous %}{{ veiculos.previous_page_number }}{% endif %}" aria-label="Anterior">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      {% if veiculos.paginator.num_pages < 12 %}
+        {% for page in veiculos.paginator.page_range %}
+          <li class="{% if veiculos.number == page %}active{% endif %}">
+          <a class="btn-pagination" href="?q={{ query }}&page={{ page }}">{{ page }}</a>
+        </li>
+      {% endfor %}
+    {% else %}
+      {% if veiculos.number >= 1 and veiculos.number < 5 %}
+        {% for page in veiculos.paginator.page_range %}
+          {% if page <= 5 %}
+            <li class="{% if veiculos.number == page %}active{% endif %}">
+            <a class="btn-pagination" href="?q={{query}}&page={{ page }}">{{ page }}</a>
+          </li>
+        {% endif %}
+      {% endfor %}
+      <li class="disabled">
+        <a class="btn-pagination">...</a>
+      </li>
+      <li class="
+        {% if veiculos.number == veiculos.paginator.num_pages %}
+          active
+        {% endif %}">
+        <a class="btn-pagination" href="?q={{ query }}&page={{ veiculos.paginator.num_pages }}">
+          {{ veiculos.paginator.num_pages }}
+        </a>
+      </li>
+      {% elif veiculos.number >= 5 and veiculos.number < veiculos.paginator.num_pages|add:"-3" %}
+      <li class="{% if veiculos.number == page %}active{% endif %}">
+      <a class="btn-pagination" href="?page=1">1</a>
+    </li>
+    <li class="disabled">
+      <a class="btn-pagination">...</a>
+    </li>
+    {% for page in veiculos.paginator.page_range %}
+      {% if page == veiculos.number %}
+        <li class="{% if veiculos.number == veiculos.previous_page_number %}active{% endif %}">
+        <a class="btn-pagination" href="?page={{ veiculos.previous_page_number }}">{{ veiculos.previous_page_number }}</a>
+      </li>
+      <li class="{% if veiculos.number == page %}active{% endif %}">
+      <a class="btn-pagination" href="?q={{query}}&page={{ page }}">{{ page }}</a>
+    </li>
+    <li class="{% if veiculos.number == veiculos.next_page_number %}active{% endif %}">
+    <a class="btn-pagination" href="?page={{ veiculos.next_page_number }}">{{ veiculos.next_page_number }}</a>
+  </li>
+    {% endif %}
+    {% endfor %}
+        <li class="disabled">
+        <a class="btn-pagination">...</a>
+        </li>
+        <li class="
+    {% if veiculos.number == veiculos.paginator.num_pages %}
+      active
+    {% endif %}">
+        <a class="btn-pagination" href="?q={{ query }}&page={{ veiculos.paginator.num_pages }}">
+         {{ veiculos.paginator.num_pages }}
+        </a>
+        </li>
+    {% elif veiculos.paginator.num_pages|add:"-3" >= 1 and veiculos.number <= veiculos.paginator.num_pages %}
+        <li class="{% if veiculos.number == page %}active{% endif %}">
+        <a class="btn-pagination" href="?page=1">1</a>
+        </li>
+        <li class="disabled">
+        <a class="btn-pagination">...</a>
+        </li>
+    {% for page in veiculos.paginator.page_range %}
+    {% if page >= veiculos.paginator.num_pages|add:"-4" %}
+        <li class="{% if veiculos.number == page %}active{% endif %}">
+        <a class="btn-pagination" href="?q={{query}}&page={{ page }}">{{ page }}</a>
+        </li>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    {% endif %}
+    <li class="{% if not veiculos.has_next %}disabled{% endif %}">
+    <a class="btn-pagination" href="?q={{query}}&page={% if veiculos.has_next %}{{ veiculos.next_page_number }}{% endif %}" aria-label="Próximo">
+    <span aria-hidden="true">&raquo;</span>
+    </a>
+    </li>
+    </ul>
+    </nav>
+    </div>
+    </div>
+    </div>
       </div><!--/.col (left) -->
-       {% if perms.sistran.add_veiculo %}
-          <a href="{% url "sistran.views.veiculo_new" %}" class="btn btn-success btn-flat"><i class="fa fa-plus"></i>
-            Adicionar Veículo
-          </a>
-      {%endif%}
+
       <!-- right column -->
     </section>
     <script>
