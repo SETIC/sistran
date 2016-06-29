@@ -50,34 +50,27 @@
                 <p>Verifique os campos abaixo e corrija os erros.</p>
               </div>
             {% endif %}
-            {% for field in form %}
-              <div class="form-group">
-                <label for="{{ field.name }}" class="col-sm-2 control-label">
-                  {{ field.label }}
+
+            <div class="form-group">
+                <label for="{{ form.veiculo.id_for_label }}" class="col-sm-2 control-label">
+                  {{ form.veiculo.label }}
                 </label>
                 <div class="col-sm-10">
-                      {% if  field.name == 'aprovado'%}
-                          <div class="radio">
-                             {{ field|addcss:'form-radio' }}
-                          </div>
-                      {% else %}
-                          {{ field|addcss:'form-control' }}
-                      {% endif %}
-                  <div class="text-red">{{ field.errors }}</div>
+                  {{ form.veiculo|addcss:'form-control select2' }}
+                  <div class="text-red">{{ form.veiculo.errors }}</div>
                 </div>
-                <br/>
-              </div>
-            {% endfor %}
+            </div>
+
             <div class="form-group">
               <label class="col-sm-2 control-label">
                 Marque os Equipamentos Aprovados
               </label>
-              <div class="row">
+              <div class="row" style="margin-right: 2px; margin-left: 2px;">
                 <div class="col-sm-4">
                   <div class="checkbox">
                     <label>
-                      <input type="checkbox" name="ck" value="allcheck" onclick="checkAll(this)">
-                      SELECIONAR TODOS
+                      <input type="checkbox" name="all_ck" value="allcheck" onclick="checkAll(this)">
+                      <strong><i>SELECIONAR TODOS</i></strong>
                     </label>
                   </div>
                 {% for field in listVistoriaItens|slice:":17" %}
@@ -101,6 +94,26 @@
                 </div>
               </div>
             </div>
+            {% for field in form %}
+              {% if not field.name == 'veiculo' %}
+                <div class="form-group">
+                  <label for="{{ field.name }}" class="col-sm-2 control-label">
+                    {{ field.label }}
+                  </label>
+                  <div class="col-sm-10">
+                    {% if  field.name == 'aprovado'%}
+                      <div class="radio">
+                        {{ field|addcss:'form-radio' }}
+                      </div>
+                    {% else %}
+                      {{ field|addcss:'form-control' }}
+                    {% endif %}
+                    <div class="text-red">{{ field.errors }}</div>
+                  </div>
+                  <br/>
+                </div>
+              {% endif %}
+            {% endfor %}
           </div>
         </div><!-- /.box -->
         <div class="box-footer" style="text-align: right; background: none;">
@@ -118,7 +131,7 @@
   {% endblock %}
   <script>
     function checkAll(bx) {
-      var cbs = document.getElementsByTagName('input');
+      var cbs = document.getElementsByName('ck');
       for(var i=0; i < cbs.length; i++) {
         if(cbs[i].type == 'checkbox') {
           cbs[i].checked = bx.checked;

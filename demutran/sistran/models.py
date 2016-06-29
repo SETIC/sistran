@@ -12,6 +12,9 @@ class Permissao(models.Model):
     TIPO_CONCESSAO_CHOICES = (("TÁXI","TÁXI"), ("ALTERNATIVO","ALTERNATIVO"), ("ESCOLAR","ESCOLAR"), ("FRETE","FRETE"))
     tipo_concessao = models.CharField(max_length=20, choices=TIPO_CONCESSAO_CHOICES, verbose_name='Tipo do Veículo')
 
+    def __str__(self):
+        return str(self.num_permissao)
+
 
 class AnexoCidadao(models.Model):
     id = models.AutoField(primary_key=True)
@@ -106,19 +109,22 @@ class VistoriaItem(models.Model):
     id = models.AutoField(primary_key=True)
     nome_item = models.CharField(max_length=255)
 
+    def __str__(self):
+        return self.nome_item
+
 
 class Vistoria(models.Model):
     id = models.AutoField(primary_key=True)
     veiculo = models.ForeignKey('Veiculo')
-    observacao = models.TextField(max_length=255)
-    ordem_servico = models.ForeignKey('OrdemServico', default=False)
     aprovado = models.BooleanField('aprovado', default=False)
+    observacao = models.TextField(max_length=255)
+    ordem_servico = models.OneToOneField('OrdemServico', default=False)
     criado_em = models.DateTimeField('criado em', auto_now_add=True, null=True, blank=True)
 
 
 class VistoriaTemVistoriaItem(models.Model):
-    id_vistoria_item = models.ForeignKey('VistoriaItem')
     id_vistoria = models.ForeignKey('Vistoria')
+    id_vistoria_item = models.ForeignKey('VistoriaItem')
 
 
 class TipoServico(models.Model):
@@ -126,9 +132,15 @@ class TipoServico(models.Model):
     descricao = models.CharField(max_length=255)
     valor = models.DecimalField(max_digits=6, decimal_places=2)
 
+    def __str__(self):
+        return self.nome
+
 
 class OrdemServico(models.Model):
     permissao = models.ForeignKey('Permissao')
     tipo_servico = models.ForeignKey('TipoServico')
     data = models.DateTimeField(auto_now_add=True)
     pago = models.BooleanField()
+
+    def __str__(self):
+        return str(self.permissao) + " " + str(self.tipo_servico)

@@ -4,4 +4,5 @@ $(document).ready(function() {
   $("#id_municipio").select2();
   $("#id_estado").select2();
   $("#id_marca").select2();
+  $("#id_veiculo").select2();
 });
