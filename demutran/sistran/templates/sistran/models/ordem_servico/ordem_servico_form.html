@@ -1,0 +1,100 @@
+{% extends "sistran/base/base.html" %}
+
+
+{% block title %}
+    Novo/Editar Ordem de Serviço - SISTRAN
+{% endblock %}
+
+{% block css-dashboard %}{% endblock %}
+{% block style-login %}{% endblock %}
+
+{% block wrapper %}
+<div class="wrapper">
+  {% block header %}
+  {% include "sistran/base/header.html" %}
+  {% endblock %}
+
+  {% block sidebar %}
+  {% include "sistran/base/sidebar.html" %}
+  {% endblock %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    {% block content-header %}
+    <section class="content-header">
+      <h1>
+        Ordem de Serviço
+        <small>Cadastro e Edição</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="{% url "home" %}"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="{% url "ordem_servico_list" %}"> Ordens de Serviços</a></li>
+        <li class="active">Novo/Editar Ordem de Serviço</li>
+      </ol>
+    </section>
+    {% endblock %}
+
+    {% block content %}
+    <!-- Main content -->
+    <section class="content">
+      <form role="form" class="form-horizontal" method="POST">{% csrf_token %}
+        <!-- general form elements -->
+        <div class="box">
+          <!-- form start -->
+          <div class="box-body">
+            {% if error %}
+              <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h4><i class="icon fa fa-ban"></i> Falha ao Cadastrar!</h4>
+                <p>Verifique os campos abaixo e corrija os erros.</p>
+              </div>
+            {% endif %}
+            <div class="form-group">
+              <label for="{{ form.permissao.id_for_label }}" class="col-sm-2 control-label">
+                {{ form.permissao.label }}
+              </label>
+              <div class="col-sm-10">
+                {{ form.permissao }}
+                <div class="text-red">{{ form.permissao.errors }}</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="{{ form.tipo_servico.id_for_label }}" class="col-sm-2 control-label">
+                {{ form.tipo_servico.label }}
+              </label>
+              <div class="col-sm-10">
+                {{ form.tipo_servico }}
+                <div class="text-red">{{ form.tipo_servico.errors }}</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="{{ form.pago.id_for_label }}" class="col-sm-2 control-label">
+                {{ form.pago.label }}
+              </label>
+              <div class="col-sm-10" style="padding-top: 7px;">
+                {{ form.pago }}
+                <div class="text-red">{{ form.pago.errors }}</div>
+              </div>
+            </div>
+          </div>
+        </div><!-- /.box -->
+        <div class="box-footer" style="text-align: right; background: none;">
+            <a href="{% url "ordem_servico_list" %}" class="btn btn-danger btn-flat">Cancelar</a>
+            <input type="submit" value="Salvar" class="btn btn-success btn-flat" name="_save">
+            <input type="submit" value="Salvar e adicionar outro(a)" class="btn btn-success btn-flat" name="_addanother">
+            <input type="submit" value="Salvar e continuar editando" class="btn btn-success btn-flat" name="_continue">
+        </div>
+      </form>
+    </section>
+    {% endblock %}
+  </div>
+  {% block footer %}
+  {% include "sistran/base/footer.html" %}
+  {% endblock %}
+</div>
+{% endblock %}
+{% block js-dashboard %}
+<script>
+  $("#id_permissao").select2();
+</script>
+{% endblock %}

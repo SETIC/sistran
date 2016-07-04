@@ -1,8 +1,7 @@
-from datetime import datetime
-
-from django.db import models
-from demutran.pessoal.models import *
 from demutran.localizacao.models import *
+from demutran.pessoal.models import *
+from django.shortcuts import resolve_url as r
+from django.utils.html import format_html
 
 
 class Permissao(models.Model):
@@ -13,7 +12,10 @@ class Permissao(models.Model):
     tipo_concessao = models.CharField(max_length=20, choices=TIPO_CONCESSAO_CHOICES, verbose_name='Tipo do Veículo')
 
     def __str__(self):
-        return str(self.num_permissao)
+        return str(self.num_permissao) + " / " + str(self.tipo_concessao)
+
+    class Meta:
+        ordering = ['num_permissao']
 
 
 class AnexoCidadao(models.Model):
@@ -144,3 +146,17 @@ class OrdemServico(models.Model):
 
     def __str__(self):
         return str(self.permissao) + " " + str(self.tipo_servico)
+
+    def get_label_pago(self):
+        status_label = 'warning'
+        status_name = 'Aguardando'
+        if self.pago:
+            status_label = 'success'
+            status_name = 'Pago'
+
+        return format_html('<span class="label label-{}">{}</span>',
+                           status_label,
+                           status_name)
+
+    def get_absolute_url(self):
+        return r('ordem_servico_detail', self.pk)

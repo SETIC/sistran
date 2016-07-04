@@ -60,3 +60,7 @@ class VistoriaForm(forms.ModelForm):
         model = Vistoria
         exclude = ['id']
         fields = ('__all__')
+
+
+class OrdemServicoForm(forms.Form):
+    permissao = forms.Select(attrs={'class': 'form-control'})
