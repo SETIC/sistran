@@ -2,11 +2,12 @@ from demutran.localizacao.views import *
 from demutran.pessoal.views import *
 from django.contrib.auth.decorators import permission_required, login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.urlresolvers import reverse_lazy
 from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .forms import *
 
 
@@ -646,17 +647,32 @@ def vistoria_new(request):
 
 
 ordem_servico_list = ListView.as_view(model=OrdemServico,
-                                      template_name='sistran/models/ordem_servico/ordem_servico_list.html',
+                                      template_name='sistran/models/ordem_servico/'
+                                      'ordem_servico_list.html',
                                       paginate_by=10)
 
 
 ordem_servico_detail = DetailView.as_view(model=OrdemServico,
-                                          template_name='sistran/models/ordem_servico/ordem_servico_detail.html')
+                                          template_name='sistran/models/ordem_servico/'
+                                          'ordem_servico_detail.html')
+
 
 ordem_servico_new = CreateView.as_view(model=OrdemServico,
                                        template_name='sistran/models/ordem_servico/'
                                        'ordem_servico_form.html',
                                        fields=['permissao', 'tipo_servico', 'pago'])
+
+
+ordem_servico_edit = UpdateView.as_view(model=OrdemServico,
+                                        template_name='sistran/models/ordem_servico/'
+                                        'ordem_servico_form.html',
+                                        fields=['permissao', 'tipo_servico', 'pago'])
+
+
+ordem_servico_remove = DeleteView.as_view(model=OrdemServico,
+                                          template_name='sistran/models/ordem_servico/'
+                                          'ordem_servico_confirm_delete.html',
+                                          success_url=reverse_lazy('ordem_servico_list'))
 
 
 

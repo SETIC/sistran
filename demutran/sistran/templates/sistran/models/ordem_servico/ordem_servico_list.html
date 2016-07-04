@@ -68,15 +68,47 @@
                 <th>Tipo de Serviço</th>
                 <th>Data</th>
                 <th>Pago?</th>
+                <th>Opções</th>
               </tr>
             </thead>
-            <tbody class="upper" id="jetsTableContent">
+            <tbody class="upper">
             {% for ordem_servico in ordemservico_list %}
-              <tr class="row-detail" data-href="{% url "ordem_servico_detail" pk=ordem_servico.pk %}">
-                <th>{{ ordem_servico.permissao }}</th>
+              <tr>
+                <th class="row-detail" data-href="{% url "ordem_servico_detail" pk=ordem_servico.pk %}">{{ ordem_servico.permissao }}</th>
                 <td>{{ ordem_servico.tipo_servico }}</td>
                 <td>{{ ordem_servico.data }}</td>
                 <td>{{ ordem_servico.get_label_pago }}</td>
+                <td>
+                  {% if perms.sistran.change_ordem_servico %}
+                      <a class="btn btn-primary btn-sm btn-flat"
+                        href="{% url "ordem_servico_edit" pk=ordem_servico.pk %}">
+                        <i class="fa fa-pencil"></i>
+                      </a>
+                  {% endif %}
+                  {% if perms.sistran.delete_ordem_servico %}
+                      <button type="button" class="btn btn-danger btn-sm btn-flat" data-toggle="modal" data-target="#modalConfirmDelete{{ ordem_servico.pk }}">
+                        <i class="fa fa-remove"></i>
+                      </button>
+                      <!-- Modal Confirm Delete -->
+                      <div class="modal fade" id="modalConfirmDelete{{ ordem_servico.pk }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document" style="width: 36rem;">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                              <h4 class="modal-title" id="myModalLabel">Confirm delete</h4>
+                            </div>
+                            <div class="modal-body">
+                              Are you sure you want to delete <strong>{{ ordem_servico.permissao|upper }}</strong>?
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Cancel</button>
+                              <a type="button" class="btn btn-danger btn-flat" href="{% url "ordem_servico_remove" pk=ordem_servico.pk %}">Delete</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                  {% endif %}
+                </td>
               </tr>
             {% endfor %}
             </tbody>

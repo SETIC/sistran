@@ -58,8 +58,8 @@ urlpatterns = [
             url(r'^$', views.ordem_servico_list, name='ordem_servico_list'),
             url(r'^(?P<pk>[0-9]+)/$', views.ordem_servico_detail, name='ordem_servico_detail'),
             url(r'^new/$', views.ordem_servico_new, name='ordem_servico_new'),
-            #url(r'^(?P<pk>[0-9]+)/edit/$', views.ordem_servico_edit, name='ordem_servico_edit'),
-            #url(r'^(?P<pk>[0-9]+)/remove/$', views.ordem_servico_remove, name='ordem_servico_remove'),
+            url(r'^(?P<pk>[0-9]+)/edit/$', views.ordem_servico_edit, name='ordem_servico_edit'),
+            url(r'^(?P<pk>[0-9]+)/remove/$', views.ordem_servico_remove, name='ordem_servico_remove'),
         ])),
 
 
