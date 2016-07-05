@@ -123,6 +123,16 @@ class Vistoria(models.Model):
     ordem_servico = models.OneToOneField('OrdemServico', default=False)
     criado_em = models.DateTimeField('criado em', auto_now_add=True, null=True, blank=True)
 
+    def check_aprovado(self):
+        status_vistoria = 'Reprovado'
+        label = 'danger'
+        if self.aprovado:
+            status_vistoria = 'Aprovado'
+            label = 'success'
+
+        return format_html('<span class="label label-{}">{}</span>',
+            label, status_vistoria)
+
 
 class VistoriaTemVistoriaItem(models.Model):
     id_vistoria = models.ForeignKey('Vistoria')

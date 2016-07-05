@@ -64,29 +64,18 @@
           <table class="table table-hover">
             <thead>
               <tr>
-                <th>Opções</th>
+
                 <th>Marca</th>
                 <th>Placa</th>
                 <th>Proprietário</th>
                 <th>Categoria Veículo</th>
+                <th>Opções</th>
               </tr>
             </thead>
             <tbody>
             {% for veiculo in veiculos %}
               <tr>
-                <th>
-                  {% if perms.sistran.change_veiculo %}
-                        <a class="btn btn-primary btn-sm btn-flat" href="{% url "veiculo_edit" pk=veiculo.pk %}">
-                          <i class="fa fa-pencil"></i>
-                        </a>
-                  {%endif%}
-                   {% if perms.sistran.delete_veiculo %}
-                        <a class="btn btn-danger btn-sm btn-flat"
-                        href="javascript:confirmDelete('{% url "veiculo_remove" pk=veiculo.pk %}')">
-                            <i class="fa fa-remove"></i>
-                        </a>
-                  {%endif%}
-                </th>
+
                 <td>{{ veiculo.modelo|upper}}</td>
 
                 <td><a href="{% url "sistran.views.veiculo_detail" pk=veiculo.pk %}">{{ veiculo.placa|upper }}</a></td>
@@ -99,6 +88,19 @@
                 {% endwith %}
 
                 <td>{{ veiculo.categoria|upper }}</td>
+                 <th>
+                  {% if perms.sistran.change_veiculo %}
+                        <a class="btn btn-primary btn-sm btn-flat" href="{% url "veiculo_edit" pk=veiculo.pk %}">
+                          <i class="fa fa-pencil"></i>
+                        </a>
+                  {%endif%}
+                   {% if perms.sistran.delete_veiculo %}
+                        <a class="btn btn-danger btn-sm btn-flat"
+                        href="javascript:confirmDelete('{% url "veiculo_remove" pk=veiculo.pk %}')">
+                            <i class="fa fa-remove"></i>
+                        </a>
+                  {%endif%}
+                </th>
               </tr>
             {% endfor %}
             </tbody>
