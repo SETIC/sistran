@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+#coding: utf8 
+
 from django.conf.urls import include, url
 from . import views
 
