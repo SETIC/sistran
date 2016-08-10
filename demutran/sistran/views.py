@@ -616,8 +616,32 @@ def veiculo_remove(request, pk):
 
 @login_required
 def vistoria_list(request):
-    vistorias = Vistoria.objects.all()
-    return render(request, 'sistran/models/vistoria/vistoria_list.html', {'vistorias': vistorias})
+
+    query = request.GET.get('q')
+
+    if query is None:
+        query = ''
+
+
+    vistorias_list = Vistoria.objects.all()
+
+   # veiculos_list = Veiculo.objects.filter(
+    #    Q(placa__icontains=query) |
+     #   Q(modelo__icontains=query) |
+      #  Q(marca__icontains=query)).all()
+
+    paginator = Paginator(vistorias_list, 12)
+
+    page = request.GET.get('page')
+    try:
+        vistorias_list = paginator.page(page)
+    except PageNotAnInteger:
+        vistorias_list = paginator.page(1)
+    except EmptyPage:
+        vistorias_list = paginator.page(paginator.num_pages)
+
+
+    return render(request, 'sistran/models/vistoria/vistoria_list.html', {'vistorias': vistorias_list, 'query':query})
 
 
 @login_required
@@ -652,6 +676,7 @@ def vistoria_new(request):
             {'form': formVistoria, 'listVistoriaItens': vistoriaItens})
 
 
+#CRUD ORDEM DE SERVIÇO
 ordem_servico_list = ListView.as_view(model=OrdemServico,
                                       template_name='sistran/models/ordem_servico/'
                                       'ordem_servico_list.html',
