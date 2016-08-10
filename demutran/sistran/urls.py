@@ -1,15 +1,14 @@
-#!/usr/bin/env python
-#coding: utf8 
-
 from django.conf.urls import include, url
 from . import views
 
 
 urlpatterns = [
-    url(r'^$', views.home),
-    url(r'^sistran/$', views.home, name="home"),
+    url(r'^$', views.home, name="home"),
+    url(r'^sistran/$', views.home, name="sistran"),
     url(r'^sistran/permission_denied/$', views.permission_denied),
     url(r'^add_street/$', views.add_street, name='add_street'),
+    url(r'^report/$', views.ReportPDF.as_view(), name='report'),
+    url(r'^report_view/$', views.report_view, name='report_view'),
 
 
     url(r'^sistran/permissao/', include([

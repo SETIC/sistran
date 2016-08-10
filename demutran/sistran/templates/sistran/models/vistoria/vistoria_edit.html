@@ -52,6 +52,16 @@
             {% endif %}
 
             <div class="form-group">
+                <label for="{{ form.ordem_servico.id_for_label }}" class="col-sm-2 control-label">
+                  {{ form.ordem_servico.label }}
+                </label>
+                <div class="col-sm-10">
+                  {{ form.ordem_servico|addcss:'form-control select2' }}
+                  <div class="text-red">{{ form.ordem_servico.errors }}</div>
+                </div>
+            </div>
+
+            <div class="form-group">
                 <label for="{{ form.veiculo.id_for_label }}" class="col-sm-2 control-label">
                   {{ form.veiculo.label }}
                 </label>
@@ -95,7 +105,7 @@
               </div>
             </div>
             {% for field in form %}
-              {% if not field.name == 'veiculo' %}
+              {% if not field.name == 'veiculo' and not field.name == 'ordem_servico' %}
                 <div class="form-group">
                   <label for="{{ field.name }}" class="col-sm-2 control-label">
                     {{ field.label }}
@@ -138,6 +148,9 @@
         }
       }
     }
+    $(document).ready(function() {
+      $("#id_ordem_servico").select2();
+    });
   </script>
 </div>
 {% endblock %}

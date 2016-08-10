@@ -15,7 +15,7 @@ class Permissao(models.Model):
         return str(self.num_permissao) + " / " + str(self.tipo_concessao)
 
     class Meta:
-        ordering = ['num_permissao']
+        ordering = ('num_permissao',)
 
 
 class AnexoCidadao(models.Model):
@@ -117,10 +117,10 @@ class VistoriaItem(models.Model):
 
 class Vistoria(models.Model):
     id = models.AutoField(primary_key=True)
+    ordem_servico = models.OneToOneField('OrdemServico', default=False)
     veiculo = models.ForeignKey('Veiculo')
     aprovado = models.BooleanField('aprovado', default=False)
     observacao = models.TextField(max_length=255)
-    ordem_servico = models.OneToOneField('OrdemServico', default=False)
     criado_em = models.DateTimeField('criado em', auto_now_add=True, null=True, blank=True)
 
 
@@ -145,7 +145,7 @@ class OrdemServico(models.Model):
     pago = models.BooleanField()
 
     def __str__(self):
-        return str(self.permissao) + " " + str(self.tipo_servico)
+        return str(self.permissao) + " / " + str(self.tipo_servico)
 
     def get_label_pago(self):
         status_label = 'warning'

@@ -1,0 +1,127 @@
+{% extends "sistran/base/base.html" %}
+
+{% load static %}
+
+{% block title %}
+    Autenticação de Documento - SISTRAN: Sistema Integrado de Secretarias Módulo de Trânsito
+{% endblock %}
+
+{% block css-dashboard %}
+  <link rel="stylesheet" href="{% static "plugins/datepicker/datepicker3.css" %}">
+{% endblock %}
+{% block style-login %}{% endblock %}
+
+{% block wrapper %}
+<div class="wrapper">
+  {% block header %}
+  {% include "sistran/base/header.html" %}
+  {% endblock %}
+
+  {% block sidebar %}
+  {% include "sistran/base/sidebar.html" %}
+  {% endblock %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    {% block content-header %}
+    <section class="content-header">
+      <h1>
+        Autenticação de Documento
+        <small>Verificar e Autenticar</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="{% url "home" %}"><i class="fa fa-dashboard"></i> Início</a></li>
+        <li class="active">Autenticação de Documento</li>
+      </ol>
+    </section>
+    {% endblock %}
+
+    {% block content %}
+    <!-- Main content -->
+    <section class="content">
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">Formulário de Autenticação</h3>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        <form role="form" method="POST">{% csrf_token %}
+          <div class="box-body">
+            {% if error %}
+              <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h4><i class="icon fa fa-ban"></i> Falha ao Cadastrar!</h4>
+                <p>Verifique os campos abaixo e corrija os erros.</p>
+              </div>
+            {% endif %}
+            <div class="form-group">
+              <label for="{{ form.tipo_documento.id_for_label }}">
+                {{ form.tipo_documento.label }}
+              </label>
+              <div class="row">
+                <div class="col-xs-4 {% if form.tipo_documento.errors %}has-error has-feedback{% endif %}">
+                  {{ form.tipo_documento }}
+                </div>
+              </div>
+              <div class="text-muted">{{ form.tipo_documento.errors }}</div>
+            </div>
+            <div class="form-group">
+              <label for="{{ form.data_emissao.id_for_label }}">
+                {{ form.data_emissao.label }}
+              </label>
+              <div class="row">
+                <div class="col-xs-2 {% if form.tipo_documento.errors %}has-error has-feedback{% endif %}">
+                  <div id="input-group-data" class="input-group date">
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                    {{ form.data_emissao }}
+                  </div>
+                </div>
+              </div>
+              <div class="text-muted">{{ form.data_emissao.errors }}</div>
+            </div>
+            <div class="form-group">
+              <label for="{{ form.codigo_verificador.id_for_label }}">
+                {{ form.codigo_verificador.label }}
+              </label>
+              <div class="row">
+                <div class="col-xs-8 {% if form.tipo_documento.errors %}has-error has-feedback{% endif %}">
+                  {{ form.codigo_verificador }}
+                </div>
+              </div>
+              <div class="text-muted">{{ form.codigo_verificador.errors }}</div>
+            </div>
+          </div>
+          <!-- /.box-body -->
+          <div class="box-footer">
+            <button type="submit" class="btn btn-success btn-flat">Verificar</button>
+          </div>
+        </form>
+      </div>
+    </section>
+    <!-- <div class="box-header with-border">
+        <h3 class="box-title">Resultado da Verificação</h3>
+      </div>
+      <p class="msg info">Documento autenticado com sucesso.
+        <a href="/comum/baixar_documento/a1d326e57bd87c6497cbd869c3161aea3411e33d/">
+          Visualize o arquivo.
+        </a>
+	  </p> -->
+    {% endblock %}
+  </div>
+  {% block footer %}
+  {% include "sistran/base/footer.html" %}
+  {% endblock %}
+</div>
+{% endblock %}
+{% block js-dashboard %}
+<script src="{% static "plugins/datepicker/bootstrap-datepicker.js" %}"></script>
+<script src="{% static "plugins/datepicker/locales/bootstrap-datepicker.pt-BR.js" %}"></script>
+<script>
+  $('#input-group-data').datepicker({
+    format: "dd/mm/yyyy",
+    language: "pt-BR"
+  });
+</script>
+{% endblock %}

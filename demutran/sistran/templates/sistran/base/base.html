@@ -80,10 +80,12 @@
     <!-- Script Select2 -->
     <script src="{% static "js/scripts-select2.js" %}"></script>
     {% endblock %}
+    {% comment %}
     {% block js-extra-table %}
     <!-- Script Jets Search Table -->
     <script src="{% static "js/scripts-jets-search-table.js" %}"></script>
     {% endblock %}
+    {% endcomment %}
     {% block js-dashboard %}
     <!-- Sparkline -->
     <script src="{% static "plugins/sparkline/jquery.sparkline.min.js" %}"></script>

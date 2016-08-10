@@ -1,5 +1,9 @@
+import hashlib
+
+from demutran.core.models import Documento
 from demutran.localizacao.views import *
 from demutran.pessoal.views import *
+from django.conf import settings
 from django.contrib.auth.decorators import permission_required, login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse_lazy
@@ -8,7 +12,8 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, View
+from wkhtmltopdf.views import PDFTemplateResponse
 from .forms import *
 
 
@@ -676,11 +681,47 @@ ordem_servico_remove = DeleteView.as_view(model=OrdemServico,
                                           success_url=reverse_lazy('ordem_servico_list'))
 
 
-
 def add_street(request):
     street = request.POST.get('new_street')
     Logradouro.objects.create(logradouro=street.upper())
     logradouros = AjaxLogradouroForm()
 
     return HttpResponse(logradouros)
+
+
+class ReportPDF(View):
+    permissao = get_object_or_404(PermissaoTemProprietario, pk=429)
+    endereco = Reside.objects.get(pessoa=permissao.proprietario.id.id.id.id)
+
+    template = 'report.html'
+    context = {'permissao': permissao, 'endereco': endereco}
+
+    def get(self, request):
+        response = PDFTemplateResponse(request=request,
+                                       template=self.template,
+                                       filename="my_pdf.pdf",
+                                       context=self.context,
+                                       show_content_in_browser=True,
+                                       cmd_options={'orientation': 'landscape', })
+
+        h = hashlib.sha1()
+        test = str(response.filename + str(datetime.datetime.now().time())).encode('utf-8')
+        h.update(test)
+        codigo = h.hexdigest()
+        codigo_verificador = codigo[:5]
+
+        Documento.objects.create(arquivo=response.filename,
+                                 tipo_documento="alvara",
+                                 codigo=codigo,
+                                 codigo_verificador=codigo_verificador,
+                                 permissao=self.permissao.permissao_veiculo.permissao)
+        return response
+
+
+def report_view(request):
+    permissao = get_object_or_404(PermissaoTemProprietario, pk=429)
+    endereco = Reside.objects.get(pessoa=permissao.proprietario.id.id.id.id)
+
+    context = {'static_url': settings.STATIC_URL, 'permissao': permissao, 'endereco': endereco}
+    return render(request, 'report.html', context)
 
