@@ -4,6 +4,7 @@ Django==1.9.1
 django-easy-pdf==0.1.0
 django-extensions==1.6.1
 django-localflavor==1.2
+django-wkhtmltopdf==3.0.0
 psycopg2==2.6.1
 python-decouple==3.0
 six==1.10.0
